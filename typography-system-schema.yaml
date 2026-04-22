@@ -1,0 +1,3154 @@
+# ============================================================================
+# GLOBAL TYPOGRAPHY SYSTEM — Schema Draft
+# ============================================================================
+# Architecture: Primitives → Semantic Rules → Language Layers → Registers
+# Philosophy: Semantic intent at the working level, full traceability to
+#             character-level atoms. No magic, everything auditable.
+# ============================================================================
+
+
+# ============================================================================
+# 1. PRIMITIVES
+# ============================================================================
+# The atomic building blocks. Every semantic rule resolves to these.
+# Characters reference Unicode codepoints explicitly.
+# ============================================================================
+
+primitives:
+
+  characters:
+    # --- Quotation marks ---
+    left_double_quote:        { glyph: "\u201C", unicode: "U+201C", name: "LEFT DOUBLE QUOTATION MARK" }
+    right_double_quote:       { glyph: "\u201D", unicode: "U+201D", name: "RIGHT DOUBLE QUOTATION MARK" }
+    left_single_quote:        { glyph: "\u2018", unicode: "U+2018", name: "LEFT SINGLE QUOTATION MARK" }
+    right_single_quote:       { glyph: "\u2019", unicode: "U+2019", name: "RIGHT SINGLE QUOTATION MARK" }
+    left_angle_quote:         { glyph: "\u00AB", unicode: "U+00AB", name: "LEFT-POINTING DOUBLE ANGLE QUOTATION MARK" }
+    right_angle_quote:        { glyph: "\u00BB", unicode: "U+00BB", name: "RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK" }
+    left_single_angle_quote:  { glyph: "\u2039", unicode: "U+2039", name: "SINGLE LEFT-POINTING ANGLE QUOTATION MARK" }
+    right_single_angle_quote: { glyph: "\u203A", unicode: "U+203A", name: "SINGLE RIGHT-POINTING ANGLE QUOTATION MARK" }
+    low_double_quote:         { glyph: "\u201E", unicode: "U+201E", name: "DOUBLE LOW-9 QUOTATION MARK" }
+
+    # --- Dashes ---
+    hyphen:                   { glyph: "-",      unicode: "U+002D", name: "HYPHEN-MINUS" }
+    en_dash:                  { glyph: "\u2013", unicode: "U+2013", name: "EN DASH" }
+    em_dash:                  { glyph: "\u2014", unicode: "U+2014", name: "EM DASH" }
+
+    # --- Spaces ---
+    non_breaking_space:       { glyph: "\u00A0", unicode: "U+00A0", name: "NO-BREAK SPACE" }
+    thin_space:               { glyph: "\u2009", unicode: "U+2009", name: "THIN SPACE" }
+    narrow_no_break_space:    { glyph: "\u202F", unicode: "U+202F", name: "NARROW NO-BREAK SPACE" }
+    hair_space:               { glyph: "\u200A", unicode: "U+200A", name: "HAIR SPACE" }
+
+    # --- Other marks ---
+    ellipsis:                 { glyph: "\u2026", unicode: "U+2026", name: "HORIZONTAL ELLIPSIS" }
+    multiplication_sign:      { glyph: "\u00D7", unicode: "U+00D7", name: "MULTIPLICATION SIGN" }
+    apostrophe:               { glyph: "\u2019", unicode: "U+2019", name: "RIGHT SINGLE QUOTATION MARK" }  # typographic apostrophe
+    prime:                    { glyph: "\u2032", unicode: "U+2032", name: "PRIME" }         # feet, minutes
+    double_prime:             { glyph: "\u2033", unicode: "U+2033", name: "DOUBLE PRIME" }  # inches, seconds
+    ordinal_indicator_masc:   { glyph: "\u00BA", unicode: "U+00BA", name: "MASCULINE ORDINAL INDICATOR" }
+    ordinal_indicator_fem:    { glyph: "\u00AA", unicode: "U+00AA", name: "FEMININE ORDINAL INDICATOR" }
+    inverted_question:        { glyph: "\u00BF", unicode: "U+00BF", name: "INVERTED QUESTION MARK" }
+    inverted_exclamation:     { glyph: "\u00A1", unicode: "U+00A1", name: "INVERTED EXCLAMATION MARK" }
+    low_single_quote:         { glyph: "\u201A", unicode: "U+201A", name: "SINGLE LOW-9 QUOTATION MARK" }
+
+    # --- Romanian diacritics (comma-below vs cedilla) ---
+    s_comma_below:            { glyph: "\u0219", unicode: "U+0219", name: "LATIN SMALL LETTER S WITH COMMA BELOW" }
+    t_comma_below:            { glyph: "\u021B", unicode: "U+021B", name: "LATIN SMALL LETTER T WITH COMMA BELOW" }
+    s_cedilla_wrong:          { glyph: "\u015F", unicode: "U+015F", name: "LATIN SMALL LETTER S WITH CEDILLA" }  # Turkish form, wrong for Romanian
+    t_cedilla_wrong:          { glyph: "\u0163", unicode: "U+0163", name: "LATIN SMALL LETTER T WITH CEDILLA" }  # Turkish form, wrong for Romanian
+
+    # --- Mathematical ---
+    minus_sign:               { glyph: "\u2212", unicode: "U+2212", name: "MINUS SIGN" }
+    degree_sign:              { glyph: "\u00B0", unicode: "U+00B0", name: "DEGREE SIGN" }
+    fraction_slash:           { glyph: "\u2044", unicode: "U+2044", name: "FRACTION SLASH" }
+
+    # --- Legal symbols ---
+    copyright_sign:           { glyph: "\u00A9", unicode: "U+00A9", name: "COPYRIGHT SIGN" }
+    registered_sign:          { glyph: "\u00AE", unicode: "U+00AE", name: "REGISTERED SIGN" }
+    trademark_sign:           { glyph: "\u2122", unicode: "U+2122", name: "TRADE MARK SIGN" }
+
+    # --- Common fractions ---
+    fraction_half:            { glyph: "\u00BD", unicode: "U+00BD", name: "VULGAR FRACTION ONE HALF" }
+    fraction_quarter:         { glyph: "\u00BC", unicode: "U+00BC", name: "VULGAR FRACTION ONE QUARTER" }
+    fraction_three_quarters:  { glyph: "\u00BE", unicode: "U+00BE", name: "VULGAR FRACTION THREE QUARTERS" }
+    fraction_one_third:       { glyph: "\u2153", unicode: "U+2153", name: "VULGAR FRACTION ONE THIRD" }
+    fraction_two_thirds:      { glyph: "\u2154", unicode: "U+2154", name: "VULGAR FRACTION TWO THIRDS" }
+
+    # --- Capital sharp s ---
+    capital_sharp_s:          { glyph: "\u1E9E", unicode: "U+1E9E", name: "LATIN CAPITAL LETTER SHARP S" }
+
+    # --- French orthographic ligatures ---
+    oe_ligature:              { glyph: "\u0153", unicode: "U+0153", name: "LATIN SMALL LETTER OE" }
+    oe_ligature_cap:          { glyph: "\u0152", unicode: "U+0152", name: "LATIN CAPITAL LETTER OE" }
+    ae_ligature:              { glyph: "\u00E6", unicode: "U+00E6", name: "LATIN SMALL LETTER AE" }
+    ae_ligature_cap:          { glyph: "\u00C6", unicode: "U+00C6", name: "LATIN CAPITAL LETTER AE" }
+
+    # --- Zero-width characters ---
+    zwnj:                     { glyph: "\u200C", unicode: "U+200C", name: "ZERO WIDTH NON-JOINER" }
+    zwj:                      { glyph: "\u200D", unicode: "U+200D", name: "ZERO WIDTH JOINER" }
+    word_joiner:              { glyph: "\u2060", unicode: "U+2060", name: "WORD JOINER" }
+    zwsp:                     { glyph: "\u200B", unicode: "U+200B", name: "ZERO WIDTH SPACE" }  # strip in prose
+
+    # --- Currency symbols ---
+    euro_sign:                { glyph: "\u20AC", unicode: "U+20AC", name: "EURO SIGN" }
+    dollar_sign:              { glyph: "$",      unicode: "U+0024", name: "DOLLAR SIGN" }
+    pound_sign:               { glyph: "\u00A3", unicode: "U+00A3", name: "POUND SIGN" }
+    yen_sign:                 { glyph: "\u00A5", unicode: "U+00A5", name: "YEN SIGN" }
+    cent_sign:                { glyph: "\u00A2", unicode: "U+00A2", name: "CENT SIGN" }
+
+    # --- Reference marks ---
+    section_sign:             { glyph: "\u00A7", unicode: "U+00A7", name: "SECTION SIGN" }
+    paragraph_sign:           { glyph: "\u00B6", unicode: "U+00B6", name: "PILCROW SIGN" }
+    dagger:                   { glyph: "\u2020", unicode: "U+2020", name: "DAGGER" }
+    double_dagger:            { glyph: "\u2021", unicode: "U+2021", name: "DOUBLE DAGGER" }
+    asterism:                 { glyph: "\u2042", unicode: "U+2042", name: "ASTERISM" }
+    numero_sign:              { glyph: "\u2116", unicode: "U+2116", name: "NUMERO SIGN" }
+
+    # --- Arrows and bullets ---
+    right_arrow:              { glyph: "\u2192", unicode: "U+2192", name: "RIGHTWARDS ARROW" }
+    left_arrow:               { glyph: "\u2190", unicode: "U+2190", name: "LEFTWARDS ARROW" }
+    bullet:                   { glyph: "\u2022", unicode: "U+2022", name: "BULLET" }
+    middle_dot:               { glyph: "\u00B7", unicode: "U+00B7", name: "MIDDLE DOT" }
+
+    # --- Other typographic marks ---
+    interrobang:              { glyph: "\u203D", unicode: "U+203D", name: "INTERROBANG" }
+    per_mille:                { glyph: "\u2030", unicode: "U+2030", name: "PER MILLE SIGN" }
+    percent:                  { glyph: "%",      unicode: "U+0025", name: "PERCENT SIGN" }
+
+    # --- Bidi isolate characters (WCAG / accessibility) ---
+    lri:                      { glyph: "\u2066", unicode: "U+2066", name: "LEFT-TO-RIGHT ISOLATE" }
+    rli:                      { glyph: "\u2067", unicode: "U+2067", name: "RIGHT-TO-LEFT ISOLATE" }
+    fsi:                      { glyph: "\u2068", unicode: "U+2068", name: "FIRST STRONG ISOLATE" }
+    pdi:                      { glyph: "\u2069", unicode: "U+2069", name: "POP DIRECTIONAL ISOLATE" }
+
+  spacing_patterns:
+    # Reusable spacing atoms referenced by semantic rules
+    space_before:       { before: " ",  after: "" }
+    space_after:        { before: "",   after: " " }
+    space_both:         { before: " ",  after: " " }
+    nbsp_before:        { before: "\\u00A0", after: "" }
+    nbsp_after:         { before: "",   after: "\\u00A0" }
+    nbsp_both:          { before: "\\u00A0", after: "\\u00A0" }
+    nnbsp_before:       { before: "\\u202F", after: "" }
+    nnbsp_after:        { before: "",   after: "\\u202F" }
+    thin_both:          { before: "\\u2009", after: "\\u2009" }
+    no_space:           { before: "",   after: "" }
+
+
+# ============================================================================
+# 1.5. FONT AWARENESS
+# ============================================================================
+# Never output a character the target font cannot render.
+# A typographically imperfect but visible character is always better than
+# a missing glyph (tofu). The corrector must assess font capabilities
+# before applying substitutions.
+# ============================================================================
+
+font_awareness:
+
+  principle: >
+    Never output a character the target font cannot render. A typographically
+    imperfect but visible character is always better than a missing glyph (tofu).
+    The corrector must assess font capabilities before applying substitutions.
+
+  capability_detection:
+    description: "How to determine whether a font supports a given character"
+    methods:
+      cmap_table:
+        description: >
+          Check the font's cmap table (character-to-glyph mapping). This is
+          the authoritative source: if a codepoint has no cmap entry, the font
+          cannot render it. Tools: fonttools (Python), HarfBuzz, FreeType.
+        example: |
+          from fontTools.ttLib import TTFont
+          font = TTFont("myfont.woff2")
+          cmap = font.getBestCmap()
+          has_nnbsp = 0x202F in cmap  # True if NNBSP is supported
+
+      web_font_css:
+        description: >
+          For web fonts, the CSS @font-face descriptor unicode-range declares
+          which codepoints the font covers. This is a hint for the browser's
+          font selection algorithm and can be used for pre-flight checks.
+        example: |
+          @font-face {
+            font-family: "MyFont";
+            src: url("myfont.woff2");
+            unicode-range: U+0000-00FF, U+2000-206F;  /* declared coverage */
+          }
+
+      javascript_check:
+        description: >
+          In browser contexts, the CSS Font Loading API can probe whether a
+          specific string renders with a given font:
+            document.fonts.check("16px MyFont", "\u202F")
+          Returns true if the font can render the character. Caveat: the font
+          must be loaded before the check; use document.fonts.ready.
+        example: |
+          await document.fonts.ready;
+          const hasNNBSP = document.fonts.check('16px "MyFont"', '\u202F');
+
+      system_fonts:
+        description: >
+          For system fonts, use fonttools or platform APIs to inspect coverage.
+          On macOS: CTFontGetGlyphsForCharacters. On Windows: IDWriteFont.
+          On Linux: fc-match + fontconfig. When character set information is
+          unavailable (e.g., dynamically loaded third-party fonts), use
+          conservative fallback — assume tier_3 and tier_4 characters are
+          missing and walk the fallback chain.
+
+  fallback_chains:
+    description: >
+      Ordered fallback sequences for every character the corrector might
+      introduce. Each key is the ideal character (referencing a primitive);
+      the value is a list of fallbacks in preference order. The corrector
+      walks the chain until it finds a character the font supports.
+
+    # --- Spacing characters ---
+    narrow_no_break_space:   [thin_space, non_breaking_space, regular_space]
+    thin_space:              [non_breaking_space, regular_space]
+    hair_space:              [thin_space, regular_space]
+
+    # --- Quotation marks ---
+    left_double_quote:       [straight_double_quote]
+    right_double_quote:      [straight_double_quote]
+    left_single_quote:       [straight_single_quote]
+    right_single_quote:      [straight_single_quote]
+    left_angle_quote:        [left_double_quote, straight_double_quote]
+    right_angle_quote:       [right_double_quote, straight_double_quote]
+    left_single_angle_quote: [left_single_quote, straight_single_quote]
+    right_single_angle_quote: [right_single_quote, straight_single_quote]
+    low_double_quote:        [straight_double_quote]
+    low_single_quote:        [straight_single_quote]
+
+    # --- Dashes ---
+    em_dash:                 [en_dash, hyphen_minus]
+    en_dash:                 [hyphen_minus]
+
+    # --- Other punctuation ---
+    ellipsis:                [three_periods]          # "..." as literal fallback
+    multiplication_sign:     [letter_x]               # "x" as fallback
+    minus_sign:              [hyphen_minus]
+    fraction_slash:          [solidus]                 # "/" (U+002F)
+
+    # --- German ẞ ---
+    capital_sharp_s:         [double_S]                # "SS"
+
+    # --- Romanian comma-below diacritics ---
+    s_comma_below:           [s_cedilla]               # cedilla is wrong but better than tofu
+    t_comma_below:           [t_cedilla]
+
+    # --- Fractions ---
+    fraction_half:           [text_fraction_1_2]       # "1/2"
+    fraction_quarter:        [text_fraction_1_4]       # "1/4"
+    fraction_three_quarters: [text_fraction_3_4]       # "3/4"
+    fraction_one_third:      [text_fraction_1_3]       # "1/3"
+    fraction_two_thirds:     [text_fraction_2_3]       # "2/3"
+
+    # --- Prime marks ---
+    prime:                   [straight_single_quote]   # ' as fallback for feet/minutes
+    double_prime:            [straight_double_quote]   # " as fallback for inches/seconds
+
+    # --- Legal symbols ---
+    copyright_sign:          [text_copyright]          # "(c)"
+    registered_sign:         [text_registered]         # "(R)"
+    trademark_sign:          [text_trademark]          # "(TM)"
+
+    # --- Reference marks ---
+    numero_sign:             [text_numero]             # "No."
+    section_sign:            [text_section]            # "Sec."
+    dagger:                  [asterisk]
+    double_dagger:           [asterisk_asterisk]       # "**"
+    interrobang:             [question_exclamation]    # "?!" as two characters
+
+    # --- Arrows ---
+    right_arrow:             [text_arrow_right]        # "->"
+    left_arrow:              [text_arrow_left]         # "<-"
+
+    # --- Currency ---
+    euro_sign:               [text_EUR]                # "EUR"
+    pound_sign:              [text_GBP]                # "GBP"
+    yen_sign:                [text_JPY]                # "JPY"
+    cent_sign:               [text_cent]               # "c"
+
+    # --- French orthographic ligatures ---
+    oe_ligature:             [text_oe]                 # "oe" — degradation, but visible
+    oe_ligature_cap:         [text_OE]                 # "OE"
+    ae_ligature:             [text_ae]                 # "ae"
+    ae_ligature_cap:         [text_AE]                 # "AE"
+
+    # --- Per mille and other symbols ---
+    per_mille:               [text_per_mille]          # "0/00" or "per mille"
+    degree_sign:             [text_degree]             # abbreviation fallback unlikely needed; tier_2
+    bullet:                  [hyphen_minus]            # "-" as list marker fallback
+
+    # --- Bidi isolates (invisible, no visual fallback) ---
+    lri:                     []    # no fallback — invisible control character
+    rli:                     []
+    fsi:                     []
+    pdi:                     []
+
+    # --- Zero-width characters (invisible, no visual fallback) ---
+    zwnj:                    []    # no fallback — invisible control character
+    zwj:                     []
+    word_joiner:             [zwnj]
+
+  fallback_strategy:
+    description: "Decision logic for font-aware character substitution"
+    steps:
+      - step: 1
+        action: "Check if the target (ideal) character exists in the font"
+        method: "cmap table lookup, CSS font check, or conservative assumption based on font_risk_tier"
+      - step: 2
+        action: "If the character is supported, use the ideal character"
+      - step: 3
+        action: "If the character is NOT supported, walk the fallback chain for that character"
+        detail: "Test each fallback in order; use the first one the font supports"
+      - step: 4
+        action: "If no fallback in the chain is supported, leave the original text unchanged"
+        detail: >
+          Do not introduce ANY substitution if it would produce tofu.
+          The uncorrected text is always preferable to a missing glyph.
+      - step: 5
+        action: "Log/flag the fallback for review"
+        detail: >
+          When a fallback is used instead of the ideal character, emit a
+          structured warning so that the publisher can audit degraded
+          corrections and consider font changes.
+
+  font_risk_tiers:
+    description: >
+      Characters classified by how likely they are to be missing from the
+      target font. Use these tiers for conservative pre-flight decisions
+      when cmap inspection is not available.
+
+    tier_1_safe:
+      description: "Present in virtually all fonts — safe to use without checking"
+      characters:
+        - straight_double_quote      # " U+0022
+        - straight_single_quote      # ' U+0027
+        - hyphen_minus               # - U+002D
+        - period                     # . U+002E
+        - comma                      # , U+002C
+        - basic_latin                # U+0020-U+007E
+        - dollar_sign                # $ U+0024
+        - percent                    # % U+0025
+        - ampersand                  # & U+0026
+        - solidus                    # / U+002F
+        - asterisk                   # * U+002A
+
+    tier_2_common:
+      description: "Present in most modern fonts (post-2000 releases, major foundries)"
+      characters:
+        - left_double_quote          # U+201C
+        - right_double_quote         # U+201D
+        - left_single_quote          # U+2018
+        - right_single_quote         # U+2019
+        - em_dash                    # U+2014
+        - en_dash                    # U+2013
+        - ellipsis                   # U+2026
+        - non_breaking_space         # U+00A0
+        - copyright_sign             # U+00A9
+        - registered_sign            # U+00AE
+        - trademark_sign             # U+2122
+        - degree_sign                # U+00B0
+        - euro_sign                  # U+20AC
+        - pound_sign                 # U+00A3
+        - yen_sign                   # U+00A5
+        - section_sign               # U+00A7
+        - bullet                     # U+2022
+        - multiplication_sign        # U+00D7
+        - fraction_half              # U+00BD
+        - fraction_quarter           # U+00BC
+        - fraction_three_quarters    # U+00BE
+        - oe_ligature                # U+0153 (required for French)
+        - oe_ligature_cap            # U+0152
+        - ae_ligature                # U+00E6
+        - ae_ligature_cap            # U+00C6
+        - inverted_question          # U+00BF
+        - inverted_exclamation       # U+00A1
+
+    tier_3_specialist:
+      description: "Often missing in body text fonts — always check before using"
+      characters:
+        - narrow_no_break_space      # U+202F — missing from many fonts and email clients
+        - thin_space                 # U+2009
+        - hair_space                 # U+200A
+        - prime                      # U+2032
+        - double_prime               # U+2033
+        - left_angle_quote           # U+00AB — common in EU fonts, less so globally
+        - right_angle_quote          # U+00BB
+        - left_single_angle_quote    # U+2039
+        - right_single_angle_quote   # U+203A
+        - low_double_quote           # U+201E
+        - low_single_quote           # U+201A
+        - fraction_slash             # U+2044
+        - ordinal_indicator_masc     # U+00BA
+        - ordinal_indicator_fem      # U+00AA
+        - minus_sign                 # U+2212
+        - fraction_one_third         # U+2153
+        - fraction_two_thirds        # U+2154
+        - dagger                     # U+2020
+        - double_dagger              # U+2021
+        - numero_sign                # U+2116
+        - per_mille                  # U+2030
+        - middle_dot                 # U+00B7
+        - paragraph_sign             # U+00B6
+
+    tier_4_rare:
+      description: "Frequently missing — assume absent unless confirmed by cmap check"
+      characters:
+        - capital_sharp_s            # U+1E9E — added to Unicode 5.1 (2008), slow font adoption
+        - s_comma_below              # U+0219 — Romanian-specific, missing from many non-EU fonts
+        - t_comma_below              # U+021B — Romanian-specific, same problem
+        - zwnj                       # U+200C — rendering support varies (ligature suppression)
+        - word_joiner                # U+2060
+        - lri                        # U+2066 — bidi isolates; rendering is engine-dependent
+        - rli                        # U+2067
+        - fsi                        # U+2068
+        - pdi                        # U+2069
+        - interrobang                # U+203D
+        - asterism                   # U+2042
+        - right_arrow                # U+2192 — present in many but not all body text fonts
+        - left_arrow                 # U+2190
+
+  training_guidance:
+    description: >
+      How the font-awareness layer affects model training and inference.
+    principles:
+      - >
+        Training data should include examples where the model chooses a
+        fallback character because the ideal character is unavailable.
+        This teaches the model that context (font capability) can override
+        the default rule.
+      - >
+        The prompt format should accept an optional font_capabilities
+        parameter listing available character tiers or specific characters.
+        When absent, the model should assume tier_1 and tier_2 are safe,
+        and apply fallbacks for tier_3 and tier_4 characters.
+      - >
+        The model should never produce a character it cannot confirm the
+        font supports. When in doubt, use the fallback. The principle is:
+        visible and imperfect beats invisible and correct.
+      - >
+        Cross-language training pairs should include font-constrained
+        variants: e.g., French text using NBSP instead of NNBSP when the
+        font lacks U+202F, or German text using SS instead of capital sharp
+        s when the font lacks U+1E9E.
+
+
+# ============================================================================
+# 2. SEMANTIC RULES — Universal Layer
+# ============================================================================
+# Rules that hold across all supported languages.
+# Language layers inherit these and may override.
+# ============================================================================
+
+semantic_rules:
+
+  universal:
+
+    # --- Quotation ---
+    quotation:
+      description: "Typographic quotation marks — never straight quotes"
+      rule: "Replace straight quotes (U+0022, U+0027) with language-appropriate typographic quotation marks"
+      anti_pattern:
+        - { char: '"', name: "straight double quote" }
+        - { char: "'", name: "straight single quote (when used as quotation, not apostrophe)" }
+
+    # --- Apostrophe ---
+    apostrophe:
+      description: "Typographic apostrophe for contractions and possessives"
+      resolves_to: apostrophe   # → primitives.characters.apostrophe
+      anti_pattern:
+        - { char: "'", name: "straight apostrophe (U+0027)" }
+
+    # --- Dashes ---
+    hyphenation:
+      description: "Hyphen for compound words and word breaks only"
+      resolves_to: hyphen
+      rule: "Use hyphen-minus only for compound words and syllable breaks. Never for ranges, parenthetical asides, or dialogue."
+
+    range_dash:
+      description: "Numeric and temporal ranges"
+      resolves_to: en_dash
+      spacing: no_space
+      examples:
+        - { raw: "pages 10-20", correct: "pages 10\u201320" }
+        - { raw: "2020-2025",   correct: "2020\u20132025" }
+
+    # --- Ellipsis ---
+    ellipsis:
+      description: "Single ellipsis character, never three periods"
+      resolves_to: ellipsis
+      anti_pattern:
+        - { char: "...", name: "three consecutive periods" }
+      fallback_note: "If the font lacks U+2026 HORIZONTAL ELLIPSIS, fall back to three period characters (...). Check font coverage before substituting."
+
+    # --- Primes ---
+    measurements:
+      description: "Prime marks for feet/inches and minutes/seconds — never straight quotes"
+      rule: "Use prime (′) for feet/minutes, double prime (″) for inches/seconds"
+      resolves_to:
+        single: prime
+        double: double_prime
+      anti_pattern:
+        - { char: "'", context: "after a number indicating feet or minutes" }
+        - { char: '"', context: "after a number indicating inches or seconds" }
+      font_risk: tier_3
+      fallback_note: "Prime (U+2032) and double prime (U+2033) are missing from many body text fonts. Fall back to straight single quote (U+0027) for prime and straight double quote (U+0022) for double prime."
+
+    # --- Spacing ---
+    sentence_spacing:
+      description: "Single space between sentences"
+      rule: "Never use double space after terminal punctuation in digital typesetting"
+
+    # --- Number-unit bond ---
+    number_unit_spacing:
+      description: "Non-breaking space between number and unit of measurement"
+      rule: |
+        A number and its unit must never be separated by a line break.
+        Use a non-breaking space (or narrow no-break space in tight settings)
+        between them: 100 km, 50 kg, 20 ml, 3.5 GHz.
+        Exception: currency symbols that attach directly (language-dependent,
+        handled in language layers).
+      spacing: nbsp_after
+      examples:
+        - { raw: "the 100 km race",   notes: "use non-breaking space between 100 and km" }
+        - { raw: "weighs 50 kg",      notes: "use non-breaking space between 50 and kg" }
+      anti_pattern:
+        - { char: "100\nkm", name: "line break between number and unit" }
+      register_sensitive: true
+      notes: >
+        Convention varies by locale and context. SI standard (BIPM) requires a
+        space; some informal contexts omit it. Register-sensitive: editorial
+        enforces space, UI may omit for compactness.
+
+    # --- Percent and per-mille ---
+    percent_spacing:
+      description: "Spacing between number and percent sign — language-dependent"
+      rule: |
+        The spacing between a number and the percent sign (%) varies by language:
+          - No space (EN, ZH, JA): 50%
+          - Narrow no-break space (FR, DE, SI): 50 %
+          - Non-breaking space (PT, ES, IT, RO): 50 %
+        Each language layer should specify. The universal rule is: never allow
+        a line break between the number and the sign.
+      register_sensitive: true
+      notes: >
+        Convention is locale-dependent. French and most European languages use
+        a space (50 %). English-language style guides disagree: Chicago says no
+        space (50%), AP says no space, but SI/ISO requires a space. Mark as
+        locale-branched. Language layers override the spacing. Universal rule is
+        only about the non-breaking bond.
+
+    # --- Degree symbol ---
+    degree_symbol:
+      description: "Proper degree sign, not superscript o or ordinal indicator"
+      resolves_to:
+        symbol: { glyph: "\u00B0", unicode: "U+00B0", name: "DEGREE SIGN" }
+      rule: |
+        Use the degree sign (° U+00B0) for temperatures and angles.
+        Never use superscript letter o, ordinal indicator (º), or ring above.
+        Spacing between number, degree sign, and unit letter varies:
+          - Temperature: 20\u00A0°C (space before °, no space between ° and C) — ISO standard
+          - Angle: 45° (no space)
+          - Some style guides: 20°C (no spaces at all)
+      anti_pattern:
+        - { char: "20ºC",  name: "ordinal indicator used as degree sign" }
+        - { char: "20oC",  name: "letter o used as degree sign" }
+      examples:
+        - { raw: "20ºC",   correct: "20\u00A0°C" }
+        - { raw: "20 oC",  correct: "20\u00A0°C" }
+        - { raw: "a 45o angle", correct: "a 45° angle" }
+
+    # --- Minus sign ---
+    minus_sign:
+      description: "Mathematical minus sign, not hyphen-minus"
+      resolves_to: { glyph: "\u2212", unicode: "U+2212", name: "MINUS SIGN" }
+      rule: |
+        The proper minus sign (− U+2212) is visually distinct from the
+        hyphen-minus (- U+002D): it is wider, vertically centred with the
+        plus sign, and semantically correct. Use for:
+          - Negative numbers: −5, −0.3
+          - Subtraction: 10 − 3 = 7
+          - Temperature: −15 °C
+        Do NOT use for compound words or word breaks (that is the hyphen).
+      anti_pattern:
+        - { char: "-5",  context: "hyphen-minus used for negative number" }
+        - { char: "10 - 3", context: "hyphen-minus used for subtraction" }
+      examples:
+        - { raw: "-5 degrees",     correct: "\u22125 degrees" }
+        - { raw: "10 - 3 = 7",    correct: "10 \u2212 3 = 7" }
+      font_risk: tier_3
+      fallback_note: "Mathematical minus sign (U+2212) is missing from many body text fonts. Fall back to hyphen-minus (U+002D), which is visually narrower but universally available."
+
+    # --- Copyright, trademark, registered ---
+    legal_symbols:
+      description: "Proper Unicode symbols for copyright, trademark, and registered marks"
+      rule: |
+        Replace ASCII approximations with proper Unicode characters:
+          - (c) or (C) → © (U+00A9 COPYRIGHT SIGN)
+          - (r) or (R) → ® (U+00AE REGISTERED SIGN)
+          - (tm) or (TM) → ™ (U+2122 TRADE MARK SIGN)
+        These should typically be set at the same size as the surrounding text
+        or slightly smaller. No space between the mark and the preceding word.
+      anti_pattern:
+        - { char: "(c)",  name: "ASCII copyright approximation" }
+        - { char: "(R)",  name: "ASCII registered approximation" }
+        - { char: "(TM)", name: "ASCII trademark approximation" }
+      examples:
+        - { raw: "Acme Corp (c) 2025",  correct: "Acme Corp © 2025" }
+        - { raw: "Brand(TM)",           correct: "Brand™" }
+        - { raw: "Logo(R)",             correct: "Logo®" }
+
+    # --- Fractions ---
+    fractions:
+      description: "Proper fraction characters or fraction slash formatting"
+      rule: |
+        Common fractions have dedicated Unicode characters:
+          - 1/2 → ½ (U+00BD)
+          - 1/4 → ¼ (U+00BC)
+          - 3/4 → ¾ (U+00BE)
+          - 1/3 → ⅓ (U+2153)
+          - 2/3 → ⅔ (U+2154)
+        For other fractions, use the fraction slash (⁄ U+2044) with
+        superscript numerator and subscript denominator when the typesetting
+        system supports it: 5⁄8 rather than 5/8.
+        Context matters: do NOT convert fractions in code, URLs, file paths,
+        or mathematical notation where the solidus is intentional.
+      anti_pattern:
+        - { char: "1/2", context: "in running prose, not code or paths" }
+        - { char: "3/4", context: "in running prose, not code or paths" }
+      examples:
+        - { raw: "1/2 cup of flour",    correct: "½ cup of flour" }
+        - { raw: "3/4 of the budget",   correct: "¾ of the budget" }
+      font_risk: tier_3
+      fallback_note: >
+        Common fractions (U+00BC, U+00BD, U+00BE) are tier_2 and present in
+        most modern fonts. Uncommon fractions (U+2153 one third, U+2154 two
+        thirds) are tier_3 and often missing. Fall back to text representation
+        using the solidus: 1/3, 2/3. The fraction slash (U+2044) itself is
+        tier_3 and may need its own fallback to solidus (U+002F).
+
+    # --- Multiplication ---
+    dimensions:
+      description: "Multiplication sign for dimensions, not letter x"
+      resolves_to: multiplication_sign
+      spacing: thin_both
+      examples:
+        - { raw: "1920x1080",  correct: "1920\u2009\u00D7\u20091080" }
+
+    # --- Currency formatting ---
+    currency:
+      description: "Proper currency symbol usage and spacing — language-dependent"
+      rule: |
+        Currency formatting involves three decisions, all language-dependent:
+          1. Symbol choice: €, $, £, ¥, etc.
+          2. Position: before or after the amount
+          3. Spacing: non-breaking space, no space, or narrow no-break space
+
+        Language conventions (specified in language layers):
+          - Before, no space:     $10.00 (EN-US), £10.00 (EN-GB)
+          - Before, nbsp after:   € 10,00 (NL-NL)
+          - After, nbsp before:   10,00 € (FR, DE, PT, ES, IT, RO)
+
+        Universal rules:
+          - Never allow a line break between currency symbol and amount
+          - Never use a regular space; use non-breaking space where spacing is required
+          - The symbol is always the proper Unicode character, never spelled out in amounts
+          - Cent/penny amounts: use the cent sign (¢) or decimal notation, never both
+      anti_pattern:
+        - { char: "EUR 10",    name: "ISO code used instead of symbol in consumer-facing text" }
+        - { char: "10 $",      name: "dollar sign after amount (wrong for EN)" }
+        - { char: "€10,00",    name: "no space between € and amount (wrong for most EU languages)" }
+      examples:
+        - { raw: "EUR 10,00",  correct: "10,00\u00A0€", notes: "for PT/FR/DE/ES/IT context" }
+        - { raw: "EUR 10.00",  correct: "$10.00",        notes: "for EN-US context with USD" }
+      notes: >
+        Symbol position, spacing, and format vary significantly by locale.
+        The universal rule provides defaults; language layers should override.
+        Uncertainty remains around minor currencies and digital-native contexts
+        (crypto).
+
+    # --- Reference marks ---
+    reference_marks:
+      description: "Section signs, daggers, and other reference marks"
+      rule: |
+        Reference marks have specific typographic conventions:
+          - Section sign (§): non-breaking space between § and number: § 5, §§ 5–8
+          - Paragraph sign (¶): same spacing rule as section sign
+          - Numero sign (№): use instead of No. or no. where available, with nbsp: № 5
+          - Dagger (†) and double dagger (‡): used for footnotes after *, in that order
+          - No space between mark and the content it modifies
+      examples:
+        - { raw: "section 5",   notes: "§\u00A05 in legal/academic context" }
+        - { raw: "No. 5",       notes: "№\u00A05 where numero sign convention applies" }
+
+    # --- Ampersand ---
+    ampersand:
+      description: "Ampersand usage and spacing"
+      rule: |
+        The ampersand (&) has specific typographic conventions:
+          - Use only in proper names (AT&T), abbreviations (R&D), or display/title contexts
+          - In running prose, prefer "and" / language equivalent
+          - Always surrounded by spaces when used between words: Tom & Jerry
+          - In tight settings (UI, tables), thin spaces may be used
+          - Never use && (programming operator) in prose
+      notes: "Register-sensitive: acceptable in marketing and UI, avoided in editorial/literary."
+      register_sensitive: true
+
+    # --- Whitespace normalisation ---
+    whitespace:
+      description: "Normalise whitespace characters and patterns"
+      rule: |
+        Common whitespace errors to correct:
+          - Multiple consecutive spaces → single space (except intentional indentation)
+          - Tab characters in running prose → single space
+          - Trailing whitespace at end of lines → remove
+          - Non-breaking space where regular space is appropriate → regular space
+            (the reverse is also true: regular space where nbsp is required)
+          - Zero-width spaces or other invisible Unicode → remove unless intentional
+          - Line breaks within a sentence → single space (unless paragraph break)
+      anti_pattern:
+        - { char: "  ", name: "double space" }
+        - { char: "\t", context: "tab in running prose" }
+
+    # --- Arrows and symbols ---
+    arrow_symbols:
+      description: "Proper arrow characters instead of ASCII approximations"
+      rule: |
+        Replace ASCII arrow approximations with proper Unicode arrows:
+          - -> → → (U+2192 RIGHTWARDS ARROW)
+          - <- → ← (U+2190 LEFTWARDS ARROW)
+          - => should remain as-is in code contexts
+        Context matters: only replace in prose, not in code, formulas, or
+        technical notation where ASCII arrows are conventional.
+      anti_pattern:
+        - { char: "->", context: "in running prose, not code" }
+        - { char: "<-", context: "in running prose, not code" }
+      examples:
+        - { raw: "click here -> next page",  correct: "click here \u2192 next page" }
+
+    # --- Bullet and list markers ---
+    list_markers:
+      description: "Proper bullet character, not hyphen or asterisk"
+      rule: |
+        In typeset lists, use the bullet character (• U+2022) rather than
+        a hyphen-minus (-) or asterisk (*). In markdown or plain text contexts,
+        hyphens and asterisks are conventional and should not be replaced.
+        Middle dot (· U+00B7) is used in Catalan punt volat (l·l) and as a
+        decimal separator in some British conventions — not interchangeable
+        with bullet.
+      notes: "Only applies to typeset output, not source markdown or plain text."
+
+    # =======================================================================
+    # BATCH 1 — CODE EXCLUSION, NORMALIZATION, ZERO-WIDTH CHARACTERS
+    # =======================================================================
+    # The safety layer. Without this, every other rule risks corrupting code.
+    # =======================================================================
+
+    # --- Code-context exclusion ---
+    code_exclusion:
+      description: "Suppress all typographic corrections inside code-like contexts"
+      rule: |
+        NEVER apply corrections inside any of these contexts:
+          - HTML: <code>, <pre>, <kbd>, <samp>, <var>, <tt>
+          - Markdown: fenced blocks (``` or ~~~), indented code blocks, inline backticks
+          - LaTeX: \verb, verbatim, lstlisting, minted
+          - Identifiers: CamelCase, snake_case, dotted.paths
+          - File paths: /usr/bin/..., C:\..., ~/...
+          - URLs: http://, https://, ftp://
+          - Email addresses: user@domain
+          - @mentions and #hashtags (as bounded tokens)
+          - Regex patterns
+          - Version strings: v1.2.3-beta, 2.0.0-rc.1
+          - Command-line flags: --verbose, -f
+          - Environment variables: $HOME, ${PATH}
+        Detection heuristic: monospace font, code-block markers, URL/email
+        patterns, identifier casing patterns, path separators.
+      priority: "HIGHEST — this rule overrides all others. Check FIRST."
+
+    # --- Unicode normalization ---
+    normalization:
+      description: "NFC normalization for storage — never NFKC"
+      rule: |
+        Use NFC (Canonical Decomposition, followed by Canonical Composition)
+        for all text storage and comparison. NFC preserves:
+          - Precomposed characters (é stays as U+00E9)
+          - Typographic ligatures (ﬁ stays as U+FB01)
+          - NNBSP (U+202F stays distinct from U+0020)
+          - Dutch Ĳ (stays as U+0132 if used)
+        NEVER apply NFKC for storage or correction output. NFKC:
+          - Decomposes ﬁ → fi (destroys intentional ligatures)
+          - Decomposes Ĳ → I+J (may affect Dutch)
+          - Collapses U+202F → U+0020 (destroys French spacing)
+          - Decomposes superscripts/subscripts (destroys notation)
+        NFKC may be used ONLY for search/indexing layers, never output.
+
+    # --- Zero-width character handling ---
+    zero_width_characters:
+      description: "Preserve intentional zero-width characters, strip erroneous ones"
+      rule: |
+        PRESERVE these zero-width characters (they serve typographic functions):
+          - U+200C ZWNJ (ZERO WIDTH NON-JOINER): legitimate ligature suppression
+            in German compounds (Auf|lage, Schiff|fahrt), Turkish dotless-i, Indic scripts
+          - U+200D ZWJ (ZERO WIDTH JOINER): emoji composition (family, skin tone),
+            Indic/Arabic shaping — treat ZWJ sequences as atomic grapheme clusters
+          - U+2060 WORD JOINER: modern replacement for deprecated inline U+FEFF,
+            prevents line breaks without adding visible space
+        STRIP these (they are erroneous or attack vectors):
+          - U+200B ZWSP (ZERO WIDTH SPACE) in running prose — common copy-paste artifact,
+            corrupts search, diffs, and credential fields
+          - U+FEFF BOM (BYTE ORDER MARK) anywhere except file position 0 — deprecated
+            for inline use, replaced by U+2060
+        NEVER insert corrections inside emoji ZWJ sequences, skin-tone modifier
+        sequences, or regional indicator pairs (flags). Per UAX #29, treat
+        extended grapheme clusters as atomic.
+
+    # =======================================================================
+    # BATCH 2 — DIACRITIC INTEGRITY AND HOMOGLYPH DETECTION
+    # =======================================================================
+    # Highest-signal corrections for real-world corpora.
+    # Language-specific diacritic rules are in language layers;
+    # these are the universal detection and confusable patterns.
+    # =======================================================================
+
+    # --- French capital accents (universal because it affects text-transform) ---
+    capital_accent_preservation:
+      description: "Accents must be preserved on capital letters"
+      rule: |
+        Multiple languages REQUIRE accents on capitals. This is not optional:
+          - French (Académie française): É, È, Ê, Ë, À, Â, Ç, Ô, Û, Ù, Ü, Ÿ, Œ, Æ
+            Examples: ÉTAT not ETAT, À PARIS not A PARIS, HÔTEL not HOTEL
+            Exception: acronyms (CEE, OTAN, ALENA) take no accents
+          - Spanish (RAE 2010): Á, É, Í, Ó, Ú, Ñ, Ü
+            Examples: ÁREA not AREA, LINGÜÍSTICA not LINGUISTICA
+          - Portuguese: Á, À, Â, Ã, É, Ê, Í, Ó, Ô, Õ, Ú, Ç
+          - Italian: À, È, É, Ì, Ò, Ù
+          - Romanian: Ă, Â, Î, Ș, Ț
+          - German: Ä, Ö, Ü (never substitute with AE, OE, UE except ASCII-only contexts)
+        CSS text-transform: uppercase generally preserves accents in modern browsers.
+        Legacy data with bare capitals is a high-value correction target.
+      anti_pattern:
+        - { char: "ETAT",  context: "French — should be ÉTAT" }
+        - { char: "A PARIS", context: "French — should be À PARIS" }
+        - { char: "AREA",  context: "Spanish — should be ÁREA" }
+
+    # --- German ß/ẞ capitalisation ---
+    eszett_capitalisation:
+      description: "Capital ẞ (U+1E9E) is valid and preferred since 2024"
+      rule: |
+        The capital form of ß is ẞ (U+1E9E LATIN CAPITAL LETTER SHARP S).
+          - Valid since 29 June 2017 (Rat für deutsche Rechtschreibung)
+          - Preferred over SS since the 2024 orthography update
+          - STRAẞE is now preferred over STRASSE (both remain legal)
+          - ß appears only after long vowels/diphthongs in standard German
+          - Swiss German uses only ss (never ß or ẞ)
+        Never substitute ß with Greek β (U+03B2) — a common scientific-text error.
+      resolves_to: { glyph: "\u1E9E", unicode: "U+1E9E", name: "LATIN CAPITAL LETTER SHARP S" }
+      anti_pattern:
+        - { char: "STRASSE", context: "German — should be STRAẞE (post-2024)" }
+        - { char: "β",       context: "Greek beta used instead of German ß" }
+      examples:
+        - { raw: "STRASSE", correct: "STRA\u1E9E" }
+      font_risk: tier_4
+      fallback_note: >
+        Capital sharp s (U+1E9E) was added to Unicode 5.1 in 2008 and font
+        adoption has been slow. Many body text fonts still lack this glyph.
+        Fall back to "SS" (double capital S), which is the traditional
+        capitalisation of ß and remains legal. Always check the font before
+        emitting U+1E9E.
+
+    # --- French orthographic ligatures ---
+    french_ligatures:
+      description: "French œ and æ are orthographic letters, not optional ligatures"
+      rule: |
+        In French, œ (U+0153) and æ (U+00E6) are distinct letters, not decorative:
+          - œ: cœur, sœur, œuf, œuvre, bœuf, nœud, vœu, œil, manœuvre
+          - æ: ex æquo, curriculum vitæ, et cætera (formal)
+          - NEVER decompose: coeur, soeur, oeuf are misspellings
+          - Capital forms: Œ (U+0152), Æ (U+00C6)
+        These survive NFC normalization (they are not compatibility decompositions).
+      anti_pattern:
+        - { char: "coeur",  name: "decomposed œ in French" }
+        - { char: "soeur",  name: "decomposed œ in French" }
+        - { char: "oeuvre", name: "decomposed œ in French" }
+      examples:
+        - { raw: "coeur",   correct: "cœur" }
+        - { raw: "oeuvre",  correct: "œuvre" }
+        - { raw: "soeur",   correct: "sœur" }
+
+    # --- Homoglyph confusable detection ---
+    homoglyph_detection:
+      description: "Detect and correct visually similar but semantically different characters"
+      rule: |
+        Common confusable pairs to validate in context:
+          Degree vs ordinal vs superscript zero:
+            - ° (U+00B0 DEGREE SIGN) — for temperature, angles
+            - º (U+00BA MASCULINE ORDINAL) — for PT/ES/IT ordinals (1.º)
+            - ⁰ (U+2070 SUPERSCRIPT ZERO) — for mathematical notation only
+          Apostrophe variants:
+            - ' (U+2019 RIGHT SINGLE QUOTATION MARK) — typographic apostrophe
+            - ʼ (U+02BC MODIFIER LETTER APOSTROPHE) — transliteration
+            - ' (U+0027 APOSTROPHE) — ASCII, always wrong in typeset text
+            - ` (U+0060 GRAVE ACCENT) — programming, never in prose
+          Middle dot variants:
+            - · (U+00B7 MIDDLE DOT) — Catalan punt volat (l·l)
+            - • (U+2022 BULLET) — list markers
+            - . (U+002E FULL STOP) — never a substitute for middle dot
+            - ・ (U+30FB KATAKANA MIDDLE DOT) — Japanese only
+            - · (U+0387 GREEK ANO TELEIA) — Greek semicolon function
+          German ß confusables:
+            - ß (U+00DF LATIN SMALL LETTER SHARP S) — correct
+            - β (U+03B2 GREEK SMALL LETTER BETA) — wrong in German text
+          Dash confusables:
+            - − (U+2212 MINUS SIGN) — math
+            - – (U+2013 EN DASH) — ranges, parenthetical (GB/DE)
+            - — (U+2014 EM DASH) — parenthetical (US), dialogue (PT/ES/FR/IT/RO)
+            - - (U+002D HYPHEN-MINUS) — compound words only
+            - ‐ (U+2010 HYPHEN) — dedicated hyphen character (rare in digital)
+        Detection approach: validate that each character is appropriate for its
+        semantic context and language.
+
+    # =======================================================================
+    # BATCH 3 — NNBSP SEMANTICS AND EXPANDED NBSP OBLIGATIONS
+    # =======================================================================
+    # Precision spacing: the right kind of non-breaking space in the right place.
+    # =======================================================================
+
+    # --- NNBSP as canonical fine space ---
+    nnbsp_semantics:
+      description: "Narrow no-break space (U+202F) is the canonical fine non-breaking space"
+      rule: |
+        U+202F NARROW NO-BREAK SPACE (NNBSP) is distinct from:
+          - U+00A0 NBSP: full-width non-breaking space
+          - U+2009 THIN SPACE: thin but BREAKABLE (wrong for non-breaking contexts)
+        NNBSP is the correct character for:
+          - French espace fine insécable before ; : ? ! % and inside « »
+            (Unicode L2/20-008, CLDR 34+, Imprimerie Nationale)
+          - German DIN 5008 abbreviation spacing: z. B., u. a., d. h., i. d. R.,
+            e. V., s. o. (2020 edition specifies NNBSP)
+          - French/ISO thousands separator (CLDR uses NNBSP for FR group separator)
+          - Between footnote superscript and preceding text (French convention)
+        Fallback: if the rendering system does not support U+202F (renders as
+        full-width space), fall back to U+00A0 NBSP. Never use U+2009 THIN SPACE
+        as a fallback — it allows line breaks.
+      font_risk: tier_3
+      fallback_note: >
+        NNBSP (U+202F) is tier_3: many fonts, email clients, and older browsers
+        do not render it correctly — it may appear as a full-width space, a zero-width
+        space, or tofu. Fallback chain: NNBSP -> thin space (U+2009) -> NBSP
+        (U+00A0) -> regular space. In HTML email contexts, NBSP is the safest
+        default. Always check the rendering target before emitting NNBSP.
+
+    # --- Expanded NBSP obligations ---
+    nbsp_obligations:
+      description: "Comprehensive non-breaking space insertion rules"
+      rule: |
+        NBSP (U+00A0) or NNBSP (U+202F) is required in these contexts to
+        prevent line breaks separating logically bonded elements:
+
+        UNIVERSAL (all languages):
+          - Between number and unit: 100 km, 50 kg, 20 ml, 3.5 GHz
+          - Between number and currency symbol (per locale positioning)
+          - Between number and percent sign (where locale uses a space)
+          - In temperature: 20 °C (number + nbsp + °C)
+          - Before section/paragraph/numero signs: § 5, ¶ 3, № 42
+          - Between page/chapter/figure abbreviation and number: p. 5, cap. 4, fig. 3
+          - Between initials: J. R. R. Tolkien (nbsp between each)
+          - After title abbreviations: Mr. Smith, Dr. Müller, Mme Curie, Dom Pedro,
+            Sr.ª Silva, Dott. Rossi, Sig. Bianchi
+          - In dates: 3 May 2025, 3 de maio de 2025 (between day and month)
+
+        FRENCH-SPECIFIC (use NNBSP U+202F):
+          - Before high punctuation: ; : ? !
+          - Inside guillemets: « text »
+          - Before %
+          - Before footnote markers
+
+        GERMAN-SPECIFIC (use NNBSP U+202F per DIN 5008):
+          - In multi-part abbreviations: z. B., u. a., d. h., i. d. R., e. V.
+
+    # --- Single-letter line-ending rules ---
+    single_letter_line_end:
+      description: "Prevent single-letter words from ending a line"
+      rule: |
+        Some languages prohibit or discourage single-letter words at line end
+        (before a line break). Implementation: insert NBSP after the single-letter
+        word to bond it to the following word.
+
+        HARD RULE (mandatory):
+          - Polish: a, i, o, u, w, z (per Rada Języka Polskiego / PWN)
+            Also includes: 'że' conjunction is sometimes included
+          - Czech: k, s, v, z, a, i, o, u (per ČSN standard)
+            Czech tool 'vlna' automates this
+          - Slovak: same set as Czech
+
+        SOFT RULE (stylistic recommendation, register-dependent):
+          - French: à, y (some house styles)
+          - Italian: e, a, o, è (some publishers)
+          - Portuguese: e, a, o (rare, literary register only)
+          - Spanish: y, e, o, a, u (some publishers)
+
+        The corrector should enforce hard rules always and soft rules only
+        in editorial/literary registers.
+      register_sensitive: true
+
+    # =======================================================================
+    # BATCH 4 — LOCALE-BRANCHED PUNCTUATION
+    # =======================================================================
+    # Punctuation conventions that differ by locale. These universal rules
+    # define the semantic intent and default behaviour; language layers
+    # override with locale-specific conventions.
+    # =======================================================================
+
+    # --- Colon capitalisation ---
+    colon_capitalisation:
+      description: "Capitalisation of the word following a colon — locale-dependent"
+      rule: |
+        Whether to capitalise the first word after a colon depends on the language
+        and on whether the clause that follows is independent:
+          - EN-US: capitalise if what follows is an independent clause (Chicago 6.64);
+            lowercase if a dependent clause, list, or appositive
+          - FR-FR: never capitalise after a colon (Imprimerie Nationale, Lexique)
+          - DE-DE: capitalise if a full sentence follows (Duden R 81);
+            lowercase for fragments, lists, enumerations
+          - All other covered languages (PT, ES, IT, NL, RO): lowercase after colon
+        This is a context-dependent rule that benefits from model-level inference —
+        the corrector must determine whether what follows the colon constitutes an
+        independent clause.
+      register_sensitive: true
+      notes: |
+        The EN-US rule is the most ambiguous — style guides disagree on edge cases.
+        Chicago Manual of Style capitalises independent clauses; AP Stylebook
+        capitalises only when a colon introduces a complete sentence that is a
+        direct quotation or a formal statement. The model should follow Chicago
+        in editorial register and AP in marketing/journalism register.
+
+    # --- Serial (Oxford) comma ---
+    serial_comma:
+      description: "Comma before the final conjunction in a list of three or more items"
+      rule: |
+        The serial comma (Oxford comma) is the comma placed before the
+        coordinating conjunction (and, or, nor) in a series of three or more:
+          "red, white, and blue" (with serial comma)
+          "red, white and blue" (without)
+
+        Language conventions:
+          - EN-US: register-dependent. Editorial/academic enforces serial comma
+            (Chicago, APA, Oxford). Marketing/journalism often omits (AP).
+          - EN-GB: less common than US; Oxford University Press uses it (hence
+            the name), but most UK publishers omit
+          - FR, DE, ES, IT, PT, NL, RO: serial comma is PROHIBITED or strongly
+            discouraged. These languages treat the conjunction as sufficient
+            separation; adding a comma before it is a grammatical error in most
+            style guides.
+        The corrector should add or remove the serial comma based on language
+        and register.
+      register_sensitive: true
+      notes: |
+        In EN-US, the serial comma resolves genuine ambiguity in some cases:
+        "I love my parents, Batman, and Robin" vs "I love my parents, Batman
+        and Robin" (the latter could imply Batman and Robin are the parents).
+        Disambiguation should always win over style preference.
+
+    # --- Punctuation placement relative to closing quotation mark ---
+    quote_punctuation_placement:
+      description: "Whether commas and periods go inside or outside closing quotation marks"
+      rule: |
+        Two traditions exist:
+          - TYPESETTERS' CONVENTION (US): commas and periods ALWAYS go inside
+            the closing quotation mark, regardless of whether they are part of
+            the quoted material. Colons and semicolons go outside.
+              "I agree," she said.  He called it "magnificent."
+          - LOGICAL CONVENTION (British and most other traditions): commas and
+            periods go inside only if they are part of the original quoted
+            material; otherwise outside.
+              She said "I agree", but he disagreed.  He called it 'magnificent'.
+        Question marks and exclamation marks follow logical placement in both
+        traditions (inside if part of the quote, outside if not).
+
+        Language defaults:
+          - EN-US: typesetters' convention (inside)
+          - EN-GB: logical convention (outside)
+          - All other covered languages: logical convention
+      notes: |
+        The US typesetters' convention originated in the era of metal type, where
+        placing thin punctuation outside the quote risked physical damage. In
+        digital typesetting there is no such constraint, but the convention persists
+        in American publishing. Technical writing (even in the US) increasingly
+        adopts logical placement.
+
+    # --- Abbreviation periods ---
+    abbreviation_periods:
+      description: "Whether contractions and abbreviations take a trailing period"
+      rule: |
+        Conventions for the period after abbreviations and contractions:
+          - EN-US: period after ALL abbreviations and contractions:
+            Mr., Mrs., Dr., St., Jr., Sr., Ave., etc.
+          - EN-GB: contractions that include the last letter of the full word
+            DROP the period: Mr, Mrs, Dr, St, Jr, Sr.
+            Abbreviations that do NOT include the final letter KEEP it: Prof., Rev., etc.
+          - FR-FR: most abbreviations take a period: M. (Monsieur), Mme (Madame, no period —
+            contraction ending in last letter), Dr, Me (Maître). The superscript convention
+            (Mme, Mlle, Dr) omits the period.
+          - DE-DE: abbreviations take a period: Dr., Prof., Hr. (Herr), Fr. (Frau), Nr., Str.
+          - IT-IT: troncamento/abbreviazione system — period for truncations (dott., prof., sig.),
+            no period when last letter is preserved (dott.ssa, sig.ra)
+          - ES-ES: period after most abbreviations: Sr., Sra., Dr., Dra., Ud., Uds.
+          - PT-PT/PT-BR: period after most abbreviations: Sr., Sra., Dr., Dra.
+          - NL-NL: period in multi-letter abbreviations (a.u.b., bijv., d.w.z.)
+      notes: |
+        The EN-GB rule is clean: if the abbreviation ends with the same letter as
+        the full word (Mr from Mister, Dr from Doctor, St from Saint), no period.
+        If it is a true truncation (Prof. from Professor, Rev. from Reverend), period.
+
+    # --- Abbreviation haplology (double-period avoidance) ---
+    abbreviation_haplology:
+      description: "Never produce a double period when an abbreviation ends a sentence"
+      rule: |
+        When an abbreviation that ends with a period falls at the end of a sentence,
+        the abbreviation period ALSO serves as the sentence-final full stop. Never
+        produce two consecutive periods:
+          - CORRECT: "He works at Apple Inc."
+          - WRONG:   "He works at Apple Inc.."
+          - CORRECT: "The team included Dr. Smith, Prof. Jones, etc."
+          - WRONG:   "The team included Dr. Smith, Prof. Jones, etc.."
+        This is universal across all covered languages.
+        Exception: if the sentence ends with an ellipsis after an abbreviation,
+        the ellipsis character (U+2026) is used, not three periods:
+          "e.g. products, services, etc.\u2026" — but this construction is rare
+          and usually better rewritten.
+      anti_pattern:
+        - { char: "etc..", name: "double period after abbreviation at sentence end" }
+        - { char: "Inc..", name: "double period after abbreviation at sentence end" }
+      examples:
+        - { raw: "They sell fruit, vegetables, etc..",  correct: "They sell fruit, vegetables, etc." }
+        - { raw: "He works for Acme Corp..",            correct: "He works for Acme Corp." }
+
+    # --- Footnote mark placement ---
+    footnote_mark_placement:
+      description: "Position of superscript footnote marks relative to punctuation"
+      rule: |
+        Two traditions govern whether the footnote superscript number goes before
+        or after the adjacent punctuation mark:
+          - AFTER PUNCTUATION (Anglo-American, German):
+            EN (Chicago 14.26): mark follows the comma, period, or closing quote.
+              "Typography matters."¹  The result,² however, was clear.
+            DE (Duden): same — mark follows punctuation.
+              „Typografie ist wichtig."¹
+          - BEFORE PUNCTUATION (French, Spanish):
+            FR (Imprimerie Nationale): mark precedes the punctuation, with NNBSP
+            separating the mark from the preceding word.
+              « La typographie est importante¹ ».  Le résultat² , cependant, est clair.
+            ES (RAE): mark precedes the period or comma.
+              La tipografía es importante¹.
+        Other languages generally follow the after-punctuation convention (PT, IT, NL, RO).
+      notes: |
+        The French convention of placing the footnote mark before punctuation
+        interacts with the NNBSP-before-punctuation rule: the mark sits between
+        the word and the NNBSP. This is one of the more complex spacing sequences
+        in French typesetting.
+
+    # --- Nested parentheticals ---
+    nested_parentheticals:
+      description: "Bracket types for nested parenthetical expressions"
+      rule: |
+        When a parenthetical expression is nested inside another, most traditions
+        change the bracket type for the inner level to avoid ambiguity:
+          - OUTER: round brackets ( )
+          - INNER: square brackets [ ]
+          Example: "The result (as noted by Smith [2020]) was significant."
+
+        This convention is widely followed in:
+          - English (Chicago, Oxford)
+          - French (Imprimerie Nationale)
+          - German (Duden)
+          - Spanish (RAE)
+          - Portuguese, Italian, Dutch, Romanian
+
+        Exception: legal and legislative texts may use different nesting conventions
+        specific to their jurisdiction. Academic citation formats (APA, MLA) have
+        their own bracket rules that override this general typographic convention.
+      notes: |
+        Some publishers prefer to restructure sentences rather than nest
+        parentheticals. In editorial register, flagging nested parentheses for
+        rewriting may be preferable to simply fixing the bracket types.
+      examples:
+        - { raw: "The result (as noted by Smith (2020)) was significant.",
+            correct: "The result (as noted by Smith [2020]) was significant." }
+
+    # =======================================================================
+    # BATCH 5 — MICRO-TYPOGRAPHY
+    # =======================================================================
+    # Sub-character-level refinements: ligature control, figure styles,
+    # small caps, tracking, and optical margin alignment.
+    # Some of these are character-level (ZWNJ insertion); others are
+    # rendering recommendations that the corrector emits as hints.
+    # =======================================================================
+
+    # --- Ligature suppression at morpheme boundaries ---
+    ligature_suppression:
+      description: "Insert ZWNJ (U+200C) to prevent f-ligatures from crossing morpheme boundaries in compound words"
+      resolves_to: zwnj
+      rule: |
+        OpenType fonts automatically ligate fi, fl, ff, ffi, ffl sequences.
+        In compound words where the morpheme boundary falls inside such a
+        sequence, the ligature is typographically wrong — it visually merges
+        parts that are semantically separate.
+
+        Insert ZWNJ (U+200C) at the morpheme boundary to suppress the ligature:
+          - German (primary case, Duden requirement):
+            Auf‌lage (not Au-fl-age ligature), Schiff‌fahrt, Rück‌frage,
+            Sauerstoff‌flasche, Kaufl‌eute, Dorfl‌eben, Senf‌fabrik
+          - English:
+            shelf‌ful, half‌-life, roof‌line, cuff‌link, off‌load
+          - Any language with productive compounding
+
+        The ZWNJ is invisible and does not affect search, copy-paste, or
+        accessibility. It only instructs the shaping engine to break the
+        ligature at that point.
+
+        Do NOT suppress ligatures within a single morpheme: "office", "fifty",
+        "affluent" keep their natural fi/fl/ff ligatures.
+      notes: |
+        The German selnolig package maintains ~2,000 suppression patterns.
+        For the corrector, a morphological decomposition heuristic is needed.
+        When in doubt, do NOT insert ZWNJ — a false ligature is less harmful
+        than a broken word.
+      examples:
+        - { raw: "Auflage",          correct: "Auf\u200Clage" }
+        - { raw: "Schifffahrt",      correct: "Schiff\u200Cfahrt" }
+        - { raw: "Sauerstoffflasche", correct: "Sauerstoff\u200Cflasche" }
+        - { raw: "shelfful",         correct: "shelf\u200Cful" }
+        - { raw: "halflife",         correct: "half\u200Clife" }
+      font_risk: tier_4
+      fallback_note: >
+        ZWNJ (U+200C) ligature suppression depends on the rendering engine
+        supporting OpenType ligature control. If the engine ignores ZWNJ, the
+        character is harmless (invisible, zero-width) but the ligature will not
+        be suppressed. No visual fallback exists; the text remains correct,
+        just with an unwanted ligature.
+
+    # --- French œ/æ preservation (cross-reference to Batch 2) ---
+    orthographic_ligature_preservation:
+      description: "Preserve œ and æ as orthographic letters — never decompose to digraphs"
+      rule: |
+        Cross-reference: see french_ligatures (Batch 2) for the primary rule.
+        This Batch 5 entry reinforces the priority: œ and æ in French (and æ in
+        Latin-derived loanwords across languages) are LETTERS, not typographic
+        ligatures. They must survive all processing:
+          - NFC normalization: preserved (they are not compatibility decompositions)
+          - NFKC normalization: preserved (unlike fi/fl ligatures)
+          - Copy-paste: must remain intact
+          - Search indexing: index both the ligature and the digraph decomposition
+
+        French mandatory: cœur, sœur, œuvre, œuf, bœuf, nœud, vœu, œil, manœuvre
+        Latin loanwords: ex æquo, curriculum vitæ, et cætera (formal registers)
+
+        Priority: HIGHEST — equal to Romanian ș/ț preservation. Decomposition
+        of these characters is a misspelling, not merely a typographic degradation.
+      notes: |
+        English and other languages may use ae/oe digraphs legitimately
+        (e.g., "aesthetic" not "æsthetic" in modern English). The preservation
+        rule applies only where the ligature is the correct orthographic form
+        for the target language.
+
+    # --- Small caps for acronyms ---
+    small_caps_acronyms:
+      description: "Use small caps for acronyms of 3+ letters in editorial and literary registers"
+      type: rendering_hint
+      register_sensitive: true
+      rule: |
+        In editorial and literary registers, acronyms of three or more letters
+        should be set in small caps rather than full capitals to avoid
+        typographic "shouting" that disrupts the colour of the page:
+          - Organizations: NATO, UNESCO, NASA, UNICEF, OTAN, ALENA
+          - Era markers: AD, BC, BCE, CE (also AM, PM in some styles)
+          - Roman-numeral centuries in Romance languages: XIX, XVIII, XXI
+            (il XIX secolo, le XIXe siècle, o século XIX)
+
+        Implementation: the corrector should emit a marker or annotation
+        indicating small-caps treatment. It does NOT change the characters
+        themselves — the text remains uppercase in the data layer.
+
+        Register behaviour:
+          - editorial / literary: prefer small caps
+          - marketing: full caps acceptable (visual impact)
+          - ui: full caps acceptable (space constraints)
+
+        Exceptions:
+          - Two-letter acronyms (US, UK, EU, UN) are typically set in full caps
+            even in editorial register — small caps at two letters looks awkward
+          - Acronyms that have become common words (laser, radar, scuba) are
+            lowercase and never get small-caps treatment
+          - Brand names that are styled as all-caps by design (IBM, BMW, BBC)
+            should respect the brand identity
+      notes: |
+        Small caps require font support (OpenType smcp feature). If the font
+        lacks true small caps, do NOT fake them with font-size reduction —
+        the stroke weight will be wrong. In that case, fall back to full caps.
+      examples:
+        - { raw: "NATO agreed to the terms.",
+            correct: "NATO agreed to the terms.",
+            notes: "text unchanged; annotate NATO for small-caps rendering" }
+        - { raw: "The XIX century saw great change.",
+            correct: "The XIX century saw great change.",
+            notes: "annotate XIX for small-caps rendering in Romance-language editorial context" }
+
+    # --- Figure styles ---
+    figure_styles:
+      description: "Oldstyle proportional figures for body text, lining tabular figures for tables and financial data"
+      type: rendering_hint
+      register_sensitive: true
+      rule: |
+        OpenType fonts typically offer four figure variants via font features:
+          - Oldstyle proportional (onum + pnum): 0123456789 with descenders
+            and ascenders, proportionally spaced — harmonizes with lowercase text
+          - Lining tabular (lnum + tnum): 0123456789 all on the baseline,
+            monospaced — aligns in columns
+
+        Usage by register:
+          - editorial / literary: oldstyle proportional for body prose.
+            Numbers blend with the text instead of creating visual bumps.
+            Exception: all-caps settings use lining figures.
+          - ui / marketing: lining tabular for clarity and alignment.
+          - tables, financial data, code: ALWAYS lining tabular, regardless
+            of register — column alignment is mandatory.
+
+        The corrector should emit figure-style annotations. It does NOT change
+        the digit characters — the data layer always uses standard ASCII digits
+        (U+0030 through U+0039). The rendering system applies the OpenType
+        feature based on the annotation.
+      notes: |
+        Not all fonts include all four figure styles. The corrector should
+        annotate the preference; the rendering layer applies what is available.
+        If the font has only one style, the annotation is a no-op.
+
+    # --- Letter-spacing for caps and small caps ---
+    caps_letter_spacing:
+      description: "Apply 5\u201312% letter-spacing (tracking) to all-caps and small-caps runs"
+      type: rendering_hint
+      rule: |
+        All-caps and small-caps text benefits from increased letter-spacing
+        (tracking) to improve legibility. The recommended range is 5\u201312%
+        of font size, depending on the typeface design and context:
+          - 5\u20138% for body-size small caps (e.g., acronyms in running text)
+          - 8\u201312% for display-size all-caps (e.g., headings, labels)
+
+        This is a rendering recommendation, not a character-level correction.
+        The corrector should annotate all-caps and small-caps runs with a
+        tracking hint. The rendering system applies the appropriate CSS
+        letter-spacing or OpenType tracking.
+
+        Do NOT insert thin spaces or hair spaces between characters to simulate
+        tracking — this breaks search, selection, copy-paste, and accessibility.
+      notes: |
+        Frederic Goudy reportedly said "anyone who would letterspace blackletter
+        would steal sheep" — this rule applies to Roman capitals and small caps
+        only, not to lowercase or blackletter.
+
+    # --- Hanging punctuation / optical margin alignment ---
+    hanging_punctuation:
+      description: "Punctuation at line edges should hang into the margin for optical alignment"
+      type: rendering_hint
+      rule: |
+        For optically aligned margins, punctuation marks at the beginning or
+        end of a line should "hang" partially or fully into the margin:
+          - Full hang: quotation marks (opening at line start, closing at line end),
+            hyphens at line end
+          - Partial hang (~50%): periods, commas, colons, semicolons at line end
+          - No hang: em dashes, parentheses (too wide)
+
+        This is a rendering-engine feature (CSS hanging-punctuation, InDesign
+        Optical Margin Alignment, TeX microtype). The corrector does not modify
+        characters; it may emit a recommendation flag when the output context
+        supports hanging punctuation.
+
+        CSS property: hanging-punctuation: first last;
+        TeX: \usepackage{microtype} (enabled by default for pdfTeX)
+      notes: |
+        Hanging punctuation is one of the hallmarks of professional typesetting.
+        It makes justified and left-aligned text look significantly more polished.
+        Not all rendering contexts support it — web support (CSS) is still
+        limited to Safari as of 2025.
+
+    # =======================================================================
+    # BATCH 6 — WCAG-SAFE EMISSION
+    # =======================================================================
+    # Accessibility constraints on corrector output. The corrector must not
+    # produce output that degrades accessibility or prevents WCAG-compliant
+    # text reflow. These are output requirements, not typographic rules.
+    # =======================================================================
+
+    # --- WCAG SC 1.4.12 text spacing compliance ---
+    wcag_text_spacing:
+      description: "Corrector output must not rely on fixed spacing that breaks under WCAG text spacing overrides"
+      type: output_requirement
+      rule: |
+        WCAG 2.1 Success Criterion 1.4.12 (Text Spacing, Level AA) requires
+        that content remains functional when users override text spacing:
+          - Line height (line spacing) to at least 1.5 times the font size
+          - Paragraph spacing to at least 2 times the font size
+          - Letter spacing (tracking) to at least 0.12em
+          - Word spacing to at least 0.16em
+
+        The corrector MUST NOT emit output that:
+          - Relies on specific line-height for meaning (e.g., using vertical
+            spacing to separate logical blocks instead of proper markup)
+          - Uses fixed letter-spacing that, if overridden, would make text
+            unreadable or overlapping
+          - Assumes word-spacing values that would break if expanded
+
+        In practice, this means:
+          - Use semantic markup, not spacing hacks
+          - NBSP and NNBSP characters are acceptable (they create non-breaking
+            bonds, not fixed widths) — but see breakable_containers rule
+          - Thin spaces (U+2009) are acceptable for fine typography but must
+            not be load-bearing for meaning
+      notes: |
+        This rule constrains the corrector output format, not the typographic
+        rules themselves. The corrector can recommend ideal spacing; it must
+        not produce output that REQUIRES specific spacing to be accessible.
+
+    # --- No fixed-width typographic CSS ---
+    no_fixed_width_containers:
+      description: "Output must not use !important on typographic CSS properties or fixed-width containers"
+      type: output_requirement
+      rule: |
+        When the corrector output includes CSS (e.g., for web contexts),
+        it MUST NOT:
+          - Use !important on any of these properties: font-size, line-height,
+            letter-spacing, word-spacing, font-family
+          - Set fixed widths (px, cm, in) on text containers — use relative
+            units (%, em, rem, ch) or let content determine width
+          - Use overflow: hidden on text containers (prevents reflow)
+          - Use white-space: nowrap on blocks of text (prevents wrapping
+            under WCAG text spacing overrides)
+
+        These constraints ensure that assistive technology and user stylesheets
+        can override typographic properties without breaking the layout.
+      notes: |
+        This applies only when the corrector emits styled output (HTML+CSS).
+        Plain-text and structured-data outputs are not affected.
+
+    # --- Bidi isolate preservation ---
+    bidi_isolate_preservation:
+      description: "Preserve Unicode bidi control characters — never strip LRI, RLI, FSI, PDI"
+      rule: |
+        Unicode bidirectional isolate characters are essential for correct
+        rendering of mixed-direction text (e.g., Arabic/Hebrew names in
+        Latin-script sentences, or LTR content embedded in RTL):
+          - U+2066 LEFT-TO-RIGHT ISOLATE (LRI)
+          - U+2067 RIGHT-TO-LEFT ISOLATE (RLI)
+          - U+2068 FIRST STRONG ISOLATE (FSI)
+          - U+2069 POP DIRECTIONAL ISOLATE (PDI)
+
+        The corrector MUST:
+          - NEVER strip these characters during normalization or correction
+          - Treat bidi isolate pairs (LRI...PDI, RLI...PDI, FSI...PDI) as
+            balanced delimiters — removing one without its partner creates
+            bidi leakage
+          - When inserting corrections inside bidi-isolated runs, preserve
+            the isolation boundaries
+          - Prefer isolates (UAX #9 recommended) over legacy embeddings
+            (LRE U+202A, RLE U+202B, PDF U+202C) — do not introduce legacy
+            embeddings in new output
+
+        Accessibility impact: screen readers rely on bidi isolates to announce
+        text direction changes correctly. Stripping them causes garbled reading
+        of multilingual content.
+      anti_pattern:
+        - { char: "stripping U+2066\u20132069", name: "removing bidi isolates during normalization" }
+      font_risk: tier_4
+      fallback_note: >
+        Bidi isolate characters (U+2066-U+2069) are invisible control
+        characters. Font support is less relevant than rendering engine
+        support. Modern browsers and text engines handle them correctly.
+        Legacy systems may ignore them, but they cause no visual harm
+        (zero-width). No fallback is needed; preserve them regardless.
+
+    # --- Breakable containers (NBSP chain limit) ---
+    breakable_containers:
+      description: "Limit consecutive NBSP-joined words to prevent unbreakable chains that block text reflow"
+      rule: |
+        Non-breaking spaces (NBSP, NNBSP) create non-breaking bonds between
+        words. When three or more consecutive words are joined by NBSP, the
+        resulting unbreakable "chunk" may be too wide to reflow in narrow
+        viewports or under WCAG text spacing overrides.
+
+        Rule: if a sequence of NBSP-joined words exceeds 3 words, use regular
+        breakable spaces for the middle joins and NBSP only at the critical
+        bond points (typically the first and last pairs):
+          - 2 words: "§\u00A05" — fine, one NBSP
+          - 3 words: "10\u00A0000\u00A0km" — acceptable, 3-word chain
+          - 4+ words: "J.\u00A0R.\u00A0R.\u00A0Tolkien" — replace middle
+            NBSP with regular space: "J.\u00A0R. R.\u00A0Tolkien"
+            (keeps J. bonded to R. at start, R. bonded to Tolkien at end)
+
+        Exception: short tokens (1\u20132 characters each) in chains up to 5
+        are acceptable because the total width remains small:
+          "a.\u00A0u.\u00A0b." — fine, each token is tiny
+      notes: |
+        This is a pragmatic limit. The ideal solution is responsive non-breaking
+        behaviour (break when viewport is narrow, don't break when wide), but
+        Unicode provides no mechanism for this. The 3-word limit is a reasonable
+        compromise for web and print.
+      examples:
+        - { raw: "J.\u00A0R.\u00A0R.\u00A0Tolkien",
+            correct: "J.\u00A0R. R.\u00A0Tolkien",
+            notes: "4-word NBSP chain reduced to two 2-word bonds" }
+
+    # --- Language tagging ---
+    language_tagging:
+      description: "Output should preserve or add language metadata to enable correct screen reader pronunciation"
+      type: output_requirement
+      rule: |
+        When the corrector produces output for web or structured formats,
+        language tagging is essential for accessibility:
+          - HTML: use lang attribute on elements containing text in a different
+            language than the document's declared language.
+            <p>The French say <span lang="fr">c'est la vie</span>.</p>
+          - Inline language switches: when a foreign word or phrase appears in
+            running text, wrap it with appropriate language markup
+          - BCP 47 codes: use the same codes as this schema (pt-PT, en-US,
+            fr-FR, etc.)
+
+        Accessibility impact: screen readers use lang attributes to switch
+        pronunciation engines. Without them:
+          - French names in English text are mispronounced
+          - German compound words get wrong stress patterns
+          - Portuguese ão/ões endings are mangled
+
+        The corrector should detect language switches in mixed-language text
+        and emit appropriate tagging. This is especially important for:
+          - Loanwords that retain source-language pronunciation
+          - Proper names from other languages
+          - Quotations in the original language
+      notes: |
+        Not all output contexts support language tagging. For plain text,
+        this rule is informational. For HTML and EPUB, it is mandatory under
+        WCAG 3.1.2 (Language of Parts, Level AA).
+
+    # --- Screen reader considerations ---
+    screen_reader_typography:
+      description: "Document how proper Unicode characters improve screen reader output"
+      type: output_requirement
+      rule: |
+        Using correct Unicode characters (which this entire schema enforces)
+        directly benefits screen reader users. Key improvements:
+
+        Dashes:
+          - EN DASH (U+2013) in ranges: "pages 10\u201320" is read as
+            "pages 10 to 20" by modern screen readers (NVDA, JAWS, VoiceOver)
+          - EM DASH (U+2014): announced as "dash" or paused, correctly
+            signaling a parenthetical break
+          - HYPHEN-MINUS for ranges: "pages 10-20" may be read as
+            "pages 10 minus 20" or "pages 10 hyphen 20"
+
+        Ellipsis:
+          - HORIZONTAL ELLIPSIS (U+2026): announced as "ellipsis" or "dot dot dot"
+          - Three periods "...": may be announced as "period period period"
+
+        Fractions:
+          - VULGAR FRACTIONS (U+00BC, etc.): announced as "one quarter", "one half"
+          - ASCII "1/4": announced as "one slash four"
+
+        Quotation marks:
+          - Typographic quotes: some screen readers announce "open quote" / "end quote"
+          - Straight quotes: announced as "quote" with no directional information
+
+        Spaces:
+          - NBSP: prevents awkward mid-phrase line breaks that fragment audio
+            output when a screen reader re-reads at the line level
+          - NNBSP: same benefit, narrower visual width
+
+        Mathematical symbols:
+          - MINUS SIGN (U+2212): read as "minus"
+          - MULTIPLICATION SIGN (U+00D7): read as "times" or "multiplied by"
+          - HYPHEN-MINUS in math: may be read as "hyphen"
+
+        The corrector's typographic corrections are therefore accessibility
+        improvements by default. This rule documents the screen-reader
+        benefits to justify typographic strictness.
+      notes: |
+        Screen reader behaviour varies by software, version, verbosity setting,
+        and synthesizer. The descriptions above reflect common behaviour as of
+        2025 across NVDA, JAWS, and VoiceOver. Test with actual screen readers
+        for production contexts.
+
+
+# ============================================================================
+# 3. LANGUAGE LAYERS
+# ============================================================================
+# Each language inherits from universal and specifies/overrides as needed.
+# Structure: inherits → overrides → additions
+# ============================================================================
+
+languages:
+
+  # --------------------------------------------------------------------------
+  # PORTUGUESE (PT-PT)
+  # --------------------------------------------------------------------------
+  pt-PT:
+    inherits: universal
+    label: "Português (Portugal)"
+
+    overrides:
+
+      quotation:
+        primary:
+          open:  left_angle_quote       # «
+          close: right_angle_quote      # »
+          spacing: thin_both            # « texto »  — thin space inside
+        nested:
+          open:  left_double_quote      # "
+          close: right_double_quote     # "
+          spacing: no_space
+        examples:
+          - raw: '"Ele disse "olá" e saiu"'
+            correct: "«\u2009Ele disse \u201Colá\u201D e saiu\u2009»"
+        font_risk: tier_3
+        fallback_note: >
+          Angle quotes (U+00AB, U+00BB) are tier_3 globally but tier_2 in
+          European fonts. Thin space (U+2009) is tier_3. Fallback: angle
+          quotes -> curly double quotes -> straight double quotes. Thin
+          space -> NBSP -> regular space.
+
+    additions:
+
+      dialogue_attribution:
+        description: "Travessão for dialogue — Portuguese literary convention"
+        resolves_to: em_dash
+        spacing: space_after
+        rule: "Use em dash (travessão) at line start for dialogue. Space after dash, no space before following speaker attribution dash."
+        examples:
+          - correct: "\u2014 Boa tarde \u2014 disse ele."
+
+      ordinal_indicators:
+        description: "Ordinal with masculine/feminine indicator, superscript preferred"
+        resolves_to:
+          masculine: ordinal_indicator_masc    # 1.º
+          feminine:  ordinal_indicator_fem     # 1.ª
+        rule: "Ordinals use period + indicator: 1.º, 2.ª. Superscript the indicator when the typesetting system supports it."
+        examples:
+          - { raw: "1o andar",  correct: "1.\u00BA andar" }
+          - { raw: "2a edição", correct: "2.\u00AA edição" }
+
+      colon_capitalisation:
+        description: "Always lowercase after colon in Portuguese"
+        rule: "Portuguese does not capitalise after a colon in standard prose. Only proper nouns retain capitalisation."
+        examples:
+          - { raw: "O veredicto foi claro: Ele era culpado.",
+              correct: "O veredicto foi claro: ele era culpado." }
+
+      serial_comma:
+        description: "Serial comma prohibited in Portuguese"
+        rule: |
+          Portuguese does not use a comma before the final conjunction (e, ou, nem)
+          in enumerations. The conjunction is considered sufficient separation.
+        examples:
+          - { raw: "vermelho, branco, e azul",  correct: "vermelho, branco e azul" }
+
+      quote_punctuation_placement:
+        description: "Logical punctuation placement in Portuguese"
+        rule: "Portuguese uses logical placement: punctuation goes inside the closing quotation mark only when it belongs to the quoted material."
+        examples:
+          - { raw: "Ele chamou-o de \u00AB\u2009magnífico.\u2009\u00BB",
+              correct: "Ele chamou-o de \u00AB\u2009magnífico\u2009\u00BB." }
+
+      abbreviation_periods:
+        description: "Portuguese abbreviation conventions"
+        rule: |
+          Portuguese uses a period after most abbreviations:
+            Sr. (Senhor), Sra. (Senhora), Dr. (Doutor), Dra. (Doutora),
+            Prof. (Professor), Eng. (Engenheiro).
+          The superscript feminine indicator is used in some formal contexts:
+            Sr.ª (Senhora), with NBSP after.
+        examples:
+          - { raw: "Sr Silva",   correct: "Sr. Silva" }
+          - { raw: "Dra Sousa",  correct: "Dra. Sousa" }
+
+      footnote_mark_placement:
+        description: "Footnote marks placed AFTER punctuation in Portuguese"
+        rule: "Portuguese follows the after-punctuation convention for footnote marks."
+        examples:
+          - { raw: "A tipografia é importante\u00B9.",  correct: "A tipografia é importante.\u00B9" }
+
+      number_formatting:
+        decimal_separator: ","
+        thousands_separator: "."      # or thin space in scientific contexts
+        currency_position: "after"    # 10,00 €
+        currency_spacing: nbsp_before
+        percent_spacing: nbsp_before  # 50 %
+        time_separator: ":"           # 14:30
+        notes: "Portuguese uses a non-breaking space before % following ISO/European convention."
+
+  # --------------------------------------------------------------------------
+  # PORTUGUESE (PT-BR)
+  # --------------------------------------------------------------------------
+  pt-BR:
+    inherits: pt-PT    # inherits from PT-PT, not directly from universal
+    label: "Português (Brasil)"
+
+    overrides:
+
+      quotation:
+        primary:
+          open:  left_double_quote      # "  — BR prefers curly doubles
+          close: right_double_quote     # "
+          spacing: no_space
+        nested:
+          open:  left_single_quote      # '
+          close: right_single_quote     # '
+          spacing: no_space
+        notes: >
+          Brazilian Portuguese strongly prefers curly double quotes over
+          guillemets, unlike PT-PT. Some academic publishers and older
+          literary houses still use angle quotes. Convention can vary by
+          publisher and register.
+
+      # BR dialogue also uses travessão — inherited from PT-PT, no override needed
+
+  # --------------------------------------------------------------------------
+  # ENGLISH (EN-US)
+  # --------------------------------------------------------------------------
+  en-US:
+    inherits: universal
+    label: "English (United States)"
+
+    overrides:
+
+      quotation:
+        primary:
+          open:  left_double_quote
+          close: right_double_quote
+          spacing: no_space
+        nested:
+          open:  left_single_quote
+          close: right_single_quote
+          spacing: no_space
+        punctuation_placement: "inside"   # period/comma inside closing quote
+        notes: >
+          While curly double quotes are standard EN-US, some publishers use
+          different conventions for reported speech vs. scare quotes vs. titles.
+          Technical and programming-adjacent writing increasingly uses logical
+          (British) punctuation placement. Convention can vary by publisher
+          and register.
+
+    additions:
+
+      parenthetical_dash:
+        description: "Em dash for parenthetical statements — American convention"
+        resolves_to: em_dash
+        spacing: no_space      # word—word, no spaces
+        examples:
+          - correct: "The result\u2014if you can believe it\u2014was extraordinary."
+
+      serial_comma:
+        description: "Oxford comma — enforced in editorial, optional in marketing"
+        rule: |
+          EN-US editorial register enforces the serial comma (Chicago, APA, Oxford).
+          Marketing and journalism registers often omit (AP Stylebook).
+          When ambiguity would result from omission, always include regardless of register.
+        register_sensitive: true
+        examples:
+          - { raw: "red, white and blue",  correct: "red, white, and blue", notes: "editorial register" }
+          - { raw: "red, white, and blue", correct: "red, white and blue",  notes: "AP/marketing register — only if no ambiguity" }
+
+      colon_capitalisation:
+        description: "Capitalise after colon if independent clause follows (Chicago 6.64)"
+        rule: |
+          EN-US capitalises the word after a colon when what follows is an
+          independent clause (a clause that could stand on its own as a sentence).
+          Lowercase for dependent clauses, lists, and appositives.
+        register_sensitive: true
+        examples:
+          - { raw: "The verdict was clear: he was guilty.",
+              correct: "The verdict was clear: He was guilty.",
+              notes: "independent clause after colon — capitalise" }
+          - { raw: "She had one goal: To win.",
+              correct: "She had one goal: to win.",
+              notes: "infinitive phrase, not independent clause — lowercase" }
+
+      quote_punctuation_placement:
+        description: "Commas and periods always inside closing quotation marks (US typesetters' convention)"
+        rule: |
+          In EN-US, commas and periods are placed inside the closing quotation mark
+          regardless of whether they belong to the quoted material. Colons and
+          semicolons go outside. Question marks and exclamation marks follow logic
+          (inside if part of the quote, outside if not).
+        examples:
+          - { raw: "He called it \"magnificent\".",
+              correct: "He called it \u201Cmagnificent.\u201D" }
+          - { raw: "\"I agree\", she said.",
+              correct: "\u201CI agree,\u201D she said." }
+
+      abbreviation_periods:
+        description: "All abbreviations and contractions take a period in EN-US"
+        rule: "EN-US uses a period after all abbreviations: Mr., Mrs., Dr., St., Jr., Sr., Ave., etc."
+        examples:
+          - { raw: "Mr Smith",   correct: "Mr. Smith" }
+          - { raw: "Dr Jones",   correct: "Dr. Jones" }
+          - { raw: "St Patrick", correct: "St. Patrick" }
+
+      footnote_mark_placement:
+        description: "Footnote marks placed AFTER punctuation (Chicago 14.26)"
+        rule: "In EN-US, the superscript footnote mark follows the comma, period, or closing quotation mark."
+        examples:
+          - { raw: "Typography matters\u00B9.",  correct: "Typography matters.\u00B9" }
+
+      number_formatting:
+        decimal_separator: "."
+        thousands_separator: ","
+        currency_position: "before"    # $10.00
+        currency_spacing: no_space
+        currency_symbol: dollar_sign
+        percent_spacing: no_space      # 50% (no space in English)
+        time_separator: ":"            # 2:30 PM
+        time_format: "12h"             # 12-hour with AM/PM
+        examples:
+          - { raw: "$ 10.00",    correct: "$10.00" }
+          - { raw: "10.00$",     correct: "$10.00" }
+          - { raw: "10.00 USD",  correct: "$10.00", notes: "in consumer-facing text" }
+
+      # --- Batch 5: Micro-typography (EN-US specifics) ---
+
+      ligature_suppression:
+        description: "Suppress f-ligatures at morpheme boundaries in English compounds"
+        resolves_to: zwnj
+        rule: |
+          English compounds where a morpheme boundary falls inside an
+          f-ligature sequence require ZWNJ (U+200C) to prevent the ligature:
+            shelf‌ful, half‌-life, roof‌line, cuff‌link, off‌load, off‌side
+          Less common than in German but still relevant for editorial quality.
+        examples:
+          - { raw: "shelfful",   correct: "shelf\u200Cful" }
+          - { raw: "roofline",   correct: "roof\u200Cline" }
+          - { raw: "cufflink",   correct: "cuff\u200Clink" }
+
+      small_caps_acronyms:
+        description: "Small caps for 3+ letter acronyms in EN-US editorial register"
+        type: rendering_hint
+        register_sensitive: true
+        rule: |
+          In editorial and literary registers, set acronyms of 3+ letters
+          in small caps: NATO, UNESCO, NASA. Era markers (AD, BC, BCE, CE)
+          and time markers (AM, PM) also candidates.
+          Marketing and UI registers may prefer full caps.
+        examples:
+          - { raw: "NATO signed the agreement.",
+              correct: "NATO signed the agreement.",
+              notes: "annotate NATO for small-caps rendering in editorial register" }
+
+  # --------------------------------------------------------------------------
+  # ENGLISH (EN-GB)
+  # --------------------------------------------------------------------------
+  en-GB:
+    inherits: en-US
+    label: "English (United Kingdom)"
+
+    overrides:
+
+      quotation:
+        primary:
+          open:  left_single_quote      # '  — UK prefers single
+          close: right_single_quote     # '
+          spacing: no_space
+        nested:
+          open:  left_double_quote
+          close: right_double_quote
+          spacing: no_space
+        punctuation_placement: "outside"  # period/comma outside closing quote
+        notes: >
+          Single quotes as primary is the dominant UK convention (Guardian,
+          Times, Oxford), but some UK publishers (e.g., Penguin, Faber) use
+          double quotes. Convention can vary by publisher, context, and
+          register. Dialogue in fiction may follow different house rules.
+
+      parenthetical_dash:
+        description: "En dash with spaces — British convention"
+        resolves_to: en_dash
+        spacing: space_both
+        examples:
+          - correct: "The result \u2013 if you can believe it \u2013 was extraordinary."
+
+    additions:
+
+      serial_comma:
+        description: "Serial comma less common in EN-GB but not prohibited"
+        rule: |
+          British English uses the serial comma less frequently than American English.
+          Oxford University Press uses it (hence "Oxford comma"), but most UK
+          publishers and style guides (Guardian, Times) omit. Always include when
+          omission creates ambiguity.
+        register_sensitive: true
+        examples:
+          - { raw: "red, white, and blue", correct: "red, white and blue", notes: "standard UK editorial" }
+
+      colon_capitalisation:
+        description: "Always lowercase after colon in EN-GB"
+        rule: "British English does not capitalise after a colon, even when a full sentence follows."
+        examples:
+          - { raw: "The verdict was clear: He was guilty.",
+              correct: "The verdict was clear: he was guilty." }
+
+      quote_punctuation_placement:
+        description: "Logical punctuation placement — commas and periods outside unless part of the quote"
+        rule: |
+          EN-GB uses logical placement: commas and periods go inside the closing
+          quotation mark only if they are part of the original quoted material.
+          Otherwise, they go outside.
+        examples:
+          - { raw: "He called it \u2018magnificent.\u2019",
+              correct: "He called it \u2018magnificent\u2019." }
+          - { raw: "She said \u2018I agree\u2019, and left.",
+              correct: "She said \u2018I agree\u2019, and left.",
+              notes: "comma correctly outside — the quoted speech does not include the comma" }
+
+      abbreviation_periods:
+        description: "Contractions drop the period in EN-GB; true abbreviations keep it"
+        rule: |
+          EN-GB drops the period from contractions where the last letter of the
+          abbreviation is the last letter of the full word:
+            Mr (Mister), Mrs (Mistress), Dr (Doctor), St (Saint), Jr (Junior), Sr (Senior)
+          True truncations retain the period:
+            Prof. (Professor), Rev. (Reverend), Gen. (General), Vol. (Volume)
+        examples:
+          - { raw: "Mr. Smith",    correct: "Mr Smith" }
+          - { raw: "Dr. Jones",    correct: "Dr Jones" }
+          - { raw: "Prof Smith",   correct: "Prof. Smith" }
+          - { raw: "St. Patrick",  correct: "St Patrick" }
+
+      footnote_mark_placement:
+        description: "Footnote marks placed AFTER punctuation — same as EN-US"
+        rule: "EN-GB follows the same convention as EN-US: footnote marks follow punctuation."
+        examples:
+          - { raw: "Typography matters\u00B9.",  correct: "Typography matters.\u00B9" }
+
+  # --------------------------------------------------------------------------
+  # FRENCH (FR-FR)
+  # --------------------------------------------------------------------------
+  fr-FR:
+    inherits: universal
+    label: "Français (France)"
+
+    overrides:
+
+      quotation:
+        primary:
+          open:  left_angle_quote
+          close: right_angle_quote
+          spacing: nnbsp_both          # « texte » — NARROW NO-BREAK SPACE inside
+        nested:
+          open:  left_double_quote
+          close: right_double_quote
+          spacing: no_space
+        font_risk: tier_3
+        fallback_note: >
+          Angle quotes are tier_3 globally, tier_2 in European fonts. NNBSP
+          inside guillemets is tier_3. Fallback: NNBSP -> NBSP -> regular
+          space. Angle quotes -> curly double quotes -> straight double quotes.
+        notes: >
+          Guillemets with interior fine space (espace fine insecable) are the
+          Imprimerie Nationale standard. Some digital-first French publications
+          use curly double quotes for simplicity. Convention can vary by
+          publisher, context, and register.
+
+    additions:
+
+      high_punctuation_spacing:
+        description: "Non-breaking space before high punctuation"
+        rule: "Insert narrow no-break space (U+202F) before : ; ! ? in French typesetting"
+        applies_to: [":", ";", "!", "?"]
+        spacing: nnbsp_before
+        examples:
+          - { raw: "Pourquoi?",    correct: "Pourquoi\u202F?" }
+          - { raw: "Note: ceci",   correct: "Note\u202F: ceci" }
+        font_risk: tier_3
+        fallback_note: >
+          NNBSP (U+202F) is not rendered correctly by many email clients and
+          some older browsers. Fallback chain: NNBSP -> thin space (U+2009) ->
+          NBSP (U+00A0) -> regular space. In HTML email contexts, consider
+          using NBSP as the default.
+
+      dialogue_attribution:
+        description: "Tiret for dialogue — French convention"
+        resolves_to: em_dash
+        spacing: nbsp_after
+        rule: "Use em dash (tiret) at line start for dialogue, followed by non-breaking space."
+
+      number_formatting:
+        decimal_separator: ","
+        thousands_separator: "\\u202F"   # narrow no-break space
+        currency_position: "after"       # 10,00 €
+        currency_spacing: nbsp_before
+        percent_spacing: nnbsp_before    # 50 % (NNBSP before %)
+        time_separator: ":"              # 14:30 or 14 h 30
+        time_format: "24h"
+        font_risk: tier_3
+        fallback_note: >
+          NNBSP thousands separator and NNBSP before % are tier_3.
+          Fallback: NNBSP -> NBSP -> regular space for both contexts.
+
+      capital_accents:
+        description: "Accents on capitals are mandatory in French"
+        rule: |
+          The Académie française requires accents on capitals:
+            É, È, Ê, Ë, À, Â, Ç, Ô, Û, Ù, Ü, Ÿ, Œ, Æ
+          ÉTAT not ETAT, À PARIS not A PARIS, ÊTRE not ETRE.
+          Exception: acronyms (CEE, OTAN, ALENA) take no accents.
+          This is a high-value correction — AZERTY keyboards lack
+          capital accented characters, so legacy data is full of bare capitals.
+        anti_pattern:
+          - { char: "ETAT",  name: "missing accent on É in ÉTAT" }
+          - { char: "ETRE",  name: "missing accent on Ê in ÊTRE" }
+          - { char: "A PARIS", name: "missing accent on À" }
+        examples:
+          - { raw: "L'ETAT",     correct: "L'ÉTAT" }
+          - { raw: "A PARIS",    correct: "À PARIS" }
+          - { raw: "HOTEL",      correct: "HÔTEL" }
+
+      orthographic_ligatures:
+        description: "French œ and æ are mandatory orthographic letters"
+        rule: "œ and æ are distinct letters in French, not optional ligatures. coeur→cœur, soeur→sœur, oeuf→œuf, oeuvre→œuvre."
+        resolves_to:
+          small_oe: oe_ligature
+          capital_oe: oe_ligature_cap
+          small_ae: ae_ligature
+          capital_ae: ae_ligature_cap
+        anti_pattern:
+          - { char: "coeur", name: "decomposed œ" }
+          - { char: "soeur", name: "decomposed œ" }
+          - { char: "oeuf",  name: "decomposed œ" }
+        examples:
+          - { raw: "coeur",   correct: "cœur" }
+          - { raw: "oeuvre",  correct: "œuvre" }
+          - { raw: "soeur",   correct: "sœur" }
+          - { raw: "boeuf",   correct: "bœuf" }
+
+      # --- Batch 5: Micro-typography (FR-FR specifics) ---
+
+      small_caps_centuries:
+        description: "Roman-numeral centuries and era markers in small caps"
+        type: rendering_hint
+        register_sensitive: true
+        rule: |
+          French editorial convention sets Roman-numeral centuries and era
+          references in small caps:
+            le XIXe siècle, le XVIIIe siècle, le XXIe siècle
+          The superscript "e" (or "er" for premier) is part of the convention.
+          In marketing/UI registers, full caps is acceptable.
+        examples:
+          - { raw: "le XIXe siècle",
+              correct: "le XIXe siècle",
+              notes: "annotate XIX for small-caps rendering; e is superscript" }
+          - { raw: "le XVIIIe siècle",
+              correct: "le XVIIIe siècle",
+              notes: "annotate XVIII for small-caps rendering" }
+
+      orthographic_ligature_priority:
+        description: "Reinforce œ/æ as highest-priority preservation — equal to Romanian ș/ț"
+        rule: |
+          Cross-reference to orthographic_ligatures above and Batch 5 universal
+          rule orthographic_ligature_preservation. In French, decomposing œ→oe
+          or æ→ae is a MISSPELLING, not a typographic degradation. Priority is
+          HIGHEST — this correction should fire before any other rule and must
+          survive all normalization, including accidental NFKC.
+
+      footnote_mark_placement:
+        description: "Footnote marks placed BEFORE punctuation in French"
+        rule: |
+          French convention (Imprimerie Nationale) places the superscript
+          footnote mark BEFORE the punctuation, with NNBSP separation:
+            mot¹.  phrase¹ ;  citation¹ »
+          This is the opposite of English (Chicago), which places marks
+          after punctuation.
+        notes: "Register: editorial enforces this strictly; marketing/UI may follow English convention for simplicity."
+        examples:
+          - { raw: "La typographie est importante.\u00B9",
+              correct: "La typographie est importante\u00B9." }
+
+      colon_capitalisation:
+        description: "Never capitalise after a colon in French"
+        rule: |
+          French never capitalises the word after a colon, regardless of whether
+          what follows is a complete sentence. The only exception is proper nouns,
+          which retain their inherent capitalisation.
+        examples:
+          - { raw: "Le verdict est clair\u202F: Il est coupable.",
+              correct: "Le verdict est clair\u202F: il est coupable." }
+
+      serial_comma:
+        description: "Serial comma prohibited in French"
+        rule: |
+          French does not use the serial comma. The conjunction (et, ou, ni) is
+          considered sufficient separation. Adding a comma before it is a
+          grammatical error in standard French.
+        examples:
+          - { raw: "rouge, blanc, et bleu",   correct: "rouge, blanc et bleu" }
+          - { raw: "lire, écrire, ou parler", correct: "lire, écrire ou parler" }
+
+      quote_punctuation_placement:
+        description: "Logical punctuation placement in French"
+        rule: |
+          French uses logical placement: punctuation goes inside the guillemets
+          only if it belongs to the quoted material. Sentence-final punctuation
+          that applies to the surrounding sentence goes outside.
+        examples:
+          - { raw: "Il a dit \u00AB\u202Fmagnifique.\u202F\u00BB",
+              correct: "Il a dit \u00AB\u202Fmagnifique\u202F\u00BB.",
+              notes: "period belongs to the outer sentence, not the quoted word" }
+
+      abbreviation_periods:
+        description: "French abbreviation period conventions"
+        rule: |
+          French abbreviations generally take a period when they are truncations:
+            M. (Monsieur), Dr (Docteur — last letter preserved, no period),
+            Mme (Madame — last letter preserved, no period),
+            Mlle (Mademoiselle — no period), Me (Maître — no period),
+            Prof. (Professeur — truncation, period).
+          The superscript convention (Mme, Mlle) signals the contraction visually
+          and traditionally omits the period.
+        examples:
+          - { raw: "M Dupont",     correct: "M. Dupont" }
+          - { raw: "Mme. Curie",   correct: "Mme Curie" }
+          - { raw: "Dr. Martin",   correct: "Dr Martin" }
+
+  # --------------------------------------------------------------------------
+  # GERMAN (DE-DE)
+  # --------------------------------------------------------------------------
+  de-DE:
+    inherits: universal
+    label: "Deutsch (Deutschland)"
+
+    overrides:
+
+      quotation:
+        primary:
+          open:  low_double_quote       # „
+          close: left_double_quote      # "  — note: OPENING quote used as closer
+          spacing: no_space
+        nested:
+          open:  left_single_angle_quote    # ‹
+          close: right_single_angle_quote   # ›
+          spacing: no_space
+        # Alternate style (Switzerland/books): » text «
+        font_risk: tier_3
+        fallback_note: >
+          Low-9 quote (U+201E) and single angle quotes (U+2039, U+203A)
+          are tier_3 — often missing in non-European fonts. Fallback:
+          low-9 quote -> straight double quote. Single angle quotes ->
+          single curly quotes -> straight single quotes.
+        notes: >
+          Some publishers use reversed angle quotes: >>text<< — define in
+          register if needed. Convention can vary by publisher, context, and
+          register. Swiss German and Austrian German may use different
+          quotation conventions.
+
+    additions:
+
+      parenthetical_dash:
+        description: "En dash with spaces — German convention"
+        resolves_to: en_dash
+        spacing: space_both
+
+      number_formatting:
+        decimal_separator: ","
+        thousands_separator: "."
+        currency_position: "after"      # 10,00 €
+        currency_spacing: nbsp_before
+        percent_spacing: nnbsp_before   # 50 % (space before, per ISO/DIN)
+        time_separator: ":"             # 14:30
+        time_format: "24h"
+        font_risk: tier_3
+        fallback_note: "NNBSP before % is tier_3. Fallback: NNBSP -> NBSP -> regular space."
+
+      eszett_capitalisation:
+        description: "Capital ẞ (U+1E9E) — preferred since 2024"
+        resolves_to: capital_sharp_s
+        rule: |
+          The capital form of ß is ẞ (U+1E9E), valid since 2017,
+          preferred since 2024 Rat für deutsche Rechtschreibung update.
+          STRAẞE preferred over STRASSE. Both remain legal.
+          Swiss German uses only ss — never ß or ẞ.
+          Never confuse ß with Greek β (U+03B2).
+        examples:
+          - { raw: "STRASSE",  correct: "STRA\u1E9E" }
+          - { raw: "GROSSE",   correct: "GRO\u1E9E" }
+        font_risk: tier_4
+        fallback_note: >
+          Capital sharp s (U+1E9E) is tier_4 — frequently missing from fonts.
+          Fall back to "SS" which remains the legal traditional capitalisation.
+          Check the font's cmap before emitting U+1E9E.
+
+      din5008_abbreviations:
+        description: "DIN 5008 abbreviation spacing with NNBSP"
+        rule: |
+          German multi-part abbreviations per DIN 5008:2020 require
+          narrow no-break space (U+202F) between parts:
+            z. B. (zum Beispiel), u. a. (unter anderem),
+            d. h. (das heißt), i. d. R. (in der Regel),
+            e. V. (eingetragener Verein), s. o. (siehe oben)
+        examples:
+          - { raw: "z.B.",   correct: "z.\u202FB." }
+          - { raw: "d.h.",   correct: "d.\u202Fh." }
+        font_risk: tier_3
+        fallback_note: >
+          Uses NNBSP (U+202F) which is tier_3. Fallback chain: NNBSP -> NBSP
+          (U+00A0) -> regular space. NBSP is acceptable in most contexts; the
+          visual difference is minor but the non-breaking property is preserved.
+
+      ligature_suppression:
+        description: "Suppress f-ligatures at morpheme boundaries in compounds — German is the primary case"
+        resolves_to: zwnj
+        rule: |
+          German compounds must NOT ligate across morpheme boundaries.
+          Insert ZWNJ (U+200C) at the boundary: Auf‌lage, Schiff‌fahrt,
+          Sauerstoff‌flasche, Kaufl‌eute, Dorfl‌eben, Senf‌fabrik,
+          Rück‌frage, Kampf‌flugzeug, Topf‌lappen.
+          This is a Duden requirement. The selnolig package maintains
+          ~2,000 German suppression patterns for automated use.
+        examples:
+          - { raw: "Auflage",           correct: "Auf\u200Clage" }
+          - { raw: "Schifffahrt",       correct: "Schiff\u200Cfahrt" }
+          - { raw: "Sauerstoffflasche", correct: "Sauerstoff\u200Cflasche" }
+          - { raw: "Kaufleute",         correct: "Kauf\u200Cleute" }
+          - { raw: "Senffabrik",        correct: "Senf\u200Cfabrik" }
+        notes: |
+          Duden requirement. The selnolig package has ~2,000 German suppression
+          patterns. German is by far the most affected language due to productive
+          compounding. When in doubt, do NOT insert ZWNJ — a false ligature is
+          less harmful than a broken word.
+
+      colon_capitalisation:
+        description: "Capitalise after colon only if a full sentence follows (Duden R 81)"
+        rule: |
+          German capitalises the word after a colon when what follows is a
+          complete sentence (vollständiger Satz). For fragments, enumerations,
+          and dependent clauses, use lowercase (unless a noun, which is always
+          capitalised in German).
+        examples:
+          - { raw: "Das Ergebnis war klar: er war schuldig.",
+              correct: "Das Ergebnis war klar: Er war schuldig.",
+              notes: "full sentence follows — capitalise" }
+          - { raw: "Er brachte mit: Brot, Käse und Wein.",
+              correct: "Er brachte mit: Brot, Käse und Wein.",
+              notes: "Brot is capitalised as a noun, not because of the colon" }
+
+      serial_comma:
+        description: "Serial comma prohibited in German"
+        rule: |
+          German does not use a comma before the final conjunction (und, oder)
+          in enumerations. This is a grammatical rule, not a style choice — the
+          Duden is explicit: no comma before und/oder in a simple enumeration.
+        examples:
+          - { raw: "rot, weiß, und blau",  correct: "rot, weiß und blau" }
+
+      quote_punctuation_placement:
+        description: "Logical punctuation placement in German"
+        rule: |
+          German uses logical placement: punctuation goes inside the closing
+          quotation mark only when it belongs to the quoted material.
+        examples:
+          - { raw: "Er nannte es \u201Egroßartig.\u201C",
+              correct: "Er nannte es \u201Egroßartig\u201C.",
+              notes: "period belongs to the outer sentence, placed after closing quote" }
+
+      footnote_mark_placement:
+        description: "Footnote marks placed AFTER punctuation in German"
+        rule: "German follows the same convention as English: footnote marks are placed after the punctuation mark (Duden)."
+        examples:
+          - { raw: "Typografie ist wichtig\u00B9.",  correct: "Typografie ist wichtig.\u00B9" }
+
+  # --------------------------------------------------------------------------
+  # ITALIAN (IT-IT)
+  # --------------------------------------------------------------------------
+  it-IT:
+    inherits: universal
+    label: "Italiano (Italia)"
+
+    overrides:
+
+      quotation:
+        primary:
+          open:  left_angle_quote       # «
+          close: right_angle_quote      # »
+          spacing: no_space             # «testo» — NO inner space (unlike PT-PT and FR-FR)
+        nested:
+          open:  left_double_quote      # "
+          close: right_double_quote     # "
+          spacing: no_space
+        tertiary:                       # Italian publishing often needs 3 levels
+          open:  left_single_quote      # '
+          close: right_single_quote     # '
+          spacing: no_space
+        font_risk: tier_3
+        fallback_note: >
+          Angle quotes (U+00AB, U+00BB) are tier_3 globally but tier_2 in
+          European fonts. Fallback: angle quotes -> curly double quotes ->
+          straight double quotes.
+        notes: 'Modern Italian editorial increasingly uses curly double quotes as primary — define as alternate style'
+        alternate_style:
+          primary:
+            open:  left_double_quote
+            close: right_double_quote
+            spacing: no_space
+          nested:
+            open:  left_single_quote
+            close: right_single_quote
+            spacing: no_space
+
+    additions:
+
+      dialogue_attribution:
+        description: "Lineetta for dialogue — Italian literary convention"
+        resolves_to: em_dash
+        spacing: space_after
+        rule: "Use em dash (lineetta) at line start for dialogue, followed by a regular space. For interrupting attributions, pair of em dashes with space after opening and space before closing."
+        examples:
+          - correct: "\u2014 Buongiorno \u2014 disse Marco \u2014, come stai?"
+        notes: "Some publishers prefer en dash with spaces for parenthetical interruptions within dialogue. Register-dependent."
+
+      parenthetical_dash:
+        description: "En dash or em dash for parenthetical asides"
+        resolves_to: en_dash
+        spacing: space_both
+        rule: "Italian editorial convention generally prefers en dash with spaces for parenthetical asides, reserving em dash for dialogue. Some publishers use em dash throughout."
+        examples:
+          - correct: "Il risultato \u2013 se ci puoi credere \u2013 è stato straordinario."
+        register_sensitive: true
+
+      ordinal_indicators:
+        description: "Ordinals with superscript indicator — gender and number sensitive"
+        rule: |
+          Italian ordinals use a superscript suffix that agrees in gender and number:
+            masculine singular: -o  (1° or 1.º)
+            feminine singular:  -a  (1ª or 1.a)
+            masculine plural:   -i  (primi → 1i in rare informal use)
+            feminine plural:    -e  (prime → 1e in rare informal use)
+          In formal typesetting, use the degree sign ° for masculine ordinal 
+          only when the font lacks a proper ordinal indicator, and prefer 
+          superscript letters otherwise.
+        resolves_to:
+          masculine: ordinal_indicator_masc    # °  (or superscript -o)
+          feminine:  ordinal_indicator_fem     # ª
+        examples:
+          - { raw: "il 1o piano",     correct: "il 1\u00BA piano" }
+          - { raw: "la 2a edizione",  correct: "la 2\u00AA edizione" }
+          - { raw: "il XX secolo",    correct: "il XX secolo" }  # roman numerals: no ordinal marker
+        notes: "Centuries and popes use Roman numerals without ordinal markers. 'Il Novecento' (capitalized) is preferred over 'il XX secolo' in literary register."
+
+      abbreviation_conventions:
+        description: "Italian abbreviation and truncation rules"
+        rule: |
+          Italian distinguishes between troncamento (truncation) and abbreviazione:
+            - Truncation drops the final part: dott. (dottore), prof. (professore), sig. (signore)
+            - When the last letter is preserved, no period: dott.ssa (dottoressa), sig.ra (signora)
+            - Feminine forms: dott.ssa, prof.ssa, sig.ra, sig.na
+            - Plural: sigg. (signori), dott.ri (dottori) — but often avoided in modern usage
+        examples:
+          - { raw: "Sig. Rossi",      correct: "sig. Rossi" }
+          - { raw: "Dott.ssa Bianchi", correct: "dott.ssa Bianchi" }
+        notes: "Capitalisation of titles varies by formality. In addresses and formal correspondence, capitalise (Sig., Dott.); in running text, lowercase (sig., dott.)."
+
+      accent_conventions:
+        description: "Grave vs acute accent on final vowels"
+        rule: |
+          Italian orthography requires correct accent direction on final stressed vowels:
+            - è (grave) = open e: è, cioè, caffè, ahimè
+            - é (acute) = closed e: perché, poiché, affinché, né, sé
+            - Always grave on other vowels: à, ì, ò, ù (città, così, però, più)
+          This is an orthographic rule, not typographic, but critically affects 
+          typographic correctness — the wrong accent is a misspelling.
+        anti_pattern:
+          - { char: "e'", name: "apostrophe used as accent substitute (keyboard laziness)" }
+          - { char: "perchè", name: "grave accent where acute is required" }
+        examples:
+          - { raw: "perche'",  correct: "perché" }
+          - { raw: "e'",       correct: "è" }
+          - { raw: "caffe'",   correct: "caffè" }
+          - { raw: "perchè",   correct: "perché" }
+
+      d_euphonic:
+        description: "Euphonic 'd' before same vowel"
+        rule: |
+          The conjunctions 'e' and 'o', and the preposition 'a', take a euphonic 'd' 
+          only when followed by a word starting with the same vowel:
+            - e + e → ed (ed ecco, ed erano)
+            - a + a → ad (ad andare, ad agosto)
+            - o + o → od (rare, increasingly avoided)
+          Do NOT use before different vowels: 'e inoltre' NOT 'ed inoltre'.
+        notes: "Modern editorial style is restrictive — some publishers avoid 'd' euphonic entirely except in fixed expressions like 'ad esempio'. Register-dependent."
+        register_sensitive: true
+
+      colon_capitalisation:
+        description: "Always lowercase after colon in Italian"
+        rule: "Italian does not capitalise after a colon, even when a full sentence follows. Only proper nouns retain capitalisation."
+        examples:
+          - { raw: "Il verdetto era chiaro: Era colpevole.",
+              correct: "Il verdetto era chiaro: era colpevole." }
+
+      serial_comma:
+        description: "Serial comma prohibited in Italian"
+        rule: |
+          Italian does not use a comma before the final conjunction (e, o, né)
+          in enumerations. This is standard across all Italian style guides.
+        examples:
+          - { raw: "rosso, bianco, e blu",  correct: "rosso, bianco e blu" }
+
+      quote_punctuation_placement:
+        description: "Logical punctuation placement in Italian"
+        rule: "Italian uses logical placement: punctuation goes inside the closing quotation mark only when it belongs to the quoted material."
+        examples:
+          - { raw: "Lo ha definito \u00ABmagniffico.\u00BB",
+              correct: "Lo ha definito \u00ABmagnifico\u00BB." }
+
+      footnote_mark_placement:
+        description: "Footnote marks placed AFTER punctuation in Italian"
+        rule: "Italian generally follows the after-punctuation convention for footnote marks, consistent with the majority European tradition."
+        examples:
+          - { raw: "La tipografia è importante\u00B9.",  correct: "La tipografia è importante.\u00B9" }
+
+      number_formatting:
+        decimal_separator: ","
+        thousands_separator: "."
+        currency_position: "after"      # 10,00 €
+        currency_spacing: nbsp_before
+        notes: "Older Italian convention sometimes places € before the amount in financial/banking contexts. Modern EU-aligned usage places it after."
+
+      # --- Batch 5: Micro-typography (IT-IT specifics) ---
+
+      small_caps_centuries:
+        description: "Roman-numeral centuries in small caps — Italian editorial convention"
+        type: rendering_hint
+        register_sensitive: true
+        rule: |
+          Italian editorial convention uses Roman numerals for centuries and
+          historical periods, set in small caps in literary/editorial registers:
+            il XIX secolo, il XVIII secolo, il Novecento
+          Note: "il Novecento" (capitalized) is preferred over "il XX secolo"
+          in literary register. Annotate Roman numerals for small-caps rendering.
+        examples:
+          - { raw: "il XIX secolo",
+              correct: "il XIX secolo",
+              notes: "annotate XIX for small-caps rendering in editorial register" }
+
+  # --------------------------------------------------------------------------
+  # SPANISH (ES-ES)
+  # --------------------------------------------------------------------------
+  es-ES:
+    inherits: universal
+    label: "Español (España)"
+
+    overrides:
+
+      quotation:
+        primary:
+          open:  left_angle_quote       # «
+          close: right_angle_quote      # »
+          spacing: no_space             # «texto» — no inner space, like Italian
+        nested:
+          open:  left_double_quote      # "
+          close: right_double_quote     # "
+          spacing: no_space
+        tertiary:
+          open:  left_single_quote      # '
+          close: right_single_quote     # '
+          spacing: no_space
+        register_sensitive: true
+        register_behaviour:
+          editorial_literary:
+            primary_quotes: "angle_quotes"    # « » (RAE convention)
+            inner_spacing: "thin_space"       # « text » with thin inner spaces in literary register
+            notes: "Formal publishing in Spain uses angle quotes following RAE convention."
+          marketing_ui:
+            primary_quotes: "curly_doubles"   # " "
+            notes: "Informal and digital contexts increasingly use English-style double quotes."
+        font_risk: tier_3
+        fallback_note: >
+          Angle quotes (U+00AB, U+00BB) are tier_3 globally but tier_2 in
+          European fonts. Fallback: angle quotes -> curly double quotes ->
+          straight double quotes.
+        notes: >
+          Formal publishing in Spain uses angle quotes following RAE convention.
+          Informal and digital contexts increasingly use English-style double
+          quotes. Convention can vary by publisher, context, and register.
+          RAE prescribes angle quotes as primary, but modern publishing and
+          journalism increasingly use curly doubles, especially in newspapers.
+        alternate_style:
+          primary:
+            open:  left_double_quote
+            close: right_double_quote
+            spacing: no_space
+          nested:
+            open:  left_single_quote
+            close: right_single_quote
+            spacing: no_space
+
+    additions:
+
+      inverted_punctuation:
+        description: "Opening inverted question and exclamation marks"
+        rule: |
+          Spanish requires inverted marks at the START of interrogative or 
+          exclamatory clauses — not necessarily at sentence start:
+            - ¿Cómo estás? 
+            - Si quieres, ¿por qué no vienes?
+            - ¡Qué maravilla!
+          The inverted mark opens the clause where the intonation shifts, which 
+          may be mid-sentence. Omitting inverted marks is a common error in 
+          digital communication and a high-value correction target.
+        resolves_to:
+          question: inverted_question       # ¿
+          exclamation: inverted_exclamation  # ¡
+        anti_pattern:
+          - { char: "Como estas?",  name: "missing inverted question mark" }
+          - { char: "Que bien!",    name: "missing inverted exclamation mark" }
+        examples:
+          - { raw: "Que hora es?",                    correct: "¿Qué hora es?" }
+          - { raw: "Si quieres, por que no vienes?",  correct: "Si quieres, ¿por qué no vienes?" }
+          - { raw: "Que maravilla!",                  correct: "¡Qué maravilla!" }
+        notes: "Combined forms ¿¡...!? or ¡¿...?! are acceptable for simultaneous question-exclamation."
+
+      dialogue_attribution:
+        description: "Raya for dialogue — Spanish literary convention"
+        resolves_to: em_dash
+        spacing: no_space
+        rule: |
+          Spanish uses raya (em dash) for dialogue with specific spacing rules 
+          distinct from other Romance languages:
+            - Opening raya: NO space before text, space implied by line start
+            - Attribution raya: space before, NO space after if followed by verb
+            - Closing raya: space before, followed by punctuation with no space
+          RAE specifies that the raya joins to the attribution verb.
+        examples:
+          - correct: "\u2014Buenas tardes \u2014dijo él\u2014. ¿Cómo estás?"
+          - correct: "\u2014No lo sé \u2014respondió María."
+        notes: "Note the asymmetry: opening raya has no space after, but attribution rayas have space before. This is different from Portuguese travessão convention."
+
+      parenthetical_dash:
+        description: "Raya for parenthetical asides — with spaces"
+        resolves_to: em_dash
+        spacing: space_both
+        rule: "Em dash (raya) with spaces for parenthetical insertions in non-dialogue context. The closing raya is omitted if it would fall before a period."
+        examples:
+          - correct: "El resultado \u2014si puedes creerlo\u2014 fue extraordinario."
+          - correct: "Fue extraordinario \u2014si puedes creerlo."
+
+      ordinal_indicators:
+        description: "Ordinals with superscript — gender sensitive, no period"
+        rule: |
+          Spanish ordinals use superscript suffix agreeing in gender and number, 
+          WITHOUT a period (unlike Portuguese):
+            masculine singular: 1.º (with period per RAE 2010, previously 1º)
+            feminine singular:  1.ª (with period per RAE 2010, previously 1ª)
+          RAE's 2010 Ortografía introduced the period before the indicator.
+          Older convention without period is still widely seen.
+        resolves_to:
+          masculine: ordinal_indicator_masc
+          feminine:  ordinal_indicator_fem
+        examples:
+          - { raw: "1er piso",    correct: "1.\u00BA piso" }
+          - { raw: "2a edicion",  correct: "2.\u00AA edición" }
+          - { raw: "1o lugar",    correct: "1.\u00BA lugar" }
+        notes: "Primer/tercer apocopate forms (1.er, 3.er) are also accepted by RAE."
+
+      accent_conventions:
+        description: "Tilde and diacritical accent rules"
+        rule: |
+          Spanish accent marks follow predictable stress rules, but certain 
+          high-frequency errors are typographic correction targets:
+            - Interrogative/exclamatory words always accented: qué, cómo, dónde, cuándo, quién, cuál, cuánto
+            - Monosyllable disambiguation (tilde diacrítica): sí/si, él/el, tú/tu, mí/mi, más/mas, sé/se, té/te, dé/de
+            - Solo: RAE now recommends no accent on 'solo' (adverb) in any case
+            - Demonstratives: no accent on este/ese/aquel as pronouns (RAE 2010)
+        anti_pattern:
+          - { char: "como estas",   name: "missing accent on cómo and estás in question" }
+          - { char: "el dijo",      name: "missing accent on él (pronoun vs article)" }
+        examples:
+          - { raw: "Que quieres?",  correct: "¿Qué quieres?" }
+          - { raw: "el dijo que si", correct: "él dijo que sí" }
+
+      colon_capitalisation:
+        description: "Always lowercase after colon in Spanish"
+        rule: |
+          Spanish does not capitalise after a colon except in the salutation of
+          a letter (Estimado señor: Le escribo...) and after labels like
+          Nota: or Ejemplo:. In running prose, always lowercase.
+        examples:
+          - { raw: "El veredicto fue claro: Él era culpable.",
+              correct: "El veredicto fue claro: él era culpable." }
+
+      serial_comma:
+        description: "Serial comma prohibited in Spanish"
+        rule: |
+          Spanish does not use a comma before the final conjunction (y, e, o, u, ni)
+          in enumerations. RAE is explicit: no comma before the conjunction in a
+          simple series. A comma may appear before the conjunction only when the last
+          element is a complex clause that could cause ambiguity, but this is rare.
+        examples:
+          - { raw: "rojo, blanco, y azul",  correct: "rojo, blanco y azul" }
+
+      quote_punctuation_placement:
+        description: "Logical punctuation placement in Spanish"
+        rule: "Spanish uses logical placement: punctuation goes inside the closing quotation mark only when it belongs to the quoted material."
+        examples:
+          - { raw: "Lo llamó \u00ABmagnífico.\u00BB",
+              correct: "Lo llamó \u00ABmagnífico\u00BB." }
+
+      footnote_mark_placement:
+        description: "Footnote marks placed BEFORE punctuation in Spanish"
+        rule: |
+          Spanish convention (RAE) places the footnote superscript mark before
+          the punctuation, similar to French convention.
+        examples:
+          - { raw: "La tipografía es importante.\u00B9",
+              correct: "La tipografía es importante\u00B9." }
+
+      number_formatting:
+        decimal_separator: ","
+        thousands_separator: "."       # RAE also accepts space
+        currency_position: "after"     # 10,00 €
+        currency_spacing: nbsp_before
+        notes: "RAE accepts both period and space as thousands separator. In financial contexts, period is standard."
+
+      # --- Batch 5: Micro-typography (ES-ES specifics) ---
+
+      small_caps_centuries:
+        description: "Roman-numeral centuries and era references in small caps"
+        type: rendering_hint
+        register_sensitive: true
+        rule: |
+          Spanish editorial convention uses Roman numerals for centuries,
+          set in small caps in literary/editorial registers:
+            el siglo XIX, el siglo XVIII, el siglo XXI
+          Also applies to dynasty/era numbering: Felipe II, Carlos V.
+          In marketing/UI registers, full caps is acceptable.
+        examples:
+          - { raw: "el siglo XIX",
+              correct: "el siglo XIX",
+              notes: "annotate XIX for small-caps rendering in editorial register" }
+
+  # --------------------------------------------------------------------------
+  # SPANISH (ES-MX / Latin America)
+  # --------------------------------------------------------------------------
+  es-MX:
+    inherits: es-ES
+    label: "Español (México / Latinoamérica)"
+
+    overrides:
+
+      quotation:
+        primary:
+          open:  left_double_quote      # "  — LatAm strongly prefers curly doubles
+          close: right_double_quote     # "
+          spacing: no_space
+        nested:
+          open:  left_single_quote      # '
+          close: right_single_quote     # '
+          spacing: no_space
+        notes: "Latin American Spanish almost never uses « » in practice, despite RAE prescription. Curly doubles are the universal standard across LatAm publishing, journalism, and digital."
+
+      # inverted_punctuation: inherited from ES-ES — same rules apply
+
+      number_formatting:
+        decimal_separator: "."         # LatAm follows US convention
+        thousands_separator: ","       # 1,000.00
+        currency_position: "before"    # $10.00 (peso sign before)
+        currency_spacing: no_space
+        notes: "Currency conventions vary by country. Mexico uses $ before with no space. Argentina, Colombia similar. Some countries use period as thousands separator like Spain."
+
+  # --------------------------------------------------------------------------
+  # SARDINIAN (SC)
+  # --------------------------------------------------------------------------
+  # Sardinian has no single codified standard — Limba Sarda Comuna (LSC) is
+  # the institutional reference but not universally adopted. Campidanese and
+  # Logudorese are the two major macro-varieties. Typography follows Italian
+  # conventions with specific orthographic additions.
+  # --------------------------------------------------------------------------
+  sc:
+    inherits: it-IT
+    label: "Sardu (Limba Sarda Comuna)"
+
+    overrides:
+
+      quotation:
+        # Follows Italian convention — « » primary, no inner spaces
+        # No override needed, inherited from IT-IT
+        notes: 'Sardinian publishing largely follows Italian typographic conventions for quotation marks. Some community publications use curly doubles following informal digital norms.'
+
+    additions:
+
+      orthographic_conventions:
+        description: "LSC-specific orthographic features affecting typographic correctness"
+        rule: |
+          Limba Sarda Comuna established conventions that affect typesetting:
+            - Digraphs: tz, dd, x have phonemic value and must not be split at line breaks
+            - Accents: grave accent on final stressed vowels (like Italian): libertade → libertà is NOT applied in Sardinian; the full form is preserved
+            - The apostrophe is used for elision: s'abba (the water), s'istiu (the summer), d'oe (from today)
+            - No accent on monosyllables unless disambiguating (unlike Italian and Spanish)
+          These are orthographic, not typographic, but affect correctness validation.
+        examples:
+          - { raw: "s' abba",    correct: "s'abba" }      # no space after apostrophe in elision
+          - { raw: "s 'abba",    correct: "s'abba" }      # no space before apostrophe either
+          - { raw: "d' oe",      correct: "d'oe" }
+
+      elision_apostrophe:
+        description: "Apostrophe for article elision — no surrounding spaces"
+        resolves_to: apostrophe
+        spacing: no_space
+        rule: "Sardinian articles and prepositions elide before vowels using a typographic apostrophe with no spaces: s'abba, s'ómine, d'oe, b'est. The apostrophe joins directly to both the preceding consonant and the following word."
+        anti_pattern:
+          - { char: "s' ", name: "space after elision apostrophe" }
+          - { char: " '",  name: "space before elision apostrophe" }
+
+      dialect_notes:
+        description: "Campidanese and Logudorese variant considerations"
+        rule: |
+          The two major varieties have some typographic implications:
+            - Campidanese uses -x- digraph more frequently (e.g., "axi" = garlic)
+            - Logudorese preserves Latin -k- in some words (e.g., "kelu" = sky)
+            - Both use dd for retroflex /ɖ/ — this is a single phoneme and should not be hyphenated between lines
+          LSC attempts to bridge both, but texts may be explicitly Campidanese or Logudorese. The typography rules apply identically; only orthographic choices differ.
+        notes: "When typesetting dialect-specific text, preserve the author's orthographic choices. The typographic layer (quotes, dashes, spacing) is identical across varieties."
+
+      number_formatting:
+        # Inherited from IT-IT — same conventions
+        notes: "Sardinian follows Italian number formatting conventions."
+
+  # --------------------------------------------------------------------------
+  # DUTCH (NL-NL)
+  # --------------------------------------------------------------------------
+  nl-NL:
+    inherits: universal
+    label: "Nederlands (Nederland)"
+
+    overrides:
+
+      quotation:
+        primary:
+          open:  left_double_quote       # "
+          close: right_double_quote      # "
+          spacing: no_space
+        nested:
+          open:  left_single_quote       # '
+          close: right_single_quote      # '
+          spacing: no_space
+        notes: |
+          Dutch uses the same curly quote system as American English. Some older 
+          or literary publications use „ " (low-9 opening, like German) or 
+          » « (reversed guillemets, Flemish tradition). Modern standard is " ".
+        alternate_style:
+          # Flemish / older literary style
+          primary:
+            open:  low_double_quote        # „
+            close: left_double_quote       # "  — same German-style closer
+            spacing: no_space
+          nested:
+            open:  low_single_quote        # U+201A
+            close: left_single_quote       # '
+            spacing: no_space
+          font_risk: tier_3
+          fallback_note: >
+            Low-9 quotes (U+201E, U+201A) are tier_3. Fallback: low-9
+            quote -> straight double/single quote.
+
+    additions:
+
+      parenthetical_dash:
+        description: "En dash with spaces for parenthetical asides"
+        resolves_to: en_dash
+        spacing: space_both
+        rule: "Dutch follows the British/German convention of en dash with spaces for parenthetical interruptions."
+        examples:
+          - correct: "Het resultaat \u2013 als je het kunt geloven \u2013 was buitengewoon."
+
+      ij_digraph:
+        description: "IJ as a single unit in capitalisation"
+        rule: |
+          The digraph IJ functions as a single letter in Dutch:
+            - When capitalising a word starting with ij, both letters capitalise: IJsselmeer, IJzer, not Ijsselmeer
+            - In title case: "Het IJsselmeer" not "Het Ijsselmeer"
+            - In all-caps: IJSSELMEER
+          This is an orthographic rule with direct typographic consequences for 
+          any system doing automated case conversion.
+        anti_pattern:
+          - { char: "Ijsselmeer", name: "only first letter of IJ capitalised" }
+          - { char: "Ijzer",      name: "only first letter of IJ capitalised" }
+        examples:
+          - { raw: "Ijsselmeer",  correct: "IJsselmeer" }
+          - { raw: "Ijmuiden",    correct: "IJmuiden" }
+
+      abbreviation_conventions:
+        description: "Dutch abbreviation and spacing rules"
+        rule: |
+          Dutch abbreviations follow specific patterns:
+            - Multi-letter abbreviations with periods get no spaces: a.u.b., bijv., d.w.z., m.b.t.
+            - Initials of persons get spaces: J. P. Coen (not J.P. Coen)
+            - Calendar abbreviations: ma., di., wo., do., vr., za., zo.
+            - Ordinals: 1e, 2e, 3e (with superscript e in formal typesetting)
+        examples:
+          - { raw: "a. u. b.",    correct: "a.u.b." }
+          - { raw: "J.P. Coen",   correct: "J. P. Coen" }
+
+      colon_capitalisation:
+        description: "Always lowercase after colon in Dutch"
+        rule: "Dutch does not capitalise after a colon, even when a full sentence follows."
+        examples:
+          - { raw: "Het oordeel was duidelijk: Hij was schuldig.",
+              correct: "Het oordeel was duidelijk: hij was schuldig." }
+
+      serial_comma:
+        description: "Serial comma prohibited in Dutch"
+        rule: |
+          Dutch does not use a comma before the final conjunction (en, of) in
+          enumerations. Standard Dutch grammar treats the conjunction as sufficient.
+        examples:
+          - { raw: "rood, wit, en blauw",  correct: "rood, wit en blauw" }
+
+      quote_punctuation_placement:
+        description: "Logical punctuation placement in Dutch"
+        rule: "Dutch uses logical placement: punctuation goes inside the closing quotation mark only when it belongs to the quoted material."
+        examples:
+          - { raw: "Hij noemde het \u201Cprachtig.\u201D",
+              correct: "Hij noemde het \u201Cprachtig\u201D." }
+
+      footnote_mark_placement:
+        description: "Footnote marks placed AFTER punctuation in Dutch"
+        rule: "Dutch follows the after-punctuation convention for footnote marks."
+        examples:
+          - { raw: "Typografie is belangrijk\u00B9.",  correct: "Typografie is belangrijk.\u00B9" }
+
+      number_formatting:
+        decimal_separator: ","
+        thousands_separator: "."
+        currency_position: "before"      # €10,00
+        currency_spacing: nbsp_after     # € 10,00 (space after symbol)
+        notes: "Dutch places the euro sign before the amount with a space: € 10,00. This differs from most other European conventions."
+
+  # --------------------------------------------------------------------------
+  # DUTCH (NL-BE / Flemish)
+  # --------------------------------------------------------------------------
+  nl-BE:
+    inherits: nl-NL
+    label: "Nederlands (België / Vlaams)"
+
+    overrides:
+
+      quotation:
+        primary:
+          open:  left_double_quote       # "  — same as NL-NL in modern usage
+          close: right_double_quote      # "
+          spacing: no_space
+        nested:
+          open:  left_single_quote
+          close: right_single_quote
+          spacing: no_space
+        notes: >
+          Flemish Belgian Dutch historically used low-9 quotes or French-influenced
+          guillemets, but modern usage has largely converged with NL-NL on curly doubles.
+          Some publishers still use guillemets.
+
+      # ij_digraph: inherited from NL-NL — same rules
+      # abbreviation_conventions: inherited — same rules
+
+      number_formatting:
+        decimal_separator: ","
+        thousands_separator: "."
+        currency_position: "after"       # 10,00 €  — Belgian convention follows EU/French style
+        currency_spacing: nbsp_before
+        notes: "Belgian Dutch places euro sign after the amount, following Belgian/French convention rather than Dutch convention."
+
+  # --------------------------------------------------------------------------
+  # ROMANIAN (RO-RO)
+  # --------------------------------------------------------------------------
+  ro-RO:
+    inherits: universal
+    label: "Română (România)"
+
+    overrides:
+
+      quotation:
+        primary:
+          open:  low_double_quote        # „
+          close: right_double_quote      # "
+          spacing: no_space
+        nested:
+          open:  left_angle_quote        # «
+          close: right_angle_quote       # »
+          spacing: no_space
+        font_risk: tier_3
+        fallback_note: >
+          Low-9 quote (U+201E) is tier_3. Fallback: low-9 quote -> straight
+          double quote. Nested angle quotes -> curly double quotes -> straight
+          double quotes.
+        notes: >
+          Romanian uses the same low-9 opening quote as German (U+201E) but closes
+          with the standard right double quote (U+201D) rather than the German left
+          double quote closer. Nested quotes use guillemets without inner spaces.
+        examples:
+          - raw: '"Bună ziua" a spus el.'
+            correct: "\u201EBună ziua\u201D a spus el."
+          - raw: 'El a spus "ea a zis "salut" ieri".'
+            correct: "\u201EEl a spus «ea a zis «salut» ieri»\u201D."
+
+    additions:
+
+      diacritic_correctness:
+        description: "Comma-below vs cedilla — the most critical Romanian typographic rule"
+        rule: |
+          Romanian uses COMMA BELOW diacritics, NOT cedilla:
+            - Correct: ș (U+0219) — S with comma below
+            - Wrong:   ş (U+015F) — S with cedilla (Turkish character)
+            - Correct: ț (U+021B) — T with comma below
+            - Wrong:   ţ (U+0163) — T with cedilla (Turkish character)
+          This is the single most common Romanian typographic error, caused by 
+          legacy encodings and keyboard layouts that mapped to the wrong Unicode 
+          codepoints. Many fonts render them identically, making the error invisible 
+          on screen but present in the data — affecting search, sorting, and 
+          text processing.
+        resolves_to:
+          s_correct: s_comma_below
+          t_correct: t_comma_below
+        anti_pattern:
+          - { char: "\u015F", name: "S with cedilla (Turkish, wrong for Romanian)" }
+          - { char: "\u0163", name: "T with cedilla (Turkish, wrong for Romanian)" }
+        examples:
+          - { raw: "România",    correct: "România" }      # ã is correct
+          - { raw: "şcoală",     correct: "școală" }       # cedilla → comma below
+          - { raw: "ţară",       correct: "țară" }         # cedilla → comma below
+          - { raw: "Bucureşti",  correct: "București" }
+          - { raw: "cunoştinţe", correct: "cunoștințe" }
+        notes: "This correction should be applied aggressively — there is no valid use of ş or ţ in Romanian text. The cedilla forms are always wrong."
+        font_risk: tier_4
+        fallback_note: >
+          Comma-below characters (U+0219 ș, U+021B ț) are tier_4 — missing
+          from many non-European fonts. Fallback: use the cedilla forms
+          (U+015F ş, U+0163 ţ) which are more widely supported. The cedilla
+          forms are orthographically wrong for Romanian but visually close and
+          vastly preferable to tofu. Many fonts render both identically anyway.
+
+      dialogue_attribution:
+        description: "Linie de dialog (dash) for dialogue"
+        resolves_to: em_dash
+        spacing: space_after
+        rule: |
+          Romanian uses em dash (linie de dialog) for dialogue, similar to 
+          Portuguese and French conventions:
+            — Bună ziua! spuse el.
+            — Mulțumesc, răspunse ea.
+          Space after the opening dash, space before attribution dashes.
+        examples:
+          - correct: "\u2014 Bună ziua! spuse el."
+          - correct: "\u2014 Nu știu \u2014 răspunse ea \u2014, dar voi încerca."
+
+      parenthetical_dash:
+        description: "En dash with spaces for parenthetical asides"
+        resolves_to: en_dash
+        spacing: space_both
+        rule: "Romanian editorial convention uses en dash with spaces for parenthetical interruptions."
+        examples:
+          - correct: "Rezultatul \u2013 dacă poți crede \u2013 a fost extraordinar."
+
+      accent_conventions:
+        description: "Romanian diacritics — â/î distinction"
+        rule: |
+          Romanian uses five diacritics: ă, â, î, ș, ț. The â/î distinction 
+          follows specific rules:
+            - â is used word-internally: România, câine, pâine
+            - î is used word-initially and word-finally: în, început, coborî
+            - Exception: the word "sunt" has no diacritic (not "sînt" — old orthography)
+          The 1993 orthographic reform reinstated â where the pre-1953 reform 
+          had replaced it with î. Texts using the old orthography (î everywhere) 
+          may need modernisation.
+        anti_pattern:
+          - { char: "Romînia",  name: "old orthography î instead of â" }
+          - { char: "cîine",    name: "old orthography î instead of â" }
+          - { char: "sînt",     name: "old orthography — modern form is 'sunt'" }
+        examples:
+          - { raw: "Romînia",   correct: "România" }
+          - { raw: "cîine",     correct: "câine" }
+
+      colon_capitalisation:
+        description: "Always lowercase after colon in Romanian"
+        rule: "Romanian does not capitalise after a colon in standard prose. Only proper nouns retain capitalisation."
+        examples:
+          - { raw: "Verdictul a fost clar: El era vinovat.",
+              correct: "Verdictul a fost clar: el era vinovat." }
+
+      serial_comma:
+        description: "Serial comma prohibited in Romanian"
+        rule: |
+          Romanian does not use a comma before the final conjunction (și, sau, nici)
+          in enumerations.
+        examples:
+          - { raw: "roșu, alb, și albastru",  correct: "roșu, alb și albastru" }
+
+      quote_punctuation_placement:
+        description: "Logical punctuation placement in Romanian"
+        rule: "Romanian uses logical placement: punctuation goes inside the closing quotation mark only when it belongs to the quoted material."
+        examples:
+          - { raw: "El l-a numit \u201Emagnific.\u201D",
+              correct: "El l-a numit \u201Emagnific\u201D." }
+
+      footnote_mark_placement:
+        description: "Footnote marks placed AFTER punctuation in Romanian"
+        rule: "Romanian follows the after-punctuation convention for footnote marks."
+        examples:
+          - { raw: "Tipografia este importantă\u00B9.",  correct: "Tipografia este importantă.\u00B9" }
+
+      number_formatting:
+        decimal_separator: ","
+        thousands_separator: "."
+        currency_position: "after"       # 10,00 lei
+        currency_spacing: nbsp_before
+        notes: "Romanian leu (lei) follows European convention with currency after the amount. For euro amounts, same pattern: 10,00 €."
+
+
+# ============================================================================
+# 4. REGISTERS
+# ============================================================================
+# Context-dependent overrides within a language.
+# A register inherits its parent language and adjusts for use case.
+# ============================================================================
+
+registers:
+
+  editorial:
+    description: "Long-form publishing, books, journalism"
+    applies_to: ["all_languages"]
+    preferences:
+      serial_comma: true        # where language supports it
+      dash_style: "language_default"
+      quotation_style: "language_default"
+      number_style: "formal"    # spell out one through nine
+      # Batch 5 micro-typography
+      acronym_style: "small_caps"           # 3+ letter acronyms in small caps
+      figure_style: "oldstyle_proportional" # onum + pnum for body text
+      caps_tracking: true                   # 5-12% letter-spacing on caps/small-caps
+
+  marketing:
+    description: "Brand copy, landing pages, advertising"
+    applies_to: ["all_languages"]
+    preferences:
+      serial_comma: false       # brevity over disambiguation
+      dash_style: "language_default"
+      quotation_style: "language_default"
+      number_style: "numeric"   # always use figures for impact
+      # Batch 5 micro-typography
+      acronym_style: "full_caps"            # full caps for visual impact
+      figure_style: "lining_tabular"        # lnum + tnum for clarity
+      caps_tracking: true                   # tracking still applies
+
+  ui:
+    description: "User interface strings, microcopy"
+    applies_to: ["all_languages"]
+    preferences:
+      serial_comma: false
+      dash_style: "en_dash"     # en dash preferred in UI regardless of language
+      ellipsis: true            # trailing ellipsis for truncation
+      number_style: "numeric"
+      sentence_case: true       # prefer sentence case over title case
+      # Batch 5 micro-typography
+      acronym_style: "full_caps"            # full caps acceptable in UI
+      figure_style: "lining_tabular"        # lnum + tnum for alignment
+      caps_tracking: true                   # tracking still applies
+
+  literary:
+    description: "Fiction, poetry, creative prose"
+    applies_to: ["all_languages"]
+    preferences:
+      serial_comma: "language_default"
+      dash_style: "language_default"
+      dialogue: "language_default"  # travessão in PT, tiret in FR, quotes in EN
+      number_style: "spelled_out"   # spell out most numbers
+      # Batch 5 micro-typography
+      acronym_style: "small_caps"           # small caps for acronyms
+      figure_style: "oldstyle_proportional" # oldstyle figures blend with text
+      caps_tracking: true                   # tracking on caps/small-caps
+
+
+# ============================================================================
+# 5. RESOLUTION LOGIC
+# ============================================================================
+# How the system resolves a typographic decision at runtime.
+# This is the algorithm, expressed declaratively.
+# ============================================================================
+
+resolution:
+  order:
+    - register         # most specific context wins
+    - language         # language-specific rule
+    - universal        # fallback baseline
+  
+  process:
+    description: |
+      1. Identify the SEMANTIC INTENT of the typographic element
+         (e.g., "this is a parenthetical aside", "this is a range")
+      2. Check if the active REGISTER overrides the default behavior
+      3. Resolve via the LANGUAGE layer for the target locale
+      4. Fall back to UNIVERSAL if no language-specific rule exists
+      5. Map the semantic rule to its PRIMITIVE(s)
+      6. Apply spacing pattern from the resolved rule
+      7. Emit the corrected text with proper Unicode characters
+
+  example_trace:
+    input: 'The result - if you can believe it - was extraordinary.'
+    language: en-US
+    register: editorial
+    steps:
+      - { step: "identify", result: "parenthetical_dash" }
+      - { step: "register", result: "editorial says 'language_default'" }
+      - { step: "language", result: "en-US.parenthetical_dash → em_dash, no_space" }
+      - { step: "primitive", result: "U+2014 (EM DASH)" }
+      - { step: "spacing",  result: "no_space (before: '', after: '')" }
+      - { step: "output",   result: "The result\u2014if you can believe it\u2014was extraordinary." }
+
+
+# ============================================================================
+# 6. TRAINING PAIR GENERATION SPEC
+# ============================================================================
+# How to derive fine-tuning examples from this schema.
+# ============================================================================
+
+training:
+  pair_types:
+
+    correction:
+      description: "Given raw text, produce typographically correct output"
+      format:
+        instruction: "Correct the typography in the following {language} text for {register} use."
+        input: "{raw_text}"
+        output: "{corrected_text}"
+      source: "Generated from rule examples + synthetic variations"
+
+    detection:
+      description: "Given text, identify typographic errors"
+      format:
+        instruction: "Identify typographic errors in this {language} text."
+        input: "{text_with_errors}"
+        output: "Error at position {n}: {description}. Should be: {correction}. Rule: {semantic_rule_id}"
+
+    cross_language:
+      description: "Same content, different typographic treatment per language"
+      format:
+        instruction: "Apply {target_language} typography conventions to this text."
+        input: "{source_text}"
+        output: "{retyped_text}"
+      notes: "Most valuable for training language-sensitivity. Use parallel sentences."
+
+    explanation:
+      description: "Explain which rule applies and why"
+      format:
+        instruction: "Why is this typographic choice correct/incorrect in {language}?"
+        input: "{text_sample}"
+        output: "{explanation referencing semantic rule → primitive}"
+
+  generation_strategy:
+    - "For each language, generate 200-500 correction pairs from rule examples"
+    - "Introduce common errors as synthetic negative examples (straight quotes, wrong dashes, etc.)"
+    - "Create 50-100 cross-language parallel pairs per language pair"
+    - "Weight dialogue/quotation examples heavily — highest error frequency in practice"
+    - "Include edge cases: nested quotes 3+ levels, mixed-language passages, URLs in text"

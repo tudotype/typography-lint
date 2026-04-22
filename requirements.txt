@@ -1,0 +1,16 @@
+# Core — always needed
+pyyaml>=6.0
+
+# Font-awareness gate (Layer 3)
+# fonttools is optional — font_gate.py works in conservative mode without it
+fonttools>=4.0.0
+# For .woff/.woff2 font support:
+brotli>=1.0.0
+
+# Training — Apple Silicon (MLX)
+mlx>=0.18.0
+mlx-lm>=0.19.0
+numpy
+
+# Install with: pip install -r requirements.txt
+# Requires macOS on Apple Silicon (M1/M2/M3)

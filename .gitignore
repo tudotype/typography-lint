@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.DS_Store
+typography-lora/
+*.jsonl
+schema-review.html
+training-pair-review.html
+results-*.json
+getting-started.md
