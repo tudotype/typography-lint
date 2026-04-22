@@ -678,7 +678,64 @@ The model layer is doing genuine work on the fuzzy rules. Combined pipeline (lin
 
 ### Git
 
-v3 commit: `2dff4ff` — "pipeline: LoRA v3 — targeted template expansion, rank 32"
+v3 commit: `5d957a4` — "pipeline: LoRA v4 — rank 32, targeted template fills for remaining failures"
+
+---
+
+## 2026-04-22 — Session 4: LoRA v4 — 3B ceiling confirmed
+
+### What changed from v3
+
+- LoRA rank: 16 → 32, alpha 32 → 64
+- +276 new correction pairs (ellipsis ×14, quotation ×27, colon_capitalisation ×14, footnote ×14, DIN5008 ×7, single_letter ×9)
+- 2927 training pairs total (vs 2720 in v3)
+- 7836 iterations, 89m 37s. Final val loss: **0.119** (identical to v3: 0.119)
+
+### v4 eval results
+
+| Metric | v3 | v4 | Delta |
+|---|---|---|---|
+| Exact matches | 23/83 (27.7%) | 23/83 (27.7%) | 0 |
+| Avg similarity | 90.0% | 88.9% | −1.1% |
+| Regressions | 15 | 15 | 0 |
+
+Net: pure churn. +1 de-DE/homoglyph_detection, −1 en-US/quotation. No clear progress.
+
+### Diagnosis confirmed: 3B base model ceiling
+
+The val loss plateau is **not** a LoRA rank issue. Rank 32 produced the same floor (0.119) as rank 16. The remaining failures all require either:
+
+1. **Invisible Unicode emission** — NBSP (U+00A0), NNBSP (U+202F), ZWNJ (U+200C) are invisible in the tokeniser. The 3B model's Unicode representation isn't strong enough to reliably produce specific invisible codepoints in novel contexts.
+
+2. **Anti-semantic instruction-following** — words like "Auflage", "Corp.", "p." trigger the model's language knowledge and it paraphrases/expands instead of applying a typographic rule. A stronger instruction-following prior is needed.
+
+### Where v4 lands in the full pipeline
+
+Combined lint (66/83) + model handling some of the remaining 17:
+- Model adds value on: colon capitalisation, serial comma, quotation marks, capital accents, footnote placement — all rules that need language understanding
+- Model fails on: invisible char insertion (NBSP/NNBSP/ZWNJ), semantic override (Corp., Auflage, p.), bidi isolates
+
+The model layer is doing genuine typographic work. The failure modes are structural, not fixable by adding more pairs at 3B scale.
+
+### Paths forward
+
+**Option A — Mistral 7B** (`mlx-community/Mistral-7B-Instruct-v0.3-4bit`, already in `MODEL_MAP`):
+- Better Unicode representation and stronger instruction-following prior
+- ~3h training run per iteration vs ~90min for 3B
+- Expected: significant improvement on invisible char rules; anti-semantic failures also likely improve
+- Risk: needs more GPU memory (~12GB vs ~6GB) — M2 Max should handle it
+
+**Option B — Move invisible char rules to lint**:
+- NBSP/NNBSP/ZWNJ insertion is deterministic — it belongs in Layer 1 anyway
+- Already partially done (single_letter NBSP, title NBSP, high_punctuation NNBSP)
+- Completing this would add ~8 cases to the lint score and remove them from the model's burden
+- Pure guaranteed win, no training cost
+
+**Option C — Both**: move invisible chars to lint, then train Mistral 7B on the remaining genuinely fuzzy rules.
+
+### Git
+
+v4 commit: `5d957a4` — "pipeline: LoRA v4 — rank 32, targeted template fills for remaining failures"
 
 ---
 
