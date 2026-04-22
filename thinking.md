@@ -586,3 +586,97 @@ Added `clean_prediction()` post-processing in `eval_typography.py` to strip trai
 
 v2 commit: `685337b` — "pipeline: LoRA v2 — 12 epochs, correction-only training, output cleaning"
 
+---
+
+## 2026-04-22 — Session 3: LoRA v3 — targeted template expansion
+
+### What changed from v2
+
+Targeted additions to `generate_dataset.py` in all three failure buckets:
+
+| Template area | v2 pairs | v3 pairs | Key fix |
+|---|---|---|---|
+| `measurements` | 4 | 10 | `2560x1440`, print sizes |
+| `ordinals` es-ES | 3 | 8 | `3.º piso` — ordinal indicator, not word form |
+| `french_spacing` (NNBSP) | 5 | 18 | Full sentences with `?`, `:`, `;`, `!` |
+| `nbsp_obligations` | 13 | 22 | Anti-paraphrase: `p. 42` → `p.\xa042` not `page 42` |
+| `single_letter_line_end` | 9 | 19 | Full sentence contexts |
+| `ligature_suppression` | 13 | 24 | Sentence context, "do not translate" note |
+| `bidi_isolate_preservation` | 5 | 10 | `שלום` wrapped not translated |
+| `abbreviation_haplology` | 6 | 18 | `Corp.` → `Corp.` (no expansion) |
+| `breakable_containers` | 5 | 7 | T.S.T. Eliot pattern |
+| `zero_width_characters` | 8 | 13 | ZWSP-between-letters → space |
+| `french_capital_accents` | 8 | 15 | ALL-CAPS context, apostrophe |
+
+Training: 2720 pairs, 12 epochs, 7272 iters, 97m 50s. Final val loss: 0.119 (stable, no overfit).
+
+Also bumped `lora_rank` 16→32 and `lora_alpha` 32→64 (user edit to `train_typography.py`) — doubled adapter capacity.
+
+### v3 eval results
+
+| Metric | Baseline | v1 | v2 | v3 |
+|---|---|---|---|---|
+| Exact matches | 0/83 (0.0%) | 1/83 (1.2%) | 22/83 (26.5%) | 23/83 (27.7%) |
+| Avg similarity | 21.6% | 30.1% | 85.3% | 90.0% |
+| Regressions | 81 | 79 | 19 | 15 |
+
+v2→v3 delta: +1 exact, +4.7% similarity, -4 regressions.
+
+Gained: `en-US/quotation` — "She whispered "be careful" to him." → correctly curled.
+
+### Remaining 15 regressions — categorised
+
+**Invisible character failures** (model can't reliably produce invisible Unicode):
+- `de-DE/zero_width_characters` — outputs `Auflage` (93% sim — text correct, ZWNJ missing)
+- `de-DE/ligature_suppression` — translates "Auflage" → "Seite" (semantic, not typographic)
+- `en-US/ligature_suppression` — v3 regressed: outputs `shelfful -> shelf full` (arrow notation)
+- `en-US/breakable_containers` — outputs `J. R. R. Tolkien` without NBSP (88% sim)
+- `en-US/bidi_isolate_preservation` — translates Hebrew to "Shalom."
+
+**NBSP/NNBSP missing** (model doesn't insert invisible spacing chars):
+- `fr-FR/high_punctuation_spacing` ×2 — strips `?`/`;` entirely or replaces with comma
+- `fr-FR/nbsp_obligations` — `Mme Curie` still lacks NBSP (94% sim — very close)
+- `en-US/nbsp_obligations` — `p. 42` still expands to `page 42` (87% sim)
+
+**Anti-paraphrase failures** (model applies meaning instead of typography):
+- `es-ES/ordinals` — `El tercer piso.` word form instead of `El 3.º piso.`
+- `en-US/abbreviation_haplology` — `Corp.` → `Corporation..` (expanding AND double-period)
+- `fr-FR/capital_accents` — `L'État` title case instead of `L'ÉTAT` all-caps (33% sim)
+
+**Context failures**:
+- `en-GB/dashes` — ` - ` → `,` (replaces with comma, 94% sim)
+- `en-US/code_exclusion` — strips `Use ` prefix from mixed code/prose sentence
+- `de-DE/quote_punctuation_placement` — outputs both wrong and right version in one response
+
+### Diagnosis: 3B model ceiling
+
+The remaining 15 regressions split cleanly into two root causes:
+
+1. **Invisible Unicode** — ZWNJ (U+200C), NBSP (U+00A0), NNBSP (U+202F) are invisible in the token stream. The 3B model doesn't have strong enough Unicode representation to reliably produce specific invisible codepoints on command. This is a model capacity issue, not a data issue. A 7B model (Mistral) has better representation.
+
+2. **Semantic override** — for words like "Auflage" (meaning: edition/print run), the model's language understanding kicks in and treats the correction task as translation or paraphrasing. Similarly for `Corp.` → `Corporation`, `p.` → `page`. The model is too "helpful" — it knows what the abbreviation means and "fixes" it. This requires either negative examples showing wrong outputs being rejected, or a model that has been more aggressively instruction-tuned to follow format constraints.
+
+### What v4 would require
+
+For invisible char rules to work at 3B scale:
+- Train on examples where the raw/correct differ ONLY in a specific invisible codepoint
+- Use `\u200C`, `\u00A0` notation explicitly in the training output where helpful
+- Or: move these rules back to Layer 1 (lint) where they can be applied deterministically
+
+For anti-paraphrase rules:
+- Add explicit "do not expand", "do not translate" negative constraints in instruction
+- Or: add rejection examples showing the wrong output labeled as incorrect
+
+Alternative: switch base model to Mistral 7B (already in `MODEL_MAP`). Better instruction-following prior, larger representation space. Would need ~3h per training run but expected to clear most invisible-char failures.
+
+### Current architecture status
+
+The model layer is doing genuine work on the fuzzy rules. Combined pipeline (lint→model) would score approximately:
+- Lint handles 66/83 deterministically
+- Model handles some of the remaining 17 — at least the non-invisible-char ones
+- Estimated combined: ~75-80/83
+
+### Git
+
+v3 commit: [pending]
+
