@@ -586,76 +586,75 @@
   }
 
   @media screen and (max-width: 700px) {
-    /* Reduce global spacing */
-    :root { --section-gap: 32px; }
+    :root { --section-gap: 24px; }
 
-    /* Cover — 12px side margins */
-    .cover { padding: 40px 12px; min-height: 100dvh; min-height: -webkit-fill-available; }
+    /* All sections: 6px outer margin */
+    .cover { padding: 32px 6px; min-height: 100dvh; min-height: -webkit-fill-available; }
     .cover h1 { font-size: 24pt; }
-    .cover h2 { font-size: 13pt; margin-bottom: 24px; }
+    .cover h2 { font-size: 13pt; margin-bottom: 20px; }
     .cover-desc { font-size: 10pt !important; }
     .cover-meta { line-height: 2.2; }
 
-    /* Premise */
-    .premise { padding: 32px 12px !important; }
+    .premise { padding: 24px 6px !important; }
     .premise-lead { font-size: 14pt !important; }
     .premise p { font-size: 10pt; }
 
-    /* Overview + content — 12px side margins */
-    .overview { padding: var(--section-gap) 12px; }
-    .content { padding: 0 12px var(--section-gap); }
+    .overview { padding: var(--section-gap) 6px; }
+    .content { padding: 0 6px var(--section-gap); }
     .overview-intro { font-size: 12pt; }
 
-    /* Journey */
-    .journey { padding: 32px 12px; }
-    .journey-card { padding: 16px !important; }
-    details.journey-card { padding: 16px; }
-    details.journey-card[open] { padding: 16px 16px 24px; }
+    /* Journey — 6px outer, 10px inner */
+    .journey { padding: 24px 6px; }
+    .journey-card { padding: 10px !important; }
+    details.journey-card { padding: 10px; }
+    details.journey-card[open] { padding: 10px 10px 16px; }
     .journey-card h3 { font-size: 14pt; }
     .journey-stat { font-size: 28pt; }
     .journey-stat-label { margin-bottom: 0; }
-    .journey-stats-row { flex-direction: column; gap: 12px; }
-    .accordion-trigger { font-size: 14pt; min-height: 44px; padding: 8px 0; }
-    .accordion-icon { font-size: 16pt; margin-left: 12px; }
+    .journey-stats-row { flex-direction: column; gap: 8px; }
+    .accordion-trigger { font-size: 14pt; min-height: 44px; padding: 6px 0; }
+    .accordion-icon { font-size: 16pt; margin-left: 8px; }
 
-    /* Demo — minimal padding */
-    .demo-section { padding: 0 12px var(--section-gap); }
-    .demo-panel { padding: 16px 12px; }
-    .demo-panel h3 { font-size: 14pt; }
+    /* Demo — 6px outer, 8px inner */
+    .demo-section { padding: 0 6px var(--section-gap); }
+    .demo-panel { padding: 10px 8px; border-radius: 6px; }
+    .demo-panel h3 { font-size: 13pt; margin-bottom: 4px; }
+    .demo-subtitle { font-size: 9pt; margin-bottom: 12px; }
     .demo-controls { flex-wrap: wrap; }
-    .demo-select { flex: 1; min-width: 0; min-height: 44px; padding: 10px 12px; }
-    .demo-btn { min-height: 44px; padding: 12px 24px; }
-    .demo-textarea { width: 100%; }
-    .demo-output { overflow-wrap: break-word; }
+    .demo-select { flex: 1; min-width: 0; min-height: 44px; padding: 8px; font-size: 9pt; }
+    .demo-btn { min-height: 44px; padding: 10px 16px; }
+    .demo-textarea { width: 100%; padding: 8px; font-size: 10pt; min-height: 100px; }
+    .demo-output { overflow-wrap: break-word; padding: 8px; }
+    .demo-area-label { font-size: 8px; }
 
-    /* Filter bar */
-    .filter-bar { padding: 8px 12px 10px; overflow: hidden; gap: 6px; }
-    .filter-pills { gap: 5px; }
-    .filter-label { min-width: 48px; font-size: 8px; }
-    .filter-pill { font-size: 8px; padding: 6px 10px; }
-    .filter-count { font-size: 8px; }
+    /* Filter bar — 6px outer */
+    .filter-bar { padding: 6px 6px 8px; overflow: hidden; gap: 4px; }
+    .filter-pills { gap: 4px; }
+    .filter-label { min-width: 44px; font-size: 7px; }
+    .filter-pill { font-size: 7.5px; padding: 5px 8px; }
+    .filter-count { font-size: 7.5px; }
 
     /* Rule cards */
-    .rule { margin-bottom: 24px; }
-    .rule-header { flex-direction: column; gap: 4px; }
+    .rule { margin-bottom: 20px; }
+    .rule-header { flex-direction: column; gap: 3px; }
     .rule-name { align-self: flex-start; white-space: normal; word-break: break-word; }
     .rule-title { font-size: 12pt; }
     .rule-desc { font-size: 9.5pt; }
 
-    /* Examples — stack vertically, full-width prominence */
-    .examples { padding: 12px; }
+    /* Examples — full-width, prominent */
+    .examples { padding: 6px; }
     .example-row {
       display: flex;
       flex-direction: column;
       align-items: stretch;
-      gap: 6px;
+      gap: 4px;
       font-size: 11pt;
     }
     .example-row .arrow { display: none; }
     .raw, .correct {
       font-size: 13pt;
       display: block;
-      padding: 8px 12px;
+      padding: 6px 8px;
       border-radius: 6px;
       word-break: break-word;
       overflow-wrap: break-word;
@@ -667,7 +666,7 @@
     .unicode-note { order: 3; margin-left: 0; font-size: 7px; }
     .example-lang { text-align: left; padding-top: 0; font-size: 9px; }
 
-    /* Tables — horizontal scroll */
+    /* Tables */
     table.matrix { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
     table.matrix tr { white-space: nowrap; }
     table.matrix td:last-child { white-space: normal; min-width: 120px; }
@@ -675,31 +674,30 @@
     table.lang-table tr { white-space: nowrap; }
     table.lang-table td:last-child { white-space: normal; min-width: 160px; }
 
-    /* Category headings */
     h2.category { font-size: 13pt; }
     .category-desc { font-size: 9.5pt; }
 
     /* CTA */
-    .cta-section { padding: 32px 12px; }
+    .cta-section { padding: 24px 6px; }
     .cta-heading { font-size: 20pt; }
     .cta-body { font-size: 10pt; }
     .cta-buttons { flex-direction: column; }
-    .cta-btn { justify-content: center; min-height: 44px; padding: 14px 24px; }
-    .install-card { padding: 12px; }
+    .cta-btn { justify-content: center; min-height: 44px; padding: 14px 20px; }
+    .install-card { padding: 8px; }
     .install-card pre { font-size: 7.5pt; white-space: pre-wrap; overflow-wrap: break-word; word-break: break-all; }
 
     /* Author */
-    .author-section { padding: 24px 12px 0; }
-    .author-card { flex-direction: column; gap: 12px; }
-    .author-avatar { width: 40px; height: 40px; font-size: 15pt; }
+    .author-section { padding: 20px 6px 0; }
+    .author-card { flex-direction: column; gap: 10px; }
+    .author-avatar { width: 36px; height: 36px; font-size: 14pt; }
     .author-bio { font-size: 9.5pt; }
 
     /* Footer */
-    .footer { padding: 16px 12px; flex-direction: column; gap: 8px; }
+    .footer { padding: 12px 6px; flex-direction: column; gap: 6px; }
     .footer-right { text-align: left; }
 
     /* Code snippets */
-    pre.code-snippet { font-size: 8pt; white-space: pre-wrap; word-break: break-all; padding: 10px 12px; }
+    pre.code-snippet { font-size: 8pt; white-space: pre-wrap; word-break: break-all; padding: 8px; }
   }
 
   /* ================================================================
