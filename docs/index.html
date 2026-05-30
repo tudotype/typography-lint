@@ -578,19 +578,93 @@
   }
 
   @media screen and (max-width: 700px) {
-    .cover { padding: 48px 24px; }
-    .cover h1 { font-size: 32pt; }
-    .cover h2 { font-size: 14pt; }
-    .overview, .content { padding-left: 24px; padding-right: 24px; }
-    .footer { padding: 24px; flex-direction: column; gap: 8px; }
-    .example-row { font-size: 11pt; gap: 8px; }
+    /* Global padding reset */
+    .cover { padding: 48px 20px; }
+    .cover h1 { font-size: 28pt; }
+    .cover h2 { font-size: 13pt; margin-bottom: 40px; }
+    .cover-desc { font-size: 10pt !important; }
+    .cover-meta { line-height: 2.2; }
+
+    .overview, .content { padding-left: 20px; padding-right: 20px; }
+    .overview-intro { font-size: 12pt; }
+
+    /* Journey */
+    .journey { padding: 48px 20px; }
+    .journey-card { padding: 24px 20px; }
+    .journey-card h3 { font-size: 14pt; }
+    .journey-stat { font-size: 32pt; }
+    .journey-stats-row { flex-direction: column; gap: 16px; }
+
+    /* Demo */
+    .demo-section { padding: 0 20px var(--section-gap); }
+    .demo-panel { padding: 24px 20px; }
+    .demo-panel h3 { font-size: 14pt; }
+
+    /* Filter bar */
+    .filter-bar { padding: 12px 20px 16px; }
+    .filter-pills { gap: 5px; }
+    .filter-label { min-width: 56px; font-size: 8px; }
+    .filter-pill { font-size: 8px; padding: 5px 10px; }
+    .filter-count { font-size: 8px; }
+
+    /* Rule cards */
+    .rule-header { flex-direction: column; gap: 4px; }
+    .rule-name { align-self: flex-start; }
+    .rule-title { font-size: 12pt; }
+    .rule-desc { font-size: 9.5pt; }
+
+    /* Examples — stack vertically */
+    .examples { padding: 16px; }
+    .example-row {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+      font-size: 11pt;
+    }
+    .example-row .arrow { display: none; }
     .raw, .correct { font-size: 10pt; }
-    .journey { padding: 48px 24px; }
-    .journey-card { padding: 32px 24px; }
-    .journey-stat { font-size: 36pt; }
-    .demo-panel { padding: 32px 24px; }
-    .filter-bar { padding: 12px 24px; }
-    .filter-pills { gap: 6px; }
+    .raw { order: 1; }
+    .correct { order: 2; }
+    .correct::before { content: '→ '; color: var(--border); }
+    .unicode-note { order: 3; margin-left: 0; font-size: 7px; }
+    .example-lang { text-align: left; padding-top: 0; }
+
+    /* Matrix tables — horizontal scroll */
+    table.matrix { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    table.matrix thead, table.matrix tbody { min-width: 500px; }
+    table.lang-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+    /* Category headings */
+    h2.category { font-size: 13pt; }
+    .category-desc { font-size: 9.5pt; }
+
+    /* CTA */
+    .cta-section { padding: 48px 20px; }
+    .cta-heading { font-size: 20pt; }
+    .cta-body { font-size: 10pt; }
+    .cta-buttons { flex-direction: column; }
+    .cta-btn { justify-content: center; }
+    .install-card { padding: 20px; }
+    .install-card pre { font-size: 8pt; overflow-x: auto; white-space: pre; word-break: break-all; }
+
+    /* Author */
+    .author-section { padding: 32px 20px 0; }
+    .author-card { flex-direction: column; gap: 12px; }
+    .author-avatar { width: 40px; height: 40px; font-size: 15pt; }
+    .author-bio { font-size: 9.5pt; }
+
+    /* Footer */
+    .footer { padding: 20px; flex-direction: column; gap: 8px; }
+    .footer-right { text-align: left; }
+
+    /* Premise */
+    .premise { padding: 48px 20px !important; }
+    .premise-lead { font-size: 14pt !important; }
+    .premise p { font-size: 10pt; }
+
+    /* Code snippets */
+    pre.code-snippet { font-size: 8pt; overflow-x: auto; padding: 12px 16px; }
   }
 
   /* ================================================================
@@ -2700,8 +2774,8 @@ curl -O https://raw.githubusercontent.com/tudotype/typography-lint/main/skills/t
     <div class="author-avatar">J</div>
     <div class="author-info">
       <div class="author-name"><a href="https://www.linkedin.com/in/joaomiranda/" target="_blank">Jo&#x00E3;o Miranda</a></div>
-      <div class="author-role">Brand Designer at Automattic</div>
-      <p class="author-bio">Jo&#x00E3;o leads brand systems for the Woo Design team at Automattic. He builds Brand OS architectures, YAML-driven design tokens, and AI tooling that scales brand quality across products. Typography Intelligence is his exploration of what happens when you treat typographic conventions as infrastructure &#x2013; not afterthoughts.</p>
+      <div class="author-role">Brand Designer at <a href="https://automattic.design" target="_blank" style="color:var(--ink-subtle); text-decoration:none; border-bottom:1px solid var(--border-light);">Automattic</a></div>
+      <p class="author-bio">Jo&#x00E3;o is a brand designer on the WordPress team at <a href="https://automattic.design" target="_blank" style="color:var(--ink-subtle); text-decoration:none; border-bottom:1px solid var(--border-light);">Automattic</a>. He designs typographic systems, design tokens, and AI tooling that scales quality across products. Typography Intelligence is his exploration of what happens when you treat typographic conventions as infrastructure &#x2013; not afterthoughts.</p>
     </div>
   </div>
 </div>

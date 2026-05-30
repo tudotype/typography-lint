@@ -742,8 +742,10 @@ curl -O https://raw.githubusercontent.com/tudotype/typography-lint/main/skills/t
 <!-- links to https://www.linkedin.com/in/joaomiranda/ -->
 
 **Role (div.author-role):** Brand Designer at Automattic
+<!-- "Automattic" links to https://automattic.design -->
 
-**Bio (p.author-bio):** Joao leads brand systems for the Woo Design team at Automattic. He builds Brand OS architectures, YAML-driven design tokens, and AI tooling that scales brand quality across products. Typography Intelligence is his exploration of what happens when you treat typographic conventions as infrastructure – not afterthoughts.
+**Bio (p.author-bio):** João is a brand designer on the WordPress team at Automattic. He designs typographic systems, design tokens, and AI tooling that scales quality across products. Typography Intelligence is his exploration of what happens when you treat typographic conventions as infrastructure – not afterthoughts.
+<!-- "Automattic" links to https://automattic.design -->
 
 ---
 
