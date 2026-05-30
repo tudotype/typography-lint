@@ -47,7 +47,7 @@
     font-size: 11pt;
     line-height: 1.6;
     color: var(--ink);
-    background: var(--surface);
+    background: var(--amber);
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
@@ -65,6 +65,9 @@
     padding: 80px 48px;
     page-break-after: always;
     break-after: page;
+    background: var(--amber);
+    position: relative;
+    z-index: 1;
   }
   .cover-eyebrow {
     font-family: var(--mono);
@@ -86,7 +89,7 @@
   }
   .cover .title-accent {
     display: inline-block;
-    color: var(--amber);
+    color: var(--surface-white);
   }
   .cover h2 {
     font-family: var(--sans);
@@ -106,7 +109,7 @@
   }
   .cover-meta span {
     display: inline-block;
-    background: var(--amber-soft);
+    background: rgba(0,0,0,0.15);
     color: var(--ink);
     padding: 2px 10px;
     border-radius: var(--radius-pill);
@@ -3292,9 +3295,12 @@ document.addEventListener('DOMContentLoaded', runDemo);
     });
   });
 
-  // --- Parallax: cover fades out on scroll ---
+  // --- Parallax: cover fades out + amber→cream background ---
   if (!reducedMotion) {
     const cover = document.querySelector('.cover');
+    // amber #FFA000 → surface #F2F1ED
+    const fromR = 255, fromG = 160, fromB = 0;
+    const toR = 242, toG = 241, toB = 237;
     let ticking = false;
     window.addEventListener('scroll', () => {
       if (ticking || document.hidden) return;
@@ -3303,6 +3309,10 @@ document.addEventListener('DOMContentLoaded', runDemo);
         if (cover) {
           const ratio = Math.min(window.scrollY / (window.innerHeight * 0.6), 1);
           cover.style.opacity = 1 - ratio;
+          const r = Math.round(fromR + (toR - fromR) * ratio);
+          const g = Math.round(fromG + (toG - fromG) * ratio);
+          const b = Math.round(fromB + (toB - fromB) * ratio);
+          cover.style.background = `rgb(${r},${g},${b})`;
         }
         ticking = false;
       });
