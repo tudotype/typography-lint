@@ -1,0 +1,3220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Typography Lint &#x2014; Rule Reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Google+Sans+Mono:wght@400;500&family=Google+Sans+Text:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  @page {
+    size: A4;
+    margin: 20mm 18mm 22mm 18mm;
+  }
+
+  :root {
+    --surface:       #F2F1ED;
+    --surface-white: #FFFFFF;
+    --surface-light: #F7F7F7;
+    --ink:           #1D1D1D;
+    --ink-subtle:    #4F4F4F;
+    --ink-muted:     #707070;
+    --amber:         #FFA000;
+    --amber-soft:    #FFF3CC;
+    --amber-dark:    #CC8000;
+    --red:           #FF4517;
+    --red-soft:      #FFEEE9;
+    --green:         #397C42;
+    --green-soft:    #EBF4EC;
+    --border:        #B4B4B4;
+    --border-light:  #E0DFDB;
+
+    --sans:  "Google Sans", sans-serif;
+    --mono:  "Google Sans Mono", "SF Mono", "Fira Code", monospace;
+    --text:  "Google Sans Text", "Google Sans", sans-serif;
+
+    --radius-card:  8px;
+    --radius-pill:  9999px;
+
+    --section-gap: 64px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--text);
+    font-size: 11pt;
+    line-height: 1.6;
+    color: var(--ink);
+    background: var(--surface);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ================================================================
+     COVER
+     ================================================================ */
+
+  .cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 80px 48px;
+    page-break-after: always;
+    break-after: page;
+  }
+  .cover-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 32px;
+  }
+  .cover h1 {
+    font-family: var(--sans);
+    font-size: 56pt;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 8px;
+    color: var(--ink);
+  }
+  .cover .title-accent {
+    display: inline-block;
+    color: var(--amber);
+  }
+  .cover h2 {
+    font-family: var(--sans);
+    font-size: 18pt;
+    font-weight: 400;
+    color: var(--ink-subtle);
+    line-height: 1.3;
+    max-width: 520px;
+    margin-bottom: 64px;
+  }
+  .cover-meta {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink-muted);
+    line-height: 2;
+    letter-spacing: 0.02em;
+  }
+  .cover-meta span {
+    display: inline-block;
+    background: var(--amber-soft);
+    color: var(--ink);
+    padding: 2px 10px;
+    border-radius: var(--radius-pill);
+    margin-right: 8px;
+    font-weight: 500;
+  }
+
+  /* ================================================================
+     OVERVIEW
+     ================================================================ */
+
+  .overview {
+    padding: var(--section-gap) 48px;
+    page-break-after: always;
+    break-after: page;
+  }
+  .overview-intro {
+    font-family: var(--sans);
+    font-size: 14pt;
+    font-weight: 400;
+    line-height: 1.55;
+    color: var(--ink-subtle);
+    max-width: 640px;
+    margin-bottom: 48px;
+  }
+  .overview h3 {
+    font-family: var(--sans);
+    font-size: 13pt;
+    font-weight: 500;
+    margin-bottom: 16px;
+    color: var(--ink);
+  }
+
+  /* Language table */
+  table.lang-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9.5pt;
+    margin-bottom: 40px;
+  }
+  table.lang-table th {
+    text-align: left;
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    border-bottom: 2px solid var(--ink);
+    padding: 8px 10px;
+  }
+  table.lang-table td {
+    padding: 7px 10px;
+    border-bottom: 1px solid var(--border-light);
+    vertical-align: top;
+    font-family: var(--text);
+  }
+  table.lang-table tr:last-child td { border-bottom: none; }
+  table.lang-table code {
+    font-family: var(--mono);
+    font-size: 9pt;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  /* Code snippets */
+  pre.code-snippet {
+    font-family: var(--mono);
+    font-size: 9pt;
+    background: var(--surface-white);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-card);
+    padding: 16px 20px;
+    margin: 12px 0 24px;
+    line-height: 1.65;
+  }
+  pre.code-snippet b {
+    color: var(--ink-muted);
+    font-weight: 500;
+    font-size: 8pt;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* ================================================================
+     CONTENT WRAPPER
+     ================================================================ */
+
+  .content {
+    padding: 0 48px var(--section-gap);
+  }
+
+  /* ================================================================
+     CATEGORY HEADINGS
+     ================================================================ */
+
+  h2.category {
+    font-family: var(--sans);
+    font-size: 22pt;
+    font-weight: 500;
+    color: var(--ink);
+    margin-top: var(--section-gap);
+    margin-bottom: 8px;
+    padding-top: 24px;
+    border-top: 2px solid var(--ink);
+    page-break-after: avoid;
+    break-after: avoid;
+    line-height: 1.15;
+  }
+  h2.category:first-of-type {
+    margin-top: 0;
+    border-top: none;
+    padding-top: 0;
+  }
+  .category-desc {
+    font-family: var(--text);
+    font-size: 10pt;
+    color: var(--ink-muted);
+    margin-bottom: 28px;
+    max-width: 560px;
+  }
+
+  /* ================================================================
+     RULE BLOCKS
+     ================================================================ */
+
+  .rule {
+    margin-bottom: 36px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .rule-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 4px;
+  }
+  .rule-name {
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 500;
+    color: var(--amber-dark);
+    background: var(--amber-soft);
+    padding: 3px 10px;
+    border-radius: var(--radius-pill);
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+  }
+  .rule-title {
+    font-family: var(--sans);
+    font-size: 13pt;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .rule-desc {
+    font-family: var(--text);
+    color: var(--ink-subtle);
+    font-size: 10pt;
+    line-height: 1.55;
+    margin-bottom: 12px;
+    max-width: 600px;
+  }
+
+  /* Language pills */
+  .lang-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 14px;
+  }
+  .pill {
+    font-family: var(--mono);
+    font-size: 8px;
+    font-weight: 500;
+    padding: 3px 8px;
+    border-radius: var(--radius-pill);
+    white-space: nowrap;
+    letter-spacing: 0.03em;
+  }
+  .pill.universal {
+    background: var(--ink);
+    color: var(--surface);
+  }
+  .pill.lang-specific {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--border);
+  }
+
+  /* ================================================================
+     EXAMPLE CONTAINERS — the hero change
+     ================================================================ */
+
+  .examples {
+    background: var(--surface-white);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-card);
+    padding: 20px 24px;
+    margin-top: 8px;
+  }
+  .example-row {
+    display: grid;
+    grid-template-columns: 40px 1fr auto 1fr auto;
+    align-items: baseline;
+    gap: 12px;
+    font-size: 13pt;
+    line-height: 1.7;
+    padding: 8px 0;
+  }
+  .example-row + .example-row {
+    border-top: 1px solid var(--border-light);
+  }
+  .example-lang {
+    font-family: var(--mono);
+    font-size: 8px;
+    font-weight: 500;
+    color: var(--ink-muted);
+    text-align: right;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    padding-top: 4px;
+  }
+  .raw {
+    font-family: var(--mono);
+    font-size: 12pt;
+    color: var(--red);
+    background: var(--red-soft);
+    padding: 2px 8px;
+    border-radius: 4px;
+    text-decoration: line-through;
+    text-decoration-color: rgba(255,69,23,0.3);
+    text-decoration-thickness: 1.5px;
+    justify-self: end;
+  }
+  .arrow {
+    font-family: var(--sans);
+    color: var(--border);
+    font-size: 14pt;
+    text-align: center;
+  }
+  .correct {
+    font-family: var(--sans);
+    font-size: 13pt;
+    color: var(--green);
+    background: var(--green-soft);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+  .unicode-note {
+    font-family: var(--mono);
+    font-size: 8px;
+    color: var(--ink-muted);
+    padding-top: 4px;
+    letter-spacing: 0.02em;
+    grid-column: 2 / -1;
+    text-align: right;
+  }
+  /* When unicode-note is on a row by itself (no grid disruption) */
+  .example-row:has(.unicode-note:only-child) {
+    display: block;
+    text-align: right;
+    padding-top: 0;
+    border-top: none;
+  }
+
+  /* Simpler layout for rows with unicode notes inline */
+  .example-row {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .example-lang {
+    min-width: 36px;
+    flex-shrink: 0;
+  }
+  .raw, .correct {
+    flex-shrink: 0;
+  }
+  .unicode-note {
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  /* ================================================================
+     MATRIX TABLES (quotes, dashes, etc.)
+     ================================================================ */
+
+  table.matrix {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9.5pt;
+    margin: 12px 0 8px;
+    background: var(--surface-white);
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    border: 1px solid var(--border-light);
+  }
+  table.matrix th {
+    font-family: var(--mono);
+    font-size: 8px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    text-align: left;
+    padding: 10px 14px;
+    background: var(--surface-light);
+    border-bottom: 1px solid var(--border-light);
+  }
+  table.matrix td {
+    padding: 8px 14px;
+    border-bottom: 1px solid var(--border-light);
+    vertical-align: top;
+    font-family: var(--text);
+  }
+  table.matrix tr:last-child td { border-bottom: none; }
+  table.matrix td.sample {
+    font-family: var(--sans);
+    font-size: 13pt;
+    letter-spacing: 0.01em;
+    color: var(--green);
+    font-weight: 500;
+  }
+  table.matrix code {
+    font-family: var(--mono);
+    font-size: 8.5pt;
+    font-weight: 400;
+  }
+
+  /* ================================================================
+     FOOTER
+     ================================================================ */
+
+  /* ================================================================
+     AUTHOR
+     ================================================================ */
+
+  .author-section {
+    padding: 48px 48px 0;
+    border-top: 1px solid var(--border-light);
+    margin-top: var(--section-gap);
+    max-width: 560px;
+  }
+  .author-section h4 {
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 16px;
+  }
+  .author-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .author-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--amber-soft);
+    color: var(--amber-dark);
+    font-family: var(--sans);
+    font-size: 18pt;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .author-info {
+    flex: 1;
+  }
+  .author-name {
+    font-family: var(--sans);
+    font-size: 12pt;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+  .author-name a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+    transition: border-color 0.2s;
+  }
+  .author-name a:hover {
+    border-color: var(--amber);
+  }
+  .author-role {
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 10px;
+  }
+  .author-bio {
+    font-family: var(--text);
+    font-size: 10pt;
+    line-height: 1.6;
+    color: var(--ink-subtle);
+  }
+
+  .footer {
+    margin-top: 48px;
+    padding: 24px 48px;
+    border-top: 2px solid var(--ink);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .footer-left {
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 500;
+    color: var(--ink-muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .footer-right {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--ink-muted);
+    letter-spacing: 0.02em;
+    text-align: right;
+  }
+  .footer-right .amber {
+    color: var(--amber-dark);
+    font-weight: 500;
+  }
+
+  /* ================================================================
+     PRINT OVERRIDES
+     ================================================================ */
+
+  @media print {
+    body { background: white; }
+    .cover { min-height: 100vh; }
+    .rule { page-break-inside: avoid; break-inside: avoid; opacity: 1 !important; transform: none !important; }
+    h2.category { page-break-after: avoid; break-after: avoid; }
+    .examples { background: #fafaf8; box-shadow: none !important; transform: none !important; }
+    a { color: var(--ink); text-decoration: none; }
+    .filter-bar { display: none !important; }
+    .demo-section { display: none !important; }
+    .journey-card { opacity: 1 !important; transform: none !important; }
+    .cover-logo, .cover-eyebrow, .cover h1, .cover h2, .cover-desc,
+    .cover-meta span, .cover-line-1, .cover-line-2 { opacity: 1 !important; transform: none !important; clip-path: none !important; animation: none !important; }
+    .rule .examples { opacity: 1 !important; transform: none !important; }
+    .premise-lead .word { opacity: 1 !important; transform: none !important; }
+    .rule.hidden { display: block !important; }
+    .category-group.hidden { display: block !important; }
+  }
+
+  /* ================================================================
+     SCREEN OVERRIDES
+     ================================================================ */
+
+  @media screen {
+    body {
+      max-width: 210mm;
+      margin: 0 auto;
+    }
+  }
+
+  @media screen and (max-width: 700px) {
+    .cover { padding: 48px 24px; }
+    .cover h1 { font-size: 32pt; }
+    .cover h2 { font-size: 14pt; }
+    .overview, .content { padding-left: 24px; padding-right: 24px; }
+    .footer { padding: 24px; flex-direction: column; gap: 8px; }
+    .example-row { font-size: 11pt; gap: 8px; }
+    .raw, .correct { font-size: 10pt; }
+    .journey { padding: 48px 24px; }
+    .journey-card { padding: 32px 24px; }
+    .journey-stat { font-size: 36pt; }
+    .demo-panel { padding: 32px 24px; }
+    .filter-bar { padding: 12px 24px; }
+    .filter-pills { gap: 6px; }
+  }
+
+  /* ================================================================
+     JOURNEY SECTION
+     ================================================================ */
+
+  .journey {
+    padding: 80px 48px;
+  }
+  .journey-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 48px;
+  }
+  .journey-card {
+    background: var(--surface-white);
+    border-left: 4px solid var(--amber);
+    border-radius: 0 var(--radius-card) var(--radius-card) 0;
+    padding: 40px 48px;
+    margin-bottom: 32px;
+    max-width: 720px;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .journey-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .journey-card h3 {
+    font-family: var(--sans);
+    font-size: 16pt;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 16px;
+  }
+  .journey-card p {
+    font-family: var(--text);
+    font-size: 11pt;
+    line-height: 1.7;
+    color: var(--ink-subtle);
+    margin-bottom: 12px;
+  }
+  .journey-card p:last-child { margin-bottom: 0; }
+  .journey-stat {
+    font-family: var(--sans);
+    font-size: 48pt;
+    font-weight: 700;
+    color: var(--amber);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .journey-stat-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 20px;
+  }
+  .journey-stats-row {
+    display: flex;
+    gap: 48px;
+    margin: 24px 0;
+  }
+
+  /* ================================================================
+     LIVE DEMO
+     ================================================================ */
+
+  .demo-section {
+    padding: 0 48px var(--section-gap);
+  }
+  .demo-panel {
+    background: var(--surface-white);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-card);
+    padding: 40px 48px;
+  }
+  .demo-panel h3 {
+    font-family: var(--sans);
+    font-size: 16pt;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .demo-subtitle {
+    font-family: var(--text);
+    font-size: 10pt;
+    color: var(--ink-muted);
+    margin-bottom: 24px;
+  }
+  .demo-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .demo-input-area {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .demo-controls {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  .demo-textarea {
+    font-family: var(--text);
+    font-size: 11pt;
+    line-height: 1.6;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-card);
+    padding: 16px;
+    resize: vertical;
+    min-height: 120px;
+    background: var(--surface);
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .demo-textarea:focus {
+    border-color: var(--amber);
+  }
+  .demo-select {
+    font-family: var(--mono);
+    font-size: 9pt;
+    padding: 8px 12px;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-pill);
+    background: var(--surface);
+    color: var(--ink);
+    cursor: pointer;
+    outline: none;
+  }
+  .demo-btn {
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 10px 24px;
+    background: var(--amber);
+    color: white;
+    border: none;
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .demo-btn:hover { background: var(--amber-dark); }
+  .demo-output {
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-card);
+    padding: 16px;
+    min-height: 120px;
+    background: var(--surface-light);
+    font-family: var(--text);
+    font-size: 11pt;
+    line-height: 1.6;
+    color: var(--ink);
+    white-space: pre-wrap;
+  }
+  .demo-area-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    display: block;
+    margin-bottom: 8px;
+  }
+  .demo-output mark {
+    background: var(--green-soft);
+    color: var(--green);
+    padding: 0 2px;
+    border-radius: 2px;
+    font-weight: 500;
+    text-decoration: none;
+  }
+  .demo-corrections {
+    margin-top: 16px;
+    padding: 0;
+    list-style: none;
+  }
+  .demo-corrections li {
+    font-family: var(--mono);
+    font-size: 8.5pt;
+    color: var(--ink-muted);
+    padding: 4px 0;
+    border-bottom: 1px solid var(--border-light);
+  }
+  .demo-corrections li:last-child { border-bottom: none; }
+  .demo-corrections .corr-rule {
+    color: var(--amber-dark);
+    font-weight: 500;
+  }
+  .demo-note {
+    font-family: var(--text);
+    font-size: 9pt;
+    color: var(--ink-muted);
+    margin-top: 16px;
+    font-style: italic;
+  }
+
+  /* ================================================================
+     FILTER BAR
+     ================================================================ */
+
+  .filter-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(242,241,237,0.75);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 20px 48px 24px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid var(--border-light);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  /* Noise/grain overlay */
+  .filter-bar::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.4;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    background-size: 128px 128px;
+    mix-blend-mode: overlay;
+    border-radius: 0;
+  }
+  .filter-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    position: relative;
+    z-index: 1;
+  }
+  .filter-row::-webkit-scrollbar { display: none; }
+  .filter-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    flex-shrink: 0;
+    min-width: 72px;
+  }
+  .filter-pills {
+    display: flex;
+    gap: 6px;
+    flex-wrap: nowrap;
+  }
+  .filter-pill {
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.15s;
+    letter-spacing: 0.03em;
+  }
+  .filter-pill:hover {
+    border-color: var(--amber);
+    color: var(--amber-dark);
+  }
+  .filter-pill.active {
+    background: var(--amber);
+    border-color: var(--amber);
+    color: white;
+  }
+  .filter-count {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--ink-muted);
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+
+  /* Filter states */
+  .rule.hidden { display: none !important; }
+  .category-group.hidden { display: none !important; }
+
+  /* Scroll reveal animation */
+  .rule {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 500ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .rule.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Examples: entrance + hover lift */
+  .rule .examples {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 400ms ease 100ms, transform 400ms ease 100ms, box-shadow 0.2s ease;
+  }
+  .rule.visible .examples {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .rule.visible .examples:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    transform: translateY(-1px);
+  }
+
+  /* Smooth scroll */
+  html { scroll-behavior: smooth; }
+
+  /* ================================================================
+     TUDOTYPE LOGO
+     ================================================================ */
+
+  .cover-logo {
+    margin-bottom: 48px;
+  }
+  .cover-logo svg {
+    height: 28px;
+    width: auto;
+  }
+  .footer-logo svg {
+    height: 18px;
+    width: auto;
+    opacity: 0.5;
+  }
+
+  /* ================================================================
+     PREMISE SECTION
+     ================================================================ */
+
+  .premise {
+    padding: 80px 48px;
+    border-bottom: 1px solid var(--border-light);
+  }
+  .premise-lead {
+    font-family: var(--sans);
+    font-size: 20pt;
+    font-weight: 400;
+    line-height: 1.45;
+    color: var(--ink);
+    max-width: 640px;
+    margin-bottom: 32px;
+  }
+  .premise-body {
+    font-family: var(--text);
+    font-size: 11pt;
+    line-height: 1.7;
+    color: var(--ink-subtle);
+    max-width: 600px;
+  }
+  .premise-body p { margin-bottom: 16px; }
+  .premise-body p:last-child { margin-bottom: 0; }
+
+  /* ================================================================
+     ACCORDION JOURNEY
+     ================================================================ */
+
+  details.journey-card {
+    background: var(--surface-white);
+    border-left: 4px solid var(--amber);
+    border-radius: 0 var(--radius-card) var(--radius-card) 0;
+    padding: 24px 48px;
+    margin-bottom: 16px;
+    max-width: 720px;
+  }
+  details.journey-card[open] {
+    padding: 24px 48px 40px;
+  }
+  .accordion-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    cursor: pointer;
+    padding: 0;
+    font-family: var(--sans);
+    font-size: 16pt;
+    font-weight: 500;
+    color: var(--ink);
+    list-style: none;
+  }
+  .accordion-trigger::-webkit-details-marker { display: none; }
+  .accordion-trigger::marker { display: none; content: ''; }
+  .accordion-trigger:hover { color: var(--amber-dark); }
+  .accordion-icon {
+    font-size: 18pt;
+    color: var(--amber);
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+    margin-left: 16px;
+    font-weight: 300;
+  }
+  details.journey-card[open] .accordion-icon {
+    transform: rotate(45deg);
+  }
+  .accordion-body {
+    padding-top: 20px;
+  }
+  .accordion-body p {
+    font-family: var(--text);
+    font-size: 11pt;
+    line-height: 1.7;
+    color: var(--ink-subtle);
+    margin-bottom: 12px;
+  }
+  .accordion-body p:last-child { margin-bottom: 0; }
+
+  /* ================================================================
+     CTA / CONTRIBUTE SECTION
+     ================================================================ */
+
+  .cta-section {
+    padding: 80px 48px;
+    border-top: 2px solid var(--ink);
+    margin-top: var(--section-gap);
+  }
+  .cta-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 24px;
+  }
+  .cta-heading {
+    font-family: var(--sans);
+    font-size: 28pt;
+    font-weight: 500;
+    line-height: 1.15;
+    color: var(--ink);
+    max-width: 560px;
+    margin-bottom: 24px;
+  }
+  .cta-body {
+    font-family: var(--text);
+    font-size: 11pt;
+    line-height: 1.7;
+    color: var(--ink-subtle);
+    max-width: 560px;
+    margin-bottom: 40px;
+  }
+  .cta-body p { margin-bottom: 12px; }
+  .cta-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 12px 24px;
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .cta-btn-primary {
+    background: var(--ink);
+    color: var(--surface);
+  }
+  .cta-btn-primary:hover { background: #333; }
+  .cta-btn-secondary {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--border);
+  }
+  .cta-btn-secondary:hover { border-color: var(--amber); color: var(--amber-dark); }
+
+  /* Install snippet */
+  .install-card {
+    background: var(--surface-white);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-card);
+    padding: 24px 32px;
+    max-width: 560px;
+  }
+  .install-card h4 {
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 12px;
+  }
+  .install-card pre {
+    font-family: var(--mono);
+    font-size: 9.5pt;
+    line-height: 1.7;
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+  .install-card pre + pre { margin-top: 0; }
+
+  /* ================================================================
+     MOTION & ANIMATION SYSTEM
+     ================================================================ */
+
+  /* --- Cover: Cinematic Type Reveal --- */
+  @keyframes coverFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes coverSlideUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes clipReveal {
+    from { clip-path: inset(-10% 100% -10% 0); }
+    to { clip-path: inset(-10% 0 -10% 0); }
+  }
+
+  .cover-logo { animation: coverFadeIn 600ms ease-out both; }
+  .cover-eyebrow { animation: coverSlideUp 500ms ease-out 200ms both; }
+
+  .cover-line-1,
+  .cover-line-2 { display: inline-block; }
+  .cover-line-1 { animation: clipReveal 800ms cubic-bezier(0.16, 1, 0.3, 1) 400ms both; }
+  .cover-line-2 { animation: clipReveal 600ms cubic-bezier(0.16, 1, 0.3, 1) 900ms both; }
+
+  .cover h2 { animation: coverSlideUp 500ms ease-out 1200ms both; }
+  .cover-desc { animation: coverSlideUp 500ms ease-out 1500ms both; }
+
+  .cover-meta span { animation: coverFadeIn 400ms ease-out both; }
+  .cover-meta span:nth-child(1) { animation-delay: 1800ms; }
+  .cover-meta span:nth-child(2) { animation-delay: 1880ms; }
+  .cover-meta span:nth-child(3) { animation-delay: 1960ms; }
+
+  /* --- Premise: Word reveal --- */
+  .premise-lead .word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 400ms ease, transform 400ms ease;
+  }
+  .premise-lead.revealed .word {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* --- Accordion smooth reveal --- */
+  .accordion-body {
+    transition: opacity 400ms ease, transform 400ms ease;
+  }
+
+  /* --- CTA section --- */
+
+  /* --- Demo lint pulse --- */
+  @keyframes lintPulse {
+    0% { border-color: var(--border-light); }
+    50% { border-color: var(--amber); box-shadow: 0 0 0 2px var(--amber-soft); }
+    100% { border-color: var(--border-light); box-shadow: none; }
+  }
+  .demo-output.pulsing { animation: lintPulse 300ms ease; }
+
+  /* --- Mark highlight scale pulse --- */
+  @keyframes markPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+  .demo-output mark {
+    display: inline-block;
+    animation: markPulse 400ms ease both;
+  }
+
+  /* --- Parallax --- */
+  .parallax { will-change: transform; }
+
+  /* --- prefers-reduced-motion --- */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-delay: 0ms !important;
+      transition-duration: 0.01ms !important;
+    }
+    html { scroll-behavior: auto !important; }
+    .cover-logo, .cover-eyebrow, .cover h2, .cover-desc,
+    .cover-meta span, .cover-line-1, .cover-line-2 {
+      opacity: 1 !important;
+      transform: none !important;
+      clip-path: none !important;
+    }
+    .rule, .rule .examples {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+    .premise-lead .word {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     COVER
+     ============================================================ -->
+
+<section class="cover">
+  <div class="cover-logo"><svg width="88" height="22" viewBox="0 0 88 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M83.061 16.3436C85.4069 16.3436 86.7513 15.7372 87.8851 14.2083L87.595 13.9182C86.8569 14.5245 86.2245 14.7879 84.7216 14.7879C82.4311 14.7879 81.875 13.4696 81.875 10.8342V9.04187C81.875 6.32695 82.1652 5.56218 82.8237 5.56218C83.4822 5.56218 83.7723 6.32568 83.7723 9.04187C83.7723 9.59542 83.7723 10.2546 83.7195 10.8342L84.9322 10.5441H81.1866L81.2394 11.0976H87.8565C88.4889 6.85379 87.0656 5.06079 82.9007 5.06079C78.7885 5.06079 77.1012 6.69536 77.1012 10.7547C77.1037 14.7351 78.8172 16.3436 83.061 16.3436ZM70.3556 15.2893C69.8809 15.2893 69.6703 14.9992 69.1696 14.3406L69.4597 14.8942V6.77551L69.1696 7.53903C69.6703 6.87986 69.8815 6.58973 70.3556 6.58973C71.1464 6.58973 71.357 7.43341 71.357 10.9653C71.357 14.4431 71.1464 15.2887 70.3556 15.2887V15.2893ZM64.8729 21.405H69.4597V15.5005C70.0133 16.1069 70.8041 16.3442 71.9901 16.3442C74.9951 16.3442 76.1551 14.7364 76.1551 10.7032C76.1551 6.66991 74.9691 5.06207 72.3063 5.06207C70.4612 5.06207 69.4858 6.19525 68.2203 7.75091L69.4591 6.5121V5.27333H64.8723L64.8729 21.405ZM51.4027 16.3436C52.2567 16.3498 53.1002 16.1549 53.8649 15.7748C54.6297 15.3947 55.2943 14.84 55.805 14.1555L55.5676 13.8653C55.0321 14.3285 54.3514 14.5896 53.6436 14.6034C52.8801 14.6034 52.5619 14.2605 52.5619 13.3907V5.79887H56.0677V5.27139H52.5619V1.60719H52.1668L48.1075 5.27139L46.0511 5.5348V5.79821H47.9739V13.0999C47.9739 15.421 49.4252 16.3436 51.402 16.3436H51.4027ZM40.9114 15.8689C40.1479 15.8689 39.9628 14.8674 39.9628 10.7025C39.9628 6.27414 40.1473 5.53608 40.9114 5.53608C41.6756 5.53608 41.8601 6.27414 41.8601 10.7025C41.8601 14.8674 41.6749 15.8689 40.9114 15.8689ZM40.9114 16.3436C44.9975 16.3436 46.6581 14.7357 46.6581 10.7025C46.6581 6.66925 44.9975 5.06145 40.9114 5.06145C36.8254 5.06145 35.1647 6.66925 35.1647 10.7025C35.1647 14.7357 36.8254 16.3436 40.9114 16.3436ZM26.5186 16.3436C28.3638 16.3436 29.3391 15.2098 30.6047 13.6547L29.3659 14.8936V16.1323H33.9527V0H29.3659V5.9045C28.8123 5.29814 28.0215 5.06079 26.8355 5.06079C23.8304 5.06079 22.6705 6.66863 22.6705 10.7019C22.6705 14.7351 23.8559 16.3436 26.5186 16.3436ZM28.4694 14.8165C27.6785 14.8165 27.4679 13.9729 27.4679 10.441C27.4679 6.96129 27.6785 6.11762 28.4694 6.11762C28.944 6.11762 29.1546 6.40777 29.6554 7.0663L29.3652 6.51276V14.6314L29.6554 13.8679C29.1546 14.5245 28.9434 14.8146 28.4688 14.8146L28.4694 14.8165ZM13.7864 16.3436C16.1851 16.3436 16.7915 14.9203 17.6613 13.6815L16.8704 14.4195V16.133H21.4572V5.27267H16.8704V14.2617L17.1338 13.7082C16.5014 14.6047 16.1323 14.7097 15.8155 14.7097C15.2358 14.7097 14.919 14.3667 14.919 13.628V5.27205H10.3589V13.0745C10.3596 15.421 11.8096 16.3436 13.7864 16.3436ZM5.35094 16.3436C6.20494 16.3498 7.04843 16.155 7.8132 15.7749C8.57797 15.3948 9.24255 14.84 9.75321 14.1555L9.51588 13.8653C8.98038 14.3285 8.29969 14.5896 7.59184 14.6034C6.82833 14.6034 6.5102 14.2605 6.5102 13.3907V5.79887H9.48916V5.27139H6.51083V1.60719H6.11572L2.05639 5.27139L0 5.53546V5.79887H1.92405V13.1006C1.92405 15.421 3.37217 16.3436 5.35094 16.3436ZM53.3528 21.405H55.4881C57.2015 21.405 58.3614 20.4296 59.1523 18.6634L65.1624 5.27267H64.4244L61.4193 12.2842L62.1313 11.4934L59.4953 5.27267H54.2232L59.9165 16.9245L60.1799 15.2899L59.4679 16.5287C59.0225 17.2923 58.6509 17.583 57.8601 17.583H53.3522L53.3528 21.405Z" fill="#1D1D1D"/></svg></div>
+  <div class="cover-eyebrow">Typography Intelligence &middot; Layer&nbsp;1</div>
+  <h1><span class="cover-line cover-line-1">Typography</span><br><span class="cover-line cover-line-2">Lint<span class="title-accent">.</span></span></h1>
+  <h2>Rule Reference</h2>
+  <p class="cover-desc" style="font-family:var(--text); font-size:11pt; color:var(--ink-subtle); max-width:440px; margin-bottom:48px; line-height:1.6;">Someone has to write the rules down before they&#x2019;re forgotten. 46 rules across 21 language variants, encoded as executable infrastructure &#x2013; not documentation that drifts from practice.</p>
+  <div class="cover-meta">
+    <span>v1.0</span> <span>May 2026</span> <span>46+ rules</span><br>
+    Automattic &middot; Typography Intelligence Project
+  </div>
+</section>
+
+<!-- ============================================================
+     PREMISE
+     ============================================================ -->
+
+<section class="premise">
+  <p class="premise-lead">The growing volume of synthetic text isn&#x2019;t just changing how we think &#x2013; it&#x2019;s degrading how type looks on the page.</p>
+  <div class="premise-body">
+    <p>Every day, more machine-generated text enters circulation. Most of it is typographically illiterate: straight quotes where curly quotes belong, hyphens masquerading as dashes, no awareness of locale conventions. As adoption grows, these errors compound. The references we rely on start reflecting the mistakes back. The points of reference &#x2013; at least the good ones &#x2013; get harder to find.</p>
+    <p>It doesn&#x2019;t help that English hegemony, a language that already differs between countries, is flattening our ability to write natively. French spacing rules vanish. Portuguese guillemets become American curly quotes. German low-high quotation marks are replaced by English ones. The typographic DNA of each language erodes silently, one API call at a time.</p>
+    <p>This project exists because someone has to write the rules down before they&#x2019;re forgotten. Not as documentation that drifts from practice, but as executable infrastructure: a schema that generates training data, a linter that enforces conventions, a model that learns the judgement calls no lookup table can make.</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     THE JOURNEY
+     ============================================================ -->
+
+<section class="journey">
+  <div class="journey-eyebrow">The Journey</div>
+
+  <details class="journey-card">
+    <summary class="accordion-trigger">The Spark <span class="accordion-icon">+</span></summary>
+    <div class="accordion-body">
+    <p>It started with a P2 conversation about the em dash. Pablo Honey posted about how it should be used, what the conventions are, whether Automattic should standardise. People from different teams, different countries, different editorial traditions weighed in. Everyone had an opinion about a single character.</p>
+    <p>Following that thread meant following the em dash across borders. American English uses it without spaces. British English prefers a spaced en dash. Portuguese uses travess&#x00E3;o for dialogue. French uses tiret with non-breaking spaces. The same function &#x2013; a parenthetical pause &#x2013; expressed differently in every language WordPress serves.</p>
+    <p>No good system existed. Gutenberg did basic smart quotes, English-only. Grammarly and ProWritingAid barely touched typographic correctness. Translation tools carried source-language conventions into target languages. We decided to build the infrastructure ourselves.</p>
+    </div>
+  </details>
+
+  <details class="journey-card">
+    <summary class="accordion-trigger">The Architecture <span class="accordion-icon">+</span></summary>
+    <div class="accordion-body">
+    <p>The key insight was the 80/20 split. Most typographic corrections are deterministic &#x2013; replacing straight quotes with curly quotes is a lookup operation. But some require genuine judgement: is this dash a parenthetical or a range? Should the colon capitalise what follows? Does this abbreviation need a period in this locale?</p>
+    <p>So we built two layers. Layer 1 is a pure-Python lint library: 46+ rules, 21 language variants, zero ML dependencies. It handles the deterministic 80%. Layer 2 is a fine-tuned model trained from a YAML schema that serves as the single source of truth. The schema describes rules; the generator translates them into training examples. When the schema changes, regenerate. The YAML never knows about edge cases; the Python handles them.</p>
+    <p>Three layers total: <strong>Lint &#x2192; Model &#x2192; Font Gate</strong>. The font gate ensures the corrected output is actually renderable in the target typeface. No tofu.</p>
+    </div>
+  </details>
+
+  <details class="journey-card">
+    <summary class="accordion-trigger">The Data Lesson <span class="accordion-icon">+</span></summary>
+    <div class="accordion-body">
+    <div class="journey-stats-row">
+      <div>
+        <div class="journey-stat">1/83</div>
+        <div class="journey-stat-label">v1 exact matches</div>
+      </div>
+      <div>
+        <div class="journey-stat">22/83</div>
+        <div class="journey-stat-label">v2 exact matches</div>
+      </div>
+    </div>
+    <p>v1 trained on 3,292 pairs including 815 detection and explanation pairs. Those pairs taught the model to <em>explain</em> typography instead of <em>correcting</em> it. The instruction said &#x2018;correct the text&#x2019; but the model had learned that output means explanation.</p>
+    <p>v2 changed three things: added &#x2018;Output only the corrected text, no explanation&#x2019; to every instruction, removed the explanation pairs, and increased from 3 to 12 epochs. The result: 1/83 &#x2192; 22/83 exact matches. The largest single jump in the entire project. The lesson was clear: <strong>data quality beats data quantity</strong>. And it beats model size, architecture, and hyperparameter tuning.</p>
+    </div>
+  </details>
+
+  <details class="journey-card">
+    <summary class="accordion-trigger">The Ceiling <span class="accordion-icon">+</span></summary>
+    <div class="accordion-body">
+    <div class="journey-stats-row">
+      <div>
+        <div class="journey-stat">27.7%</div>
+        <div class="journey-stat-label">3B ceiling (v3&#x2013;v4)</div>
+      </div>
+      <div>
+        <div class="journey-stat">50.6%</div>
+        <div class="journey-stat-label">7B breakthrough (v5)</div>
+      </div>
+    </div>
+    <p>Three iterations on Llama 3.2 3B plateaued at 23/83 (27.7%). Rank tuning, epoch tuning, template expansion &#x2013; nothing moved the needle. The remaining failures clustered around one root cause: invisible Unicode characters. NBSP (U+00A0), NNBSP (U+202F), ZWNJ (U+200C) &#x2013; characters the tokenizer couldn&#x2019;t represent at 3B scale.</p>
+    <p>Switching to Mistral 7B jumped to 42/83 (50.6%). The failure mode wasn&#x2019;t &#x2018;the model can&#x2019;t learn&#x2019; &#x2013; it was &#x2018;the tokenizer can&#x2019;t represent&#x2019;. The lessons from v1&#x2013;v4 (data quality, instruction format, correction-only templates) all transferred. The 7B model inherited them at the dataset level and added the one thing 3B couldn&#x2019;t provide: stable codepoint representations for invisible characters.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ============================================================
+     OVERVIEW
+     ============================================================ -->
+
+<section class="overview">
+  <p class="overview-intro">Typography Lint is a fast, pure-Python deterministic typographic correction library. It handles the 80% of corrections that are straightforward substitution rules: curly quotes, locale-correct dashes, non-breaking spaces, diacritic integrity, and more. No ML dependencies.</p>
+
+  <h3>Supported Languages</h3>
+
+  <table class="lang-table">
+    <thead>
+      <tr><th>Code</th><th>Language</th><th>Group</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>en-US</code></td><td>English (US)</td><td>Core 13</td><td>CMOS style: em dash, serial comma, period inside quotes</td></tr>
+      <tr><td><code>en-GB</code></td><td>English (UK)</td><td>Core 13</td><td>Oxford style: spaced en dash, single-quote primary</td></tr>
+      <tr><td><code>pt-PT</code></td><td>Portuguese (Portugal)</td><td>Core 13</td><td>Guillemets with thin space; ordinals with .&#x00BA;/.&#x00AA;</td></tr>
+      <tr><td><code>pt-BR</code></td><td>Portuguese (Brazil)</td><td>Core 13</td><td>Curly doubles; inherits from pt-PT</td></tr>
+      <tr><td><code>fr-FR</code></td><td>French</td><td>Core 13</td><td>NNBSP before high punctuation; &#x0153;/&#x00E6; ligatures</td></tr>
+      <tr><td><code>de-DE</code></td><td>German</td><td>Core 13</td><td>&#x201E;low-high&#x201C; quotes; &#x1E9E; capitalisation; DIN 5008</td></tr>
+      <tr><td><code>it-IT</code></td><td>Italian</td><td>Core 13</td><td>Guillemets; apostrophic acute correction</td></tr>
+      <tr><td><code>es-ES</code></td><td>Spanish (Spain)</td><td>Core 13</td><td>&#x00BF;/&#x00A1; insertion; interrogative accents</td></tr>
+      <tr><td><code>es-MX</code></td><td>Spanish (Mexico)</td><td>Core 13</td><td>Curly doubles; inherits from es-ES</td></tr>
+      <tr><td><code>nl-NL</code></td><td>Dutch (Netherlands)</td><td>Core 13</td><td>Curly doubles; currency before with NBSP</td></tr>
+      <tr><td><code>nl-BE</code></td><td>Dutch (Belgium)</td><td>Core 13</td><td>Same as nl-NL</td></tr>
+      <tr><td><code>ro-RO</code></td><td>Romanian</td><td>Core 13</td><td>Comma-below &#x0219;/&#x021B;</td></tr>
+      <tr><td><code>sc</code></td><td>Sardinian</td><td>Core 13</td><td>Guillemets; spaced en dash</td></tr>
+      <tr><td><code>sv</code></td><td>Swedish</td><td>Nordic</td><td>Curly doubles; spaced en dash</td></tr>
+      <tr><td><code>nb</code></td><td>Norwegian Bokm&#x00E5;l</td><td>Nordic</td><td>Guillemets; spaced en dash</td></tr>
+      <tr><td><code>da</code></td><td>Danish</td><td>Nordic</td><td>Low-high quotes; spaced en dash</td></tr>
+      <tr><td><code>fi</code></td><td>Finnish</td><td>Nordic</td><td>Curly doubles; spaced en dash</td></tr>
+      <tr><td><code>pl</code></td><td>Polish</td><td>Central/Eastern EU</td><td>Low-high quotes; em dash; single-letter NBSP</td></tr>
+      <tr><td><code>cs</code></td><td>Czech</td><td>Central/Eastern EU</td><td>Low-high quotes; spaced en dash; single-letter NBSP</td></tr>
+      <tr><td><code>ca</code></td><td>Catalan</td><td>Iberian</td><td>Guillemets; em dash (IEC)</td></tr>
+      <tr><td><code>ru</code></td><td>Russian</td><td>Slavic/Cyrillic</td><td>Guillemets; spaced em dash (GOST)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Usage</h3>
+
+  <pre class="code-snippet"><b>Python</b>
+from typography_lint import TypographyLinter
+result = TypographyLinter(language="fr-FR").lint(text)
+print(result.text)</pre>
+
+  <pre class="code-snippet"><b>CLI</b>
+python3 typography_lint.py "He said \"hello\" and left." --lang en-US --diff</pre>
+</section>
+
+<!-- ============================================================
+     LIVE DEMO
+     ============================================================ -->
+
+<section class="demo-section">
+  <div class="demo-panel">
+    <h3>Try It Live</h3>
+    <p class="demo-subtitle">Paste your own text. Select your language. See what changes. <strong>Changed glyphs are highlighted in green</strong> &#x2013; the corrections most people never notice, made visible.</p>
+    <div class="demo-grid">
+      <div class="demo-input-area">
+        <span class="demo-area-label">Your text</span>
+        <textarea class="demo-textarea" id="demo-input" placeholder="Paste text in any language&#x2026;">He said "hello" and left... She replied "goodbye" -- then walked away.
+
+The room was 1920x1080. It cost (c) 2024. See p. 42 for 3/4 of the data.
+
+Click -> next, or go <- back.</textarea>
+        <div class="demo-controls">
+          <select class="demo-select" id="demo-lang">
+            <option value="en-US" selected>en-US</option>
+            <option value="en-GB">en-GB</option>
+            <option value="fr-FR">fr-FR</option>
+            <option value="de-DE">de-DE</option>
+            <option value="pt-PT">pt-PT</option>
+            <option value="pt-BR">pt-BR</option>
+            <option value="it-IT">it-IT</option>
+            <option value="es-ES">es-ES</option>
+            <option value="es-MX">es-MX</option>
+            <option value="nl-NL">nl-NL</option>
+            <option value="nl-BE">nl-BE</option>
+            <option value="ro-RO">ro-RO</option>
+            <option value="sc">sc</option>
+            <option value="sv">sv</option>
+            <option value="nb">nb</option>
+            <option value="da">da</option>
+            <option value="fi">fi</option>
+            <option value="pl">pl</option>
+            <option value="cs">cs</option>
+            <option value="ca">ca</option>
+            <option value="ru">ru</option>
+          </select>
+          <button class="demo-btn" id="demo-btn" onclick="runDemo()">Lint</button>
+        </div>
+      </div>
+      <div>
+        <span class="demo-area-label">Corrected</span>
+        <div class="demo-output" id="demo-output"></div>
+      </div>
+    </div>
+    <ul class="demo-corrections" id="demo-corrections"></ul>
+    <p class="demo-note">Showing a subset of rules (ellipsis, quotes, dashes, legal symbols, arrows, multiplication, fractions, apostrophes, double spaces). The full Python linter handles all 46+ rules including NBSP, diacritics, and accessibility.</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     FILTER BAR
+     ============================================================ -->
+
+<div class="filter-bar" id="filter-bar">
+  <div class="filter-row">
+    <span class="filter-label">Language</span>
+    <div class="filter-pills" id="lang-filters">
+      <button class="filter-pill active" data-lang="all">Show All</button>
+      <button class="filter-pill" data-lang="universal">Universal</button>
+      <button class="filter-pill" data-lang="en-US">en-US</button>
+      <button class="filter-pill" data-lang="en-GB">en-GB</button>
+      <button class="filter-pill" data-lang="fr-FR">fr-FR</button>
+      <button class="filter-pill" data-lang="de-DE">de-DE</button>
+      <button class="filter-pill" data-lang="pt-PT">pt-PT</button>
+      <button class="filter-pill" data-lang="pt-BR">pt-BR</button>
+      <button class="filter-pill" data-lang="it-IT">it-IT</button>
+      <button class="filter-pill" data-lang="es-ES">es-ES</button>
+      <button class="filter-pill" data-lang="es-MX">es-MX</button>
+      <button class="filter-pill" data-lang="nl-NL">nl-NL</button>
+      <button class="filter-pill" data-lang="ro-RO">ro-RO</button>
+      <button class="filter-pill" data-lang="pl">pl</button>
+      <button class="filter-pill" data-lang="sv">sv</button>
+      <button class="filter-pill" data-lang="da">da</button>
+      <button class="filter-pill" data-lang="ru">ru</button>
+    </div>
+    <span class="filter-count" id="filter-count">46 rules</span>
+  </div>
+  <div class="filter-row">
+    <span class="filter-label">Category</span>
+    <div class="filter-pills" id="cat-filters">
+      <button class="filter-pill" data-cat="normalization">Normalization</button>
+      <button class="filter-pill" data-cat="diacritics">Diacritics</button>
+      <button class="filter-pill" data-cat="homoglyphs">Homoglyphs</button>
+      <button class="filter-pill" data-cat="symbols">Symbols</button>
+      <button class="filter-pill" data-cat="quotes">Quotes</button>
+      <button class="filter-pill" data-cat="dashes">Dashes</button>
+      <button class="filter-pill" data-cat="spacing">Spacing</button>
+      <button class="filter-pill" data-cat="arrows">Arrows</button>
+      <button class="filter-pill" data-cat="structural">Structural</button>
+      <button class="filter-pill" data-cat="abbreviations">Abbreviations</button>
+      <button class="filter-pill" data-cat="language-specific">Lang-Specific</button>
+      <button class="filter-pill" data-cat="punctuation">Punctuation</button>
+      <button class="filter-pill" data-cat="accessibility">Accessibility</button>
+      <button class="filter-pill" data-cat="cleanup">Cleanup</button>
+      <button class="filter-pill" data-cat="code-exclusion">Code Exclusion</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     RULES
+     ============================================================ -->
+
+<div class="content">
+
+<!-- ── 1. NORMALIZATION ─────────────────────────────────────────── -->
+
+<div class="category-group" data-category="normalization">
+<h2 class="category" id="cat-normalization">1. Normalization</h2>
+<p class="category-desc">Safety-first preprocessing: canonical Unicode form and invisible character cleanup.</p>
+
+<div class="rule" data-langs="universal" data-category="normalization">
+  <div class="rule-header">
+    <span class="rule-name">nfc_normalization</span>
+    <span class="rule-title">NFC Unicode Normalization</span>
+  </div>
+  <p class="rule-desc">Applies Unicode NFC (Canonical Decomposition + Canonical Composition) to combine decomposed character sequences into their precomposed equivalents. Runs first, before any other rule.</p>
+  <div class="lang-pills"><span class="pill universal">all languages</span></div>
+  <div class="examples">
+    <div class="example-row">
+      <span class="example-lang"></span>
+      <span class="raw">cafe&#x0301;</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">caf&#x00E9;</span>
+      <span class="unicode-note">U+0065 U+0301 &#x2192; U+00E9</span>
+    </div>
+  </div>
+</div>
+
+<div class="rule" data-langs="universal" data-category="normalization">
+  <div class="rule-header">
+    <span class="rule-name">zero_width_chars</span>
+    <span class="rule-title">Zero-Width Character Cleanup</span>
+  </div>
+  <p class="rule-desc">Strips stray ZWSP (U+200B) from prose; replaces it with a regular space when between two letters. Removes mid-text BOM (U+FEFF). Preserves ZWNJ (ligature suppression) and ZWJ (emoji).</p>
+  <div class="lang-pills"><span class="pill universal">all languages</span></div>
+  <div class="examples">
+    <div class="example-row">
+      <span class="example-lang"></span>
+      <span class="raw">hello&#x200B;world</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">hello world</span>
+      <span class="unicode-note">ZWSP between letters &#x2192; space</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- /category-group normalization -->
+
+<!-- ── 2. DIACRITICS & ACCENTS ──────────────────────────────────── -->
+
+<div class="category-group" data-category="diacritics">
+<h2 class="category" id="cat-diacritics">2. Diacritics &amp; Accents</h2>
+<p class="category-desc">Restoring correct diacritical marks across Romance, Germanic, and Slavic languages.</p>
+
+<div class="rule" data-langs="ro-RO" data-category="diacritics">
+  <div class="rule-header">
+    <span class="rule-name">romanian_diacritics</span>
+    <span class="rule-title">Romanian &#x0219;/&#x021B; (Comma-Below)</span>
+  </div>
+  <p class="rule-desc">Replaces cedilla forms (&#x015F; &#x0163;) with the correct comma-below forms (&#x0219; &#x021B;) per Romanian Academy standard. Legacy fonts and keyboards often produce the wrong codepoint.</p>
+  <div class="lang-pills"><span class="pill lang-specific">ro-RO</span></div>
+  <div class="examples">
+    <div class="example-row">
+      <span class="example-lang">ro-RO</span>
+      <span class="raw">&#x015F;coal&#x0103;</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">&#x0219;coal&#x0103;</span>
+      <span class="unicode-note">U+015F &#x2192; U+0219</span>
+    </div>
+    <div class="example-row">
+      <span class="example-lang">ro-RO</span>
+      <span class="raw">&#x0163;ar&#x0103;</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">&#x021B;ar&#x0103;</span>
+      <span class="unicode-note">U+0163 &#x2192; U+021B</span>
+    </div>
+  </div>
+</div>
+
+<div class="rule" data-langs="fr-FR" data-category="diacritics">
+  <div class="rule-header">
+    <span class="rule-name">french_ligatures</span>
+    <span class="rule-title">French Orthographic Ligatures &#x0153;/&#x00E6;</span>
+  </div>
+  <p class="rule-desc">Replaces decomposed &#x201C;oe&#x201D; with the mandatory French ligature &#x0153; in words like c&#x0153;ur, &#x0153;uf, b&#x0153;uf. These are not stylistic ligatures&#x2009;&#x2014;&#x2009;they are distinct letters in French orthography.</p>
+  <div class="lang-pills"><span class="pill lang-specific">fr-FR</span></div>
+  <div class="examples">
+    <div class="example-row">
+      <span class="example-lang">fr-FR</span>
+      <span class="raw">coeur</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">c&#x0153;ur</span>
+    </div>
+    <div class="example-row">
+      <span class="example-lang">fr-FR</span>
+      <span class="raw">oeuvre</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">&#x0153;uvre</span>
+    </div>
+    <div class="example-row">
+      <span class="example-lang">fr-FR</span>
+      <span class="raw">boeuf</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">b&#x0153;uf</span>
+    </div>
+  </div>
+</div>
+
+<div class="rule" data-langs="fr-FR" data-category="diacritics">
+  <div class="rule-header">
+    <span class="rule-name">french_capital_accents</span>
+    <span class="rule-title">French Capital Accent Restoration</span>
+  </div>
+  <p class="rule-desc">Adds missing accents on all-caps French words per Acad&#x00E9;mie fran&#x00E7;aise mandate. Also handles contextual &#x201C;A&#x201D; &#x2192; &#x201C;&#x00C0;&#x201D; when followed by an all-caps word.</p>
+  <div class="lang-pills"><span class="pill lang-specific">fr-FR</span></div>
+  <div class="examples">
+    <div class="example-row">
+      <span class="example-lang">fr-FR</span>
+      <span class="raw">ETAT</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">&#x00C9;TAT</span>
+    </div>
+    <div class="example-row">
+      <span class="example-lang">fr-FR</span>
+      <span class="raw">HOTEL</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">H&#x00D4;TEL</span>
+    </div>
+    <div class="example-row">
+      <span class="example-lang">fr-FR</span>
+      <span class="raw">A PARIS</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">&#x00C0; PARIS</span>
+    </div>
+  </div>
+</div>
+
+<div class="rule" data-langs="it-IT" data-category="diacritics">
+  <div class="rule-header">
+    <span class="rule-name">italian_apostrophic_acute</span>
+    <span class="rule-title">Italian Apostrophic Acute Correction</span>
+  </div>
+  <p class="rule-desc">Converts trailing apostrophe-as-accent to the correct precomposed accented letter. Common on keyboards without dead keys. Covers the &#x201C;-ch&#x00E9;&#x201D; family (acute &#x00E9;) and common grave-accented words.</p>
+  <div class="lang-pills"><span class="pill lang-specific">it-IT</span></div>
+  <div class="examples">
+    <div class="example-row">
+      <span class="example-lang">it-IT</span>
+      <span class="raw">perche'</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">perch&#x00E9;</span>
+    </div>
+    <div class="example-row">
+      <span class="example-lang">it-IT</span>
+      <span class="raw">e' importante</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">&#x00E8; importante</span>
+    </div>
+    <div class="example-row">
+      <span class="example-lang">it-IT</span>
+      <span class="raw">caffe'</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">caff&#x00E8;</span>
+    </div>
+  </div>
+</div>
+
+<div class="rule" data-langs="es-ES,es-MX" data-category="diacritics">
+  <div class="rule-header">
+    <span class="rule-name">spanish_interrogative_accent</span>
+    <span class="rule-title">Spanish Interrogative/Exclamative Accents</span>
+  </div>
+  <p class="rule-desc">Restores the tilde on interrogative pronouns (d&#x00F3;nde, qu&#x00E9;, c&#x00F3;mo, cu&#x00E1;l) at sentence start when the sentence ends with ? or !.</p>
+  <div class="lang-pills"><span class="pill lang-specific">es-ES</span><span class="pill lang-specific">es-MX</span></div>
+  <div class="examples">
+    <div class="example-row">
+      <span class="example-lang">es-ES</span>
+      <span class="raw">Donde vives?</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">&#x00BF;D&#x00F3;nde vives?</span>
+    </div>
+  </div>
+</div>
+
+<div class="rule" data-langs="es-ES,es-MX" data-category="diacritics">
+  <div class="rule-header">
+    <span class="rule-name">spanish_lexical_accents</span>
+    <span class="rule-title">Spanish Lexical Accent Restoration</span>
+  </div>
+  <p class="rule-desc">Corrects unambiguously wrong unaccented forms of common Spanish words. Conservative closed list: incre&#x00ED;ble, r&#x00E1;pido, m&#x00FA;sica, f&#x00E1;cil, tel&#x00E9;fono, Am&#x00E9;rica, etc.</p>
+  <div class="lang-pills"><span class="pill lang-specific">es-ES</span><span class="pill lang-specific">es-MX</span></div>
+  <div class="examples">
+    <div class="example-row">
+      <span class="example-lang">es-ES</span>
+      <span class="raw">Es increible</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">Es incre&#x00ED;ble</span>
+    </div>
+    <div class="example-row">
+      <span class="example-lang">es-ES</span>
+      <span class="raw">musica rapido</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">m&#x00FA;sica r&#x00E1;pido</span>
+    </div>
+  </div>
+</div>
+
+<div class="rule" data-langs="es-ES,es-MX,it-IT,pt-PT,pt-BR" data-category="diacritics">
+  <div class="rule-header">
+    <span class="rule-name">capital_accents</span>
+    <span class="rule-title">Capital Accent Preservation</span>
+  </div>
+  <p class="rule-desc">Restores accents on all-caps proper nouns and place names. Word-boundary matching only&#x2009;&#x2014;&#x2009;never fires on substrings. Sources: RAE, Treccani, Priberam.</p>
+  <div class="lang-pills">
+    <span class="pill lang-specific">es-ES</span><span class="pill lang-specific">es-MX</span>
+    <span class="pill lang-specific">it-IT</span>
+    <span class="pill lang-specific">pt-PT</span><span class="pill lang-specific">pt-BR</span>
+  </div>
+  <div class="examples">
+    <div class="example-row">
+      <span class="example-lang">es-ES</span>
+      <span class="raw">MEXICO</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">M&#x00C9;XICO</span>
+    </div>
+    <div class="example-row">
+      <span class="example-lang">it-IT</span>
+      <span class="raw">CITTA</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">CITT&#x00C0;</span>
+    </div>
+    <div class="example-row">
+      <span class="example-lang">pt-PT</span>
+      <span class="raw">AGUA</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">&#x00C1;GUA</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- /category-group diacritics -->
+
+<!-- ── 3. HOMOGLYPHS ────────────────────────────────────────────── -->
+
+<div class="category-group" data-category="homoglyphs">
+<h2 class="category" id="cat-homoglyphs">3. Homoglyphs</h2>
+<p class="category-desc">Visually similar but semantically wrong characters.</p>
+
+<div class="rule" data-langs="universal,de-DE" data-category="homoglyphs">
+  <div class="rule-header">
+    <span class="rule-name">homoglyph_detection</span>
+    <span class="rule-title">Homoglyph Detection &amp; Correction</span>
+  </div>
+  <p class="rule-desc">Masculine ordinal indicator &#x00BA; (U+00BA) &#x2192; degree sign &#x00B0; (U+00B0) in temperature/angle context, with proper NBSP spacing. In German, Greek beta &#x03B2; &#x2192; eszett &#x00DF;.</p>
+  <div class="lang-pills">
+    <span class="pill universal">&#x00BA; &#x2192; &#x00B0; all languages</span>
+    <span class="pill lang-specific">&#x03B2; &#x2192; &#x00DF; de-DE</span>
+  </div>
+  <div class="examples">
+    <div class="example-row">
+      <span class="example-lang"></span>
+      <span class="raw">20&#x00BA;C</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">20&#x00A0;&#x00B0;C</span>
+      <span class="unicode-note">U+00BA &#x2192; NBSP + U+00B0</span>
+    </div>
+    <div class="example-row">
+      <span class="example-lang">de-DE</span>
+      <span class="raw">Stra&#x03B2;e</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">Stra&#x00DF;e</span>
+      <span class="unicode-note">U+03B2 &#x2192; U+00DF</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- /category-group homoglyphs -->
+
+<!-- ── 4. SYMBOLS ───────────────────────────────────────────────── -->
+
+<div class="category-group" data-category="symbols">
+<h2 class="category" id="cat-symbols">4. Symbols</h2>
+<p class="category-desc">ASCII approximations replaced with their proper Unicode equivalents.</p>
+
+<div class="rule" data-langs="universal" data-category="symbols">
+  <div class="rule-header">
+    <span class="rule-name">ellipsis</span>
+    <span class="rule-title">Ellipsis Character</span>
+  </div>
+  <p class="rule-desc">Three consecutive periods &#x2192; ellipsis character (U+2026). Prevents reflowing across line breaks.</p>
+  <div class="lang-pills"><span class="pill universal">all languages</span></div>
+  <div class="examples">
+    <div class="example-row">
+      <span class="example-lang"></span>
+      <span class="raw">Wait...</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">Wait&#x2026;</span>
+      <span class="unicode-note">U+2026</span>
+    </div>
+  </div>
+</div>
+
+<div class="rule" data-langs="universal" data-category="symbols">
+  <div class="rule-header">
+    <span class="rule-name">copyright_sign / registered_sign / trademark_sign</span>
+    <span class="rule-title">Legal Symbols &#x00A9; &#x00AE; &#x2122;</span>
+  </div>
+  <p class="rule-desc">Converts ASCII approximations to proper Unicode legal symbols. Case-insensitive.</p>
+  <div class="lang-pills"><span class="pill universal">all languages</span></div>
+  <div class="examples">
+    <div class="example-row">
+      <span class="example-lang"></span>
+      <span class="raw">(c)</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">&#x00A9;</span>
+      <span class="unicode-note">U+00A9</span>
+    </div>
+    <div class="example-row">
+      <span class="example-lang"></span>
+      <span class="raw">(r)</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">&#x00AE;</span>
+      <span class="unicode-note">U+00AE</span>
+    </div>
+    <div class="example-row">
+      <span class="example-lang"></span>
+      <span class="raw">(tm)</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">&#x2122;</span>
+      <span class="unicode-note">U+2122</span>
+    </div>
+  </div>
+</div>
+
+<div class="rule" data-langs="universal" data-category="symbols">
+  <div class="rule-header">
+    <span class="rule-name">fractions</span>
+    <span class="rule-title">Common Fractions</span>
+  </div>
+  <p class="rule-desc">Replaces ASCII fraction notation with Unicode fraction characters.</p>
+  <div class="lang-pills"><span class="pill universal">all languages</span></div>
+  <div class="examples">
+    <div class="example-row">
+      <span class="example-lang"></span>
+      <span class="raw">1/2</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">&#x00BD;</span>
+    </div>
+    <div class="example-row">
+      <span class="example-lang"></span>
+      <span class="raw">3/4</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">&#x00BE;</span>
+    </div>
+  </div>
+</div>
+
+<div class="rule" data-langs="universal" data-category="symbols">
+  <div class="rule-header">
+    <span class="rule-name">primes</span>
+    <span class="rule-title">Prime &amp; Double-Prime Marks</span>
+  </div>
+  <p class="rule-desc">Straight quotes after numbers &#x2192; prime &#x2032; and double-prime &#x2033; for measurements (feet/inches, degrees/minutes).</p>
+  <div class="lang-pills"><span class="pill universal">all languages</span></div>
+  <div class="examples">
+    <div class="example-row">
+      <span class="example-lang"></span>
+      <span class="raw">5'10"</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">5&#x2032;10&#x2033;</span>
+      <span class="unicode-note">U+2032 U+2033</span>
+    </div>
+    <div class="example-row">
+      <span class="example-lang"></span>
+      <span class="raw">6'</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">6&#x2032;</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- /category-group symbols -->
+
+<!-- ── 5. QUOTES & APOSTROPHES ──────────────────────────────────── -->
+
+<div class="category-group" data-category="quotes">
+<h2 class="category" id="cat-quotes">5. Quotes &amp; Apostrophes</h2>
+<p class="category-desc">Language-specific quotation mark conventions and apostrophe curling.</p>
+
+<div class="rule" data-langs="universal,en-US,en-GB,fr-FR,de-DE,pt-PT,pt-BR,it-IT,es-ES,es-MX,nl-NL,nl-BE,ro-RO,sc,sv,nb,da,fi,pl,cs,ca,ru" data-category="quotes">
+  <div class="rule-header">
+    <span class="rule-name">quotation_marks</span>
+    <span class="rule-title">Quotation Mark Substitution</span>
+  </div>
+  <p class="rule-desc">Replaces straight quotes with language-appropriate typographic quotes. Uses adjacency-based stack parsing to handle nested quotes correctly. Inner spaces (NNBSP for fr-FR guillemets, thin space for pt-PT) are inserted automatically.</p>
+
+  <table class="matrix">
+    <thead>
+      <tr><th>Language</th><th>Primary</th><th>Nested</th><th>Inner Space</th><th>Example</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>en-US</code></td><td>&#x201C; &#x201D;</td><td>&#x2018; &#x2019;</td><td>none</td><td class="sample">&#x201C;hello&#x201D;</td></tr>
+      <tr><td><code>en-GB</code></td><td>&#x2018; &#x2019;</td><td>&#x201C; &#x201D;</td><td>none</td><td class="sample">&#x2018;hello&#x2019;</td></tr>
+      <tr><td><code>fr-FR</code></td><td>&#x00AB; &#x00BB;</td><td>&#x201C; &#x201D;</td><td>NNBSP</td><td class="sample">&#x00AB;&#x202F;bonjour&#x202F;&#x00BB;</td></tr>
+      <tr><td><code>de-DE</code></td><td>&#x201E; &#x201C;</td><td>&#x2039; &#x203A;</td><td>none</td><td class="sample">&#x201E;hallo&#x201C;</td></tr>
+      <tr><td><code>pt-PT</code></td><td>&#x00AB; &#x00BB;</td><td>&#x201C; &#x201D;</td><td>thin</td><td class="sample">&#x00AB;&#x2009;ol&#x00E1;&#x2009;&#x00BB;</td></tr>
+      <tr><td><code>pt-BR</code></td><td>&#x201C; &#x201D;</td><td>&#x2018; &#x2019;</td><td>none</td><td class="sample">&#x201C;ol&#x00E1;&#x201D;</td></tr>
+      <tr><td><code>it-IT</code></td><td>&#x00AB; &#x00BB;</td><td>&#x201C; &#x201D;</td><td>none</td><td class="sample">&#x00AB;ciao&#x00BB;</td></tr>
+      <tr><td><code>es-ES</code></td><td>&#x00AB; &#x00BB;</td><td>&#x201C; &#x201D;</td><td>none</td><td class="sample">&#x00AB;hola&#x00BB;</td></tr>
+      <tr><td><code>es-MX</code></td><td>&#x201C; &#x201D;</td><td>&#x2018; &#x2019;</td><td>none</td><td class="sample">&#x201C;hola&#x201D;</td></tr>
+      <tr><td><code>nl-NL/BE</code></td><td>&#x201C; &#x201D;</td><td>&#x2018; &#x2019;</td><td>none</td><td class="sample">&#x201C;hallo&#x201D;</td></tr>
+      <tr><td><code>ro-RO</code></td><td>&#x201E; &#x201D;</td><td>&#x00AB; &#x00BB;</td><td>none</td><td class="sample">&#x201E;bun&#x0103;&#x201D;</td></tr>
+      <tr><td><code>pl</code></td><td>&#x201E; &#x201D;</td><td>&#x00AB; &#x00BB;</td><td>none</td><td class="sample">&#x201E;cze&#x015B;&#x0107;&#x201D;</td></tr>
+      <tr><td><code>da</code></td><td>&#x201E; &#x201D;</td><td>&#x201A; &#x2018;</td><td>none</td><td class="sample">&#x201E;hej&#x201D;</td></tr>
+      <tr><td><code>nb</code></td><td>&#x00AB; &#x00BB;</td><td>&#x2039; &#x203A;</td><td>none</td><td class="sample">&#x00AB;hei&#x00BB;</td></tr>
+      <tr><td><code>ru</code></td><td>&#x00AB; &#x00BB;</td><td>&#x201E; &#x201D;</td><td>none</td><td class="sample">&#x00AB;&#x043F;&#x0440;&#x0438;&#x0432;&#x0435;&#x0442;&#x00BB;</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="rule" data-langs="universal" data-category="quotes">
+  <div class="rule-header">
+    <span class="rule-name">apostrophe</span>
+    <span class="rule-title">Typographic Apostrophe</span>
+  </div>
+  <p class="rule-desc">Straight apostrophe between word characters &#x2192; typographic apostrophe &#x2019; (U+2019). Covers contractions, possessives, and elisions.</p>
+  <div class="lang-pills"><span class="pill universal">all languages</span></div>
+  <div class="examples">
+    <div class="example-row">
+      <span class="example-lang"></span>
+      <span class="raw">don't</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">don&#x2019;t</span>
+      <span class="unicode-note">U+2019</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- /category-group quotes -->
+
+<!-- ── 6. DASHES ─────────────────────────────────────────────────── -->
+
+<div class="category-group" data-category="dashes">
+<h2 class="category" id="cat-dashes">6. Dashes</h2>
+<p class="category-desc">Locale-aware dash conventions for parenthetical, range, and mathematical contexts.</p>
+
+<div class="rule" data-langs="universal,en-US,en-GB,fr-FR,de-DE,pt-PT,pt-BR,it-IT,es-ES,es-MX,nl-NL,nl-BE,ro-RO,sc,sv,nb,da,fi,pl,cs,ca,ru" data-category="dashes">
+  <div class="rule-header">
+    <span class="rule-name">em_dash / en_dash</span>
+    <span class="rule-title">Parenthetical Dash</span>
+  </div>
+  <p class="rule-desc">Converts &#x201C; - &#x201D; (space-hyphen-space) to the locale-appropriate dash. Only matches when surrounded by non-hyphen, non-digit characters.</p>
+
+  <table class="matrix">
+    <thead>
+      <tr><th>Style</th><th>Languages</th><th>Result</th><th>Source</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Em dash, no space</td><td><code>en-US, pt-PT, pt-BR, pl, ca</code></td><td class="sample">foo&#x2014;bar</td><td>CMOS, PWN, IEC</td></tr>
+      <tr><td>Spaced en dash</td><td><code>en-GB, de-DE, it-IT, nl-NL/BE, ro-RO, sc, sv, nb, da, fi, cs</code></td><td class="sample">foo &#x2013; bar</td><td>Hart&#x2019;s, Duden</td></tr>
+      <tr><td>NNBSP + em dash + NNBSP</td><td><code>fr-FR</code></td><td class="sample">foo&#x202F;&#x2014;&#x202F;bar</td><td>Imprimerie nationale</td></tr>
+      <tr><td>Spaced em dash</td><td><code>es-ES, es-MX, ru</code></td><td class="sample">foo &#x2014; bar</td><td>RAE, GOST</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="rule" data-langs="universal" data-category="dashes">
+  <div class="rule-header">
+    <span class="rule-name">range_dash</span>
+    <span class="rule-title">Range Dash (En Dash)</span>
+  </div>
+  <p class="rule-desc">Hyphen between numbers &#x2192; en dash &#x2013; (U+2013) for number ranges.</p>
+  <div class="lang-pills"><span class="pill universal">all languages</span></div>
+  <div class="examples">
+    <div class="example-row">
+      <span class="example-lang"></span>
+      <span class="raw">2020-2024</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">2020&#x2013;2024</span>
+    </div>
+    <div class="example-row">
+      <span class="example-lang"></span>
+      <span class="raw">pp. 5-10</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">pp.&#x00A0;5&#x2013;10</span>
+    </div>
+  </div>
+</div>
+
+<div class="rule" data-langs="universal" data-category="dashes">
+  <div class="rule-header">
+    <span class="rule-name">minus_sign</span>
+    <span class="rule-title">Minus Sign</span>
+  </div>
+  <p class="rule-desc">Hyphen in numeric context &#x2192; minus sign &#x2212; (U+2212). Handles negative numbers and subtraction.</p>
+  <div class="lang-pills"><span class="pill universal">all languages</span></div>
+  <div class="examples">
+    <div class="example-row">
+      <span class="example-lang"></span>
+      <span class="raw">a -5 b</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">a &#x2212;5 b</span>
+      <span class="unicode-note">U+2212</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- /category-group dashes -->
+
+<!-- ── 7. SPACING ────────────────────────────────────────────────── -->
+
+<div class="category-group" data-category="spacing">
+<h2 class="category" id="cat-spacing">7. Spacing</h2>
+<p class="category-desc">Non-breaking spaces, unit spacing, and locale-aware whitespace conventions.</p>
+
+<div class="rule" data-langs="universal" data-category="spacing">
+  <div class="rule-header">
+    <span class="rule-name">double_space</span>
+    <span class="rule-title">Double Space Collapse</span>
+  </div>
+  <p class="rule-desc">Collapses 2+ consecutive ASCII spaces to a single space. Common in PDF pastes, AI outputs, and legacy CMS exports. Preserves line-start indentation.</p>
+  <div class="lang-pills"><span class="pill universal">all languages</span></div>
+  <div class="examples">
+    <div class="example-row">
+      <span class="example-lang"></span>
+      <span class="raw">Hello&nbsp;&nbsp;world</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">Hello world</span>
+    </div>
+  </div>
+</div>
+
+<div class="rule" data-langs="universal" data-category="spacing">
+  <div class="rule-header">
+    <span class="rule-name">number_unit_spacing</span>
+    <span class="rule-title">Number + Unit Spacing</span>
+  </div>
+  <p class="rule-desc">Inserts NBSP between a number and its unit to prevent line break. Covers SI, digital, CSS, and time units. French uses NNBSP; all others use NBSP.</p>
+  <div class="lang-pills"><span class="pill universal">all languages</span></div>
+  <div class="examples">
+    <div class="example-row">
+      <span class="example-lang"></span>
+      <span class="raw">10km</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">10&#x00A0;km</span>
+    </div>
+    <div class="example-row">
+      <span class="example-lang">fr-FR</span>
+      <span class="raw">5kg</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">5&#x202F;kg</span>
+      <span class="unicode-note">NNBSP U+202F</span>
+    </div>
+  </div>
+</div>
+
+<div class="rule" data-langs="universal,fr-FR,de-DE" data-category="spacing">
+  <div class="rule-header">
+    <span class="rule-name">percentage_spacing</span>
+    <span class="rule-title">Percentage Sign Spacing</span>
+  </div>
+  <p class="rule-desc">Locale-aware spacing before the percent sign.</p>
+  <div class="lang-pills">
+    <span class="pill lang-specific">fr-FR NNBSP</span>
+    <span class="pill lang-specific">de-DE NBSP</span>
+    <span class="pill universal">others: no space</span>
+  </div>
+  <div class="examples">
+    <div class="example-row">
+      <span class="example-lang">fr-FR</span>
+      <span class="raw">25%</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">25&#x202F;%</span>
+    </div>
+    <div class="example-row">
+      <span class="example-lang">de-DE</span>
+      <span class="raw">25%</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">25&#x00A0;%</span>
+    </div>
+    <div class="example-row">
+      <span class="example-lang">en-US</span>
+      <span class="raw">25%</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">25%</span>
+      <span class="unicode-note">(unchanged)</span>
+    </div>
+  </div>
+</div>
+
+<div class="rule" data-langs="universal,en-US,en-GB,fr-FR,de-DE,pt-PT,pt-BR,it-IT,es-ES,es-MX,nl-NL,nl-BE,ro-RO,sv,nb,da,fi,pl,cs,ca,ru" data-category="spacing">
+  <div class="rule-header">
+    <span class="rule-name">currency_spacing</span>
+    <span class="rule-title">Currency Symbol Spacing</span>
+  </div>
+  <p class="rule-desc">Locale-aware positioning and spacing of currency symbols (&#x20AC; &#x00A3; &#x00A5; $).</p>
+
+  <table class="matrix">
+    <thead>
+      <tr><th>Style</th><th>Languages</th><th>Example</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Before, no space</td><td><code>en-US, en-GB, es-MX, pt-BR</code></td><td class="sample">$10.50</td></tr>
+      <tr><td>After, NBSP</td><td><code>pt-PT, es-ES, fr-FR, de-DE, it-IT, ro-RO, sc, sv, nb, da, fi, pl, cs, ca, ru</code></td><td class="sample">10&#x00A0;&#x20AC;</td></tr>
+      <tr><td>Before, NBSP</td><td><code>nl-NL, nl-BE</code></td><td class="sample">&#x20AC;&#x00A0;10,00</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="rule" data-langs="universal" data-category="spacing">
+  <div class="rule-header">
+    <span class="rule-name">multiplication_sign</span>
+    <span class="rule-title">Multiplication Sign</span>
+  </div>
+  <p class="rule-desc">Letter &#x201C;x&#x201D; between numbers &#x2192; multiplication sign &#x00D7; (U+00D7) with thin spaces.</p>
+  <div class="lang-pills"><span class="pill universal">all languages</span></div>
+  <div class="examples">
+    <div class="example-row">
+      <span class="example-lang"></span>
+      <span class="raw">1920x1080</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">1920&#x2009;&#x00D7;&#x2009;1080</span>
+      <span class="unicode-note">thin &#x00D7; thin</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- /category-group spacing -->
+
+<!-- ── 8. ARROWS ─────────────────────────────────────────────────── -->
+
+<div class="category-group" data-category="arrows">
+<h2 class="category" id="cat-arrows">8. Arrows</h2>
+<p class="category-desc">ASCII arrow approximations replaced with proper Unicode arrows.</p>
+
+<div class="rule" data-langs="universal" data-category="arrows">
+  <div class="rule-header">
+    <span class="rule-name">right_arrow / left_arrow / left_right_arrow</span>
+    <span class="rule-title">ASCII Arrow Substitution</span>
+  </div>
+  <p class="rule-desc">Whitespace-bounded ASCII arrows &#x2192; Unicode arrows. obj->method() and => (fat arrow) are left alone.</p>
+  <div class="lang-pills"><span class="pill universal">all languages</span></div>
+  <div class="examples">
+    <div class="example-row">
+      <span class="example-lang"></span>
+      <span class="raw">click -> next</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">click &#x2192; next</span>
+      <span class="unicode-note">U+2192</span>
+    </div>
+    <div class="example-row">
+      <span class="example-lang"></span>
+      <span class="raw">step <- back</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">step &#x2190; back</span>
+      <span class="unicode-note">U+2190</span>
+    </div>
+    <div class="example-row">
+      <span class="example-lang"></span>
+      <span class="raw">foo <-> bar</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">foo &#x2194; bar</span>
+      <span class="unicode-note">U+2194</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- /category-group arrows -->
+
+<!-- ── 9. STRUCTURAL ─────────────────────────────────────────────── -->
+
+<div class="category-group" data-category="structural">
+<h2 class="category" id="cat-structural">9. Structural</h2>
+<p class="category-desc">Bracket nesting, initial binding, and structural whitespace rules.</p>
+
+<div class="rule" data-langs="universal" data-category="structural">
+  <div class="rule-header">
+    <span class="rule-name">nested_parentheticals</span>
+    <span class="rule-title">Nested Parenthetical Brackets</span>
+  </div>
+  <p class="rule-desc">Converts inner parentheses to square brackets when nested.</p>
+  <div class="lang-pills"><span class="pill universal">all languages</span></div>
+  <div class="examples">
+    <div class="example-row">
+      <span class="example-lang"></span>
+      <span class="raw">(like (this))</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">(like [this])</span>
+    </div>
+  </div>
+</div>
+
+<div class="rule" data-langs="universal" data-category="structural">
+  <div class="rule-header">
+    <span class="rule-name">nbsp_between_initials</span>
+    <span class="rule-title">NBSP Between Initials</span>
+  </div>
+  <p class="rule-desc">Inserts NBSP between adjacent initials. English locale guard: two-letter abbreviations (U.S., U.K.) are left alone per AP/CMOS; 3+ initials get NBSP.</p>
+  <div class="lang-pills"><span class="pill universal">all languages</span></div>
+  <div class="examples">
+    <div class="example-row">
+      <span class="example-lang">en-US</span>
+      <span class="raw">J.R.R. Tolkien</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">J.&#x00A0;R.&#x00A0;R. Tolkien</span>
+    </div>
+    <div class="example-row">
+      <span class="example-lang">en-US</span>
+      <span class="raw">U.S. government</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">U.S. government</span>
+      <span class="unicode-note">(unchanged &#x2014; 2-letter EN)</span>
+    </div>
+    <div class="example-row">
+      <span class="example-lang">de-DE</span>
+      <span class="raw">J.R. Ewing</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">J.&#x00A0;R. Ewing</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- /category-group structural -->
+
+<!-- ── 10. ABBREVIATIONS ──────────────────────────────────────────── -->
+
+<div class="category-group" data-category="abbreviations">
+<h2 class="category" id="cat-abbreviations">10. Abbreviations</h2>
+<p class="category-desc">Locale-specific period conventions and non-breaking space insertion after titles.</p>
+
+<div class="rule" data-langs="universal,en-US,en-GB,fr-FR,pt-PT,pt-BR" data-category="abbreviations">
+  <div class="rule-header">
+    <span class="rule-name">abbreviation_periods</span>
+    <span class="rule-title">Abbreviation Period Conventions</span>
+  </div>
+  <p class="rule-desc">Locale-specific rules for periods in title abbreviations.</p>
+
+  <table class="matrix">
+    <thead>
+      <tr><th>Language</th><th>Convention</th><th>Example</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>en-US</code></td><td>Always period</td><td class="sample">Mr. Smith, Dr. Jones</td></tr>
+      <tr><td><code>en-GB</code></td><td>Contractions: no period</td><td class="sample">Mr Smith, Dr Jones, Prof. Adams</td></tr>
+      <tr><td><code>fr-FR</code></td><td>M. / Mme / Mlle</td><td class="sample">M. Dupont, Mme Blanc</td></tr>
+      <tr><td><code>pt-PT/BR</code></td><td>Always period</td><td class="sample">Sr. Silva, Dra. Costa</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="rule" data-langs="universal" data-category="abbreviations">
+  <div class="rule-header">
+    <span class="rule-name">nbsp_after_title</span>
+    <span class="rule-title">NBSP After Title Abbreviations</span>
+  </div>
+  <p class="rule-desc">Inserts NBSP between title abbreviations and the following capitalized name. Language-aware: includes locale-specific titles.</p>
+  <div class="lang-pills"><span class="pill universal">all languages</span></div>
+  <div class="examples">
+    <div class="example-row">
+      <span class="example-lang"></span>
+      <span class="raw">Mr. Smith</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">Mr.&#x00A0;Smith</span>
+    </div>
+    <div class="example-row">
+      <span class="example-lang">de-DE</span>
+      <span class="raw">Fr. M&#x00FC;ller</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">Fr.&#x00A0;M&#x00FC;ller</span>
+    </div>
+  </div>
+</div>
+
+<div class="rule" data-langs="universal" data-category="abbreviations">
+  <div class="rule-header">
+    <span class="rule-name">nbsp_page_abbrev</span>
+    <span class="rule-title">NBSP After Page/Section Abbreviations</span>
+  </div>
+  <p class="rule-desc">Inserts NBSP between page/section abbreviations (p., pp., &#x00A7;, art., fig., tab.) and the following number.</p>
+  <div class="lang-pills"><span class="pill universal">all languages</span></div>
+  <div class="examples">
+    <div class="example-row">
+      <span class="example-lang"></span>
+      <span class="raw">p. 42</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">p.&#x00A0;42</span>
+    </div>
+    <div class="example-row">
+      <span class="example-lang"></span>
+      <span class="raw">pp. 10-20</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">pp.&#x00A0;10&#x2013;20</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- /category-group abbreviations -->
+
+<!-- ── 11. LANGUAGE-SPECIFIC ──────────────────────────────────────── -->
+
+<div class="category-group" data-category="language-specific">
+<h2 class="category" id="cat-language-specific">11. Language-Specific Rules</h2>
+<p class="category-desc">Rules that only fire for specific language codes.</p>
+
+<div class="rule" data-langs="de-DE" data-category="language-specific">
+  <div class="rule-header">
+    <span class="rule-name">german_eszett</span>
+    <span class="rule-title">German Capital Eszett (&#x1E9E;)</span>
+  </div>
+  <p class="rule-desc">In all-caps German words, SS &#x2192; capital sharp s &#x1E9E; for known eszett words. Introduced 2017 by the Rat f&#x00FC;r deutsche Rechtschreibung.</p>
+  <div class="lang-pills"><span class="pill lang-specific">de-DE</span></div>
+  <div class="examples">
+    <div class="example-row">
+      <span class="example-lang">de-DE</span>
+      <span class="raw">STRASSE</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">STRA&#x1E9E;E</span>
+    </div>
+    <div class="example-row">
+      <span class="example-lang">de-DE</span>
+      <span class="raw">FUSSBALL</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">FU&#x1E9E;BALL</span>
+    </div>
+  </div>
+</div>
+
+<div class="rule" data-langs="de-DE" data-category="language-specific">
+  <div class="rule-header">
+    <span class="rule-name">german_din5008_spacing</span>
+    <span class="rule-title">German DIN 5008 Abbreviation Spacing</span>
+  </div>
+  <p class="rule-desc">Inserts NNBSP between parts of multi-part abbreviations per DIN 5008.</p>
+  <div class="lang-pills"><span class="pill lang-specific">de-DE</span></div>
+  <div class="examples">
+    <div class="example-row">
+      <span class="example-lang">de-DE</span>
+      <span class="raw">z.B.</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">z.&#x202F;B.</span>
+    </div>
+    <div class="example-row">
+      <span class="example-lang">de-DE</span>
+      <span class="raw">i.d.R.</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">i.&#x202F;d.&#x202F;R.</span>
+    </div>
+  </div>
+</div>
+
+<div class="rule" data-langs="de-DE,en-US,en-GB" data-category="language-specific">
+  <div class="rule-header">
+    <span class="rule-name">ligature_suppression</span>
+    <span class="rule-title">Ligature Suppression (ZWNJ)</span>
+  </div>
+  <p class="rule-desc">Inserts ZWNJ (U+200C) at morpheme boundaries in compound words where a ligature would incorrectly span the boundary.</p>
+  <div class="lang-pills"><span class="pill lang-specific">de-DE</span><span class="pill lang-specific">en-US</span><span class="pill lang-specific">en-GB</span></div>
+  <div class="examples">
+    <div class="example-row">
+      <span class="example-lang">de-DE</span>
+      <span class="raw">Auflage</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">Auf&#x200C;lage</span>
+      <span class="unicode-note">ZWNJ at morpheme boundary</span>
+    </div>
+    <div class="example-row">
+      <span class="example-lang">de-DE</span>
+      <span class="raw">Schifffahrt</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">Schiff&#x200C;fahrt</span>
+    </div>
+    <div class="example-row">
+      <span class="example-lang">en-US</span>
+      <span class="raw">shelfful</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">shelf&#x200C;ful</span>
+    </div>
+  </div>
+</div>
+
+<div class="rule" data-langs="pt-PT,pt-BR,es-ES,es-MX" data-category="language-specific">
+  <div class="rule-header">
+    <span class="rule-name">ordinals</span>
+    <span class="rule-title">Ordinal Typographic Forms</span>
+  </div>
+  <p class="rule-desc">Converts numeric ordinal approximations to proper typographic forms.</p>
+  <div class="lang-pills"><span class="pill lang-specific">pt-PT</span><span class="pill lang-specific">pt-BR</span><span class="pill lang-specific">es-ES</span><span class="pill lang-specific">es-MX</span></div>
+  <div class="examples">
+    <div class="example-row">
+      <span class="example-lang">pt-PT</span>
+      <span class="raw">5o andar</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">5.&#x00BA; andar</span>
+    </div>
+    <div class="example-row">
+      <span class="example-lang">es-ES</span>
+      <span class="raw">3er lugar</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">3.&#x00BA; lugar</span>
+    </div>
+  </div>
+</div>
+
+<div class="rule" data-langs="fr-FR,es-ES,es-MX,it-IT,pt-PT,pt-BR,pl,cs" data-category="language-specific">
+  <div class="rule-header">
+    <span class="rule-name">single_letter_nbsp</span>
+    <span class="rule-title">Single-Letter Word NBSP (Anti-Orphan)</span>
+  </div>
+  <p class="rule-desc">Replaces the space after single-letter prepositions and conjunctions with NBSP to prevent orphans. Skips all-caps display contexts.</p>
+  <div class="lang-pills">
+    <span class="pill lang-specific">fr-FR</span>
+    <span class="pill lang-specific">es-ES/MX</span>
+    <span class="pill lang-specific">it-IT</span>
+    <span class="pill lang-specific">pt-PT/BR</span>
+    <span class="pill lang-specific">pl</span>
+    <span class="pill lang-specific">cs</span>
+  </div>
+  <div class="examples">
+    <div class="example-row">
+      <span class="example-lang">es-ES</span>
+      <span class="raw">pan y agua</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">pan y&#x00A0;agua</span>
+    </div>
+    <div class="example-row">
+      <span class="example-lang">pl</span>
+      <span class="raw">id&#x0119; w kino</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">id&#x0119; w&#x00A0;kino</span>
+    </div>
+    <div class="example-row">
+      <span class="example-lang">fr-FR</span>
+      <span class="raw">voyage &#x00E0; mon ami</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">voyage &#x00E0;&#x00A0;mon ami</span>
+    </div>
+  </div>
+</div>
+
+<div class="rule" data-langs="fr-FR" data-category="language-specific">
+  <div class="rule-header">
+    <span class="rule-name">french_high_punctuation</span>
+    <span class="rule-title">French High Punctuation Spacing</span>
+  </div>
+  <p class="rule-desc">Inserts NNBSP (U+202F) before : ; ! ? in French text per Imprimerie nationale. Does not fire on URL schemes.</p>
+  <div class="lang-pills"><span class="pill lang-specific">fr-FR</span></div>
+  <div class="examples">
+    <div class="example-row">
+      <span class="example-lang">fr-FR</span>
+      <span class="raw">Bonjour !</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">Bonjour&#x202F;!</span>
+      <span class="unicode-note">NNBSP U+202F</span>
+    </div>
+    <div class="example-row">
+      <span class="example-lang">fr-FR</span>
+      <span class="raw">question?</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">question&#x202F;?</span>
+    </div>
+    <div class="example-row">
+      <span class="example-lang">fr-FR</span>
+      <span class="raw">liste: un</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">liste&#x202F;: un</span>
+    </div>
+  </div>
+</div>
+
+<div class="rule" data-langs="es-ES,es-MX" data-category="language-specific">
+  <div class="rule-header">
+    <span class="rule-name">inverted_punctuation</span>
+    <span class="rule-title">Spanish Inverted Punctuation</span>
+  </div>
+  <p class="rule-desc">Inserts &#x00BF; and &#x00A1; at the start of question/exclamation sentences. Required since RAE 1754.</p>
+  <div class="lang-pills"><span class="pill lang-specific">es-ES</span><span class="pill lang-specific">es-MX</span></div>
+  <div class="examples">
+    <div class="example-row">
+      <span class="example-lang">es-ES</span>
+      <span class="raw">Donde vives?</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">&#x00BF;D&#x00F3;nde vives?</span>
+    </div>
+    <div class="example-row">
+      <span class="example-lang">es-ES</span>
+      <span class="raw">Que increible!</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">&#x00A1;Qu&#x00E9; incre&#x00ED;ble!</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- /category-group language-specific -->
+
+<!-- ── 12. PUNCTUATION PLACEMENT ──────────────────────────────────── -->
+
+<div class="category-group" data-category="punctuation">
+<h2 class="category" id="cat-punctuation">12. Punctuation Placement</h2>
+<p class="category-desc">Locale conventions for quote-punctuation order, footnotes, serial comma, and colon capitalisation.</p>
+
+<div class="rule" data-langs="en-US,en-GB,de-DE,fr-FR,it-IT,es-ES,es-MX,pt-PT,pt-BR,nl-NL,nl-BE" data-category="punctuation">
+  <div class="rule-header">
+    <span class="rule-name">quote_punctuation_placement</span>
+    <span class="rule-title">Quote&#x2013;Punctuation Order</span>
+  </div>
+  <p class="rule-desc">Moves period and comma relative to the closing quote per locale style. Only periods and commas are affected.</p>
+
+  <table class="matrix">
+    <thead>
+      <tr><th>Policy</th><th>Languages</th><th>Example</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Inside (typesetters&#x2019;)</td><td><code>en-US</code></td><td class="sample">&#x201C;magnificent.&#x201D;</td></tr>
+      <tr><td>Outside (logical)</td><td><code>en-GB, de-DE, fr-FR, it-IT, es-ES/MX, pt-PT/BR, nl-NL/BE</code></td><td class="sample">&#x2018;magnificent&#x2019;.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="rule" data-langs="universal,fr-FR" data-category="punctuation">
+  <div class="rule-header">
+    <span class="rule-name">footnote_mark_placement</span>
+    <span class="rule-title">Footnote Mark Placement</span>
+  </div>
+  <p class="rule-desc">Moves superscript footnote marks relative to terminal punctuation per locale.</p>
+
+  <table class="matrix">
+    <thead>
+      <tr><th>Policy</th><th>Languages</th><th>Result</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Mark after punctuation</td><td><code>en-US, en-GB, de-DE, it-IT, es-ES, pt-PT, nl-NL, ro-RO, sv, nb, da, fi, pl, cs, ca, ru</code></td><td class="sample">matters.&#x00B9;</td></tr>
+      <tr><td>Mark before punctuation</td><td><code>fr-FR</code></td><td class="sample">matters&#x00B9;.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="rule" data-langs="en-US,en-GB,fr-FR,de-DE,it-IT,es-ES,es-MX,pt-PT,pt-BR,nl-NL,nl-BE" data-category="punctuation">
+  <div class="rule-header">
+    <span class="rule-name">serial_comma</span>
+    <span class="rule-title">Serial (Oxford) Comma</span>
+  </div>
+  <p class="rule-desc">Enforces or removes the serial comma before the final coordinator in lists. Requires at least one prior comma.</p>
+
+  <table class="matrix">
+    <thead>
+      <tr><th>Policy</th><th>Languages</th><th>Example</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Enforce</td><td><code>en-US, en-GB</code></td><td class="sample">red, white, and blue</td></tr>
+      <tr><td>Remove</td><td><code>fr-FR, de-DE, it-IT, es-ES/MX, pt-PT/BR, nl-NL/BE</code></td><td class="sample">rouge, blanc et bleu</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="rule" data-langs="en-US,en-GB,fr-FR,de-DE" data-category="punctuation">
+  <div class="rule-header">
+    <span class="rule-name">colon_capitalisation</span>
+    <span class="rule-title">Colon Capitalisation</span>
+  </div>
+  <p class="rule-desc">Capitalises or lowercases the first word after a colon per locale. French always lowercases. English and German use clause-aware heuristics. Proper nouns are never lowercased.</p>
+
+  <table class="matrix">
+    <thead>
+      <tr><th>Policy</th><th>Languages</th><th>Example</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Always lower</td><td><code>fr-FR</code></td><td class="sample">le verdict&#x202F;: il est coupable.</td></tr>
+      <tr><td>Clause-aware</td><td><code>en-US, en-GB</code></td><td class="sample">The verdict: He was guilty.</td></tr>
+      <tr><td>Clause-aware</td><td><code>de-DE</code></td><td class="sample">Das Ergebnis: Er war schuldig.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+</div><!-- /category-group punctuation -->
+
+<!-- ── 13. ACCESSIBILITY ──────────────────────────────────────────── -->
+
+<div class="category-group" data-category="accessibility">
+<h2 class="category" id="cat-accessibility">13. Accessibility</h2>
+<p class="category-desc">WCAG-compliant text reflow and reference mark spacing.</p>
+
+<div class="rule" data-langs="universal" data-category="accessibility">
+  <div class="rule-header">
+    <span class="rule-name">breakable_containers</span>
+    <span class="rule-title">WCAG Breakable Containers (SC 1.4.12)</span>
+  </div>
+  <p class="rule-desc">Reduces NBSP chains of 4+ elements by breaking middle connections to allow text reflow. Keeps first and last NBSP intact.</p>
+  <div class="lang-pills"><span class="pill universal">all languages</span></div>
+  <div class="examples">
+    <div class="example-row">
+      <span class="example-lang"></span>
+      <span class="raw">J.&#x00A0;R.&#x00A0;R.&#x00A0;Tolkien</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">J.&#x00A0;R. R.&#x00A0;Tolkien</span>
+      <span class="unicode-note">middle NBSP &#x2192; space</span>
+    </div>
+  </div>
+</div>
+
+<div class="rule" data-langs="universal" data-category="accessibility">
+  <div class="rule-header">
+    <span class="rule-name">reference_mark_nbsp</span>
+    <span class="rule-title">Reference Mark NBSP</span>
+  </div>
+  <p class="rule-desc">Inserts NBSP between reference marks (&#x00A7; &#x00B6;) and adjacent numbers.</p>
+  <div class="lang-pills"><span class="pill universal">all languages</span></div>
+  <div class="examples">
+    <div class="example-row">
+      <span class="example-lang"></span>
+      <span class="raw">&#x00A7; 5</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">&#x00A7;&#x00A0;5</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- /category-group accessibility -->
+
+<!-- ── 14. FINAL CLEANUP ──────────────────────────────────────────── -->
+
+<div class="category-group" data-category="cleanup">
+<h2 class="category" id="cat-cleanup">14. Final Cleanup</h2>
+<p class="category-desc">Post-processing passes that run after all other rules.</p>
+
+<div class="rule" data-langs="universal" data-category="cleanup">
+  <div class="rule-header">
+    <span class="rule-name">abbreviation_haplology</span>
+    <span class="rule-title">Abbreviation Haplology</span>
+  </div>
+  <p class="rule-desc">Collapses double periods at sentence end when an abbreviation&#x2019;s period coincides with the sentence-ending period.</p>
+  <div class="lang-pills"><span class="pill universal">all languages</span></div>
+  <div class="examples">
+    <div class="example-row">
+      <span class="example-lang"></span>
+      <span class="raw">etc..</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">etc.</span>
+    </div>
+  </div>
+</div>
+
+<div class="rule" data-langs="universal" data-category="cleanup">
+  <div class="rule-header">
+    <span class="rule-name">widow_prevention</span>
+    <span class="rule-title">Widow Prevention (Opt-In)</span>
+  </div>
+  <p class="rule-desc">Replaces the last inter-word space in 4+-word paragraphs with NBSP. Off by default; enabled via <code style="font-family:var(--mono); font-size:9pt; background:var(--surface-light); padding:1px 4px; border-radius:3px;">prevent_widows=True</code>.</p>
+  <div class="lang-pills"><span class="pill universal">all languages (opt-in)</span></div>
+  <div class="examples">
+    <div class="example-row">
+      <span class="example-lang"></span>
+      <span class="raw">This is a short sentence.</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">This is a short&#x00A0;sentence.</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- /category-group cleanup -->
+
+<!-- ── 15. CODE EXCLUSION ─────────────────────────────────────────── -->
+
+<div class="category-group" data-category="code-exclusion">
+<h2 class="category" id="cat-code-exclusion">15. Code Exclusion</h2>
+<p class="category-desc">Cross-cutting safety layer: regions that must never be corrected.</p>
+
+<div class="rule" data-langs="universal" data-category="code-exclusion">
+  <div class="rule-header">
+    <span class="rule-name">code_exclusion</span>
+    <span class="rule-title">Code &amp; Identifier Masking</span>
+  </div>
+  <p class="rule-desc">Before any rule runs, the linter masks: fenced code blocks, inline backtick code, HTML code/pre/kbd elements, URLs, emails, file paths, version strings, @mentions, #hashtags, camelCase and snake_case identifiers, and regex patterns. Restored verbatim after all rules run.</p>
+  <div class="lang-pills"><span class="pill universal">all languages</span></div>
+  <div class="examples">
+    <div class="example-row">
+      <span class="example-lang"></span>
+      <span class="raw">`x...` is code</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">`x...` is code</span>
+      <span class="unicode-note">(unchanged inside backticks)</span>
+    </div>
+    <div class="example-row">
+      <span class="example-lang"></span>
+      <span class="raw">See https://example.com/foo--bar</span>
+      <span class="arrow">&#x2192;</span>
+      <span class="correct">See https://example.com/foo--bar</span>
+      <span class="unicode-note">(URL preserved)</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- /category-group code-exclusion -->
+
+</div><!-- .content -->
+
+<!-- ============================================================
+     CALL TO ACTION
+     ============================================================ -->
+
+<section class="cta-section">
+  <div class="cta-eyebrow">Open Source</div>
+  <h2 class="cta-heading">This work needs native speakers.</h2>
+  <div class="cta-body">
+    <p>I verified the sources the LLM pulled from. I cross-referenced grammars, style guides, and typographic authorities for every language variant. But there&#x2019;s nothing like a native to truly validate this kind of work. The rules for your language deserve to be reviewed by someone who grew up writing in it.</p>
+    <p>This is where Typography Lint can &#x2013; and should &#x2013; scale. Extend the schema to new languages. Catch conventions I got wrong. Add the rules that only a native would know to look for. The YAML schema is designed for exactly this: auditable, extensible, open.</p>
+  </div>
+
+  <div class="cta-buttons">
+    <a href="https://github.com/tudotype/typography-lint" class="cta-btn cta-btn-primary" target="_blank">View on GitHub</a>
+    <a href="https://github.com/tudotype/typography-lint/issues" class="cta-btn cta-btn-secondary" target="_blank">Report an Issue</a>
+    <a href="https://github.com/tudotype/typography-lint/fork" class="cta-btn cta-btn-secondary" target="_blank">Fork &amp; Contribute</a>
+  </div>
+
+  <div class="install-card" style="margin-bottom: 24px;">
+    <h4>Install</h4>
+    <pre><b>pip</b>
+pip install typography-lint</pre>
+    <pre><b>Standalone</b>
+curl -O https://raw.githubusercontent.com/tudotype/typography-lint/main/typography_lint.py
+python3 typography_lint.py "your text" --lang fr-FR</pre>
+    <pre><b>Claude Code Skill</b>
+# Add to your .claude/skills/ directory:
+curl -O https://raw.githubusercontent.com/tudotype/typography-lint/main/skills/typography-lint.md</pre>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+
+<!-- ============================================================
+     AUTHOR
+     ============================================================ -->
+
+<div class="author-section">
+  <h4>About the Author</h4>
+  <div class="author-card">
+    <div class="author-avatar">J</div>
+    <div class="author-info">
+      <div class="author-name"><a href="https://www.linkedin.com/in/joaomiranda/" target="_blank">Jo&#x00E3;o Miranda</a></div>
+      <div class="author-role">Brand Designer at Automattic</div>
+      <p class="author-bio">Jo&#x00E3;o leads brand systems for the Woo Design team at Automattic. He builds Brand OS architectures, YAML-driven design tokens, and AI tooling that scales brand quality across products. Typography Intelligence is his exploration of what happens when you treat typographic conventions as infrastructure &#x2013; not afterthoughts.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+
+<div class="footer">
+  <div class="footer-left">
+    <span class="footer-logo"><svg width="88" height="22" viewBox="0 0 88 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M83.061 16.3436C85.4069 16.3436 86.7513 15.7372 87.8851 14.2083L87.595 13.9182C86.8569 14.5245 86.2245 14.7879 84.7216 14.7879C82.4311 14.7879 81.875 13.4696 81.875 10.8342V9.04187C81.875 6.32695 82.1652 5.56218 82.8237 5.56218C83.4822 5.56218 83.7723 6.32568 83.7723 9.04187C83.7723 9.59542 83.7723 10.2546 83.7195 10.8342L84.9322 10.5441H81.1866L81.2394 11.0976H87.8565C88.4889 6.85379 87.0656 5.06079 82.9007 5.06079C78.7885 5.06079 77.1012 6.69536 77.1012 10.7547C77.1037 14.7351 78.8172 16.3436 83.061 16.3436ZM70.3556 15.2893C69.8809 15.2893 69.6703 14.9992 69.1696 14.3406L69.4597 14.8942V6.77551L69.1696 7.53903C69.6703 6.87986 69.8815 6.58973 70.3556 6.58973C71.1464 6.58973 71.357 7.43341 71.357 10.9653C71.357 14.4431 71.1464 15.2887 70.3556 15.2887V15.2893ZM64.8729 21.405H69.4597V15.5005C70.0133 16.1069 70.8041 16.3442 71.9901 16.3442C74.9951 16.3442 76.1551 14.7364 76.1551 10.7032C76.1551 6.66991 74.9691 5.06207 72.3063 5.06207C70.4612 5.06207 69.4858 6.19525 68.2203 7.75091L69.4591 6.5121V5.27333H64.8723L64.8729 21.405ZM51.4027 16.3436C52.2567 16.3498 53.1002 16.1549 53.8649 15.7748C54.6297 15.3947 55.2943 14.84 55.805 14.1555L55.5676 13.8653C55.0321 14.3285 54.3514 14.5896 53.6436 14.6034C52.8801 14.6034 52.5619 14.2605 52.5619 13.3907V5.79887H56.0677V5.27139H52.5619V1.60719H52.1668L48.1075 5.27139L46.0511 5.5348V5.79821H47.9739V13.0999C47.9739 15.421 49.4252 16.3436 51.402 16.3436H51.4027ZM40.9114 15.8689C40.1479 15.8689 39.9628 14.8674 39.9628 10.7025C39.9628 6.27414 40.1473 5.53608 40.9114 5.53608C41.6756 5.53608 41.8601 6.27414 41.8601 10.7025C41.8601 14.8674 41.6749 15.8689 40.9114 15.8689ZM40.9114 16.3436C44.9975 16.3436 46.6581 14.7357 46.6581 10.7025C46.6581 6.66925 44.9975 5.06145 40.9114 5.06145C36.8254 5.06145 35.1647 6.66925 35.1647 10.7025C35.1647 14.7357 36.8254 16.3436 40.9114 16.3436ZM26.5186 16.3436C28.3638 16.3436 29.3391 15.2098 30.6047 13.6547L29.3659 14.8936V16.1323H33.9527V0H29.3659V5.9045C28.8123 5.29814 28.0215 5.06079 26.8355 5.06079C23.8304 5.06079 22.6705 6.66863 22.6705 10.7019C22.6705 14.7351 23.8559 16.3436 26.5186 16.3436ZM28.4694 14.8165C27.6785 14.8165 27.4679 13.9729 27.4679 10.441C27.4679 6.96129 27.6785 6.11762 28.4694 6.11762C28.944 6.11762 29.1546 6.40777 29.6554 7.0663L29.3652 6.51276V14.6314L29.6554 13.8679C29.1546 14.5245 28.9434 14.8146 28.4688 14.8146L28.4694 14.8165ZM13.7864 16.3436C16.1851 16.3436 16.7915 14.9203 17.6613 13.6815L16.8704 14.4195V16.133H21.4572V5.27267H16.8704V14.2617L17.1338 13.7082C16.5014 14.6047 16.1323 14.7097 15.8155 14.7097C15.2358 14.7097 14.919 14.3667 14.919 13.628V5.27205H10.3589V13.0745C10.3596 15.421 11.8096 16.3436 13.7864 16.3436ZM5.35094 16.3436C6.20494 16.3498 7.04843 16.155 7.8132 15.7749C8.57797 15.3948 9.24255 14.84 9.75321 14.1555L9.51588 13.8653C8.98038 14.3285 8.29969 14.5896 7.59184 14.6034C6.82833 14.6034 6.5102 14.2605 6.5102 13.3907V5.79887H9.48916V5.27139H6.51083V1.60719H6.11572L2.05639 5.27139L0 5.53546V5.79887H1.92405V13.1006C1.92405 15.421 3.37217 16.3436 5.35094 16.3436ZM53.3528 21.405H55.4881C57.2015 21.405 58.3614 20.4296 59.1523 18.6634L65.1624 5.27267H64.4244L61.4193 12.2842L62.1313 11.4934L59.4953 5.27267H54.2232L59.9165 16.9245L60.1799 15.2899L59.4679 16.5287C59.0225 17.2923 58.6509 17.583 57.8601 17.583H53.3522L53.3528 21.405Z" fill="#1D1D1D"/></svg></span>
+  </div>
+  <div class="footer-right"><span class="amber">46+ rules</span> &middot; 21 language variants &middot; May 2026<br>Set in <a href="https://fonts.google.com/specimen/Google+Sans" target="_blank" style="color:var(--ink-muted); text-decoration:none; border-bottom:1px solid var(--border-light);">Google Sans</a></div>
+</div>
+
+<script>
+// ================================================================
+// QUOTE STYLES TABLE (ported from typography_lint.py)
+// ================================================================
+const QUOTE_STYLES = {
+  'pt-PT': ['\u00AB','\u00BB','\u201C','\u201D','\u2009',''],
+  'pt-BR': ['\u201C','\u201D','\u2018','\u2019','',''],
+  'en-US': ['\u201C','\u201D','\u2018','\u2019','',''],
+  'en-GB': ['\u2018','\u2019','\u201C','\u201D','',''],
+  'fr-FR': ['\u00AB','\u00BB','\u201C','\u201D','\u202F',''],
+  'de-DE': ['\u201E','\u201C','\u2039','\u203A','',''],
+  'it-IT': ['\u00AB','\u00BB','\u201C','\u201D','',''],
+  'es-ES': ['\u00AB','\u00BB','\u201C','\u201D','',''],
+  'es-MX': ['\u201C','\u201D','\u2018','\u2019','',''],
+  'nl-NL': ['\u201C','\u201D','\u2018','\u2019','',''],
+  'nl-BE': ['\u201C','\u201D','\u2018','\u2019','',''],
+  'ro-RO': ['\u201E','\u201D','\u00AB','\u00BB','',''],
+  'sc':    ['\u00AB','\u00BB','\u201C','\u201D','',''],
+  'sv':    ['\u201C','\u201D','\u2018','\u2019','',''],
+  'nb':    ['\u00AB','\u00BB','\u2039','\u203A','',''],
+  'da':    ['\u201E','\u201D','\u201A','\u2018','',''],
+  'fi':    ['\u201C','\u201D','\u2018','\u2019','',''],
+  'pl':    ['\u201E','\u201D','\u00AB','\u00BB','',''],
+  'cs':    ['\u201E','\u201D','\u201A','\u2018','',''],
+  'ca':    ['\u00AB','\u00BB','\u201C','\u201D','',''],
+  'ru':    ['\u00AB','\u00BB','\u201E','\u201D','',''],
+};
+
+// Dash styles per language
+const DASH_STYLES = {
+  'en-US': '\u2014', 'pt-PT': '\u2014', 'pt-BR': '\u2014',
+  'pl': '\u2014', 'ca': '\u2014',
+  'en-GB': ' \u2013 ', 'de-DE': ' \u2013 ', 'it-IT': ' \u2013 ',
+  'nl-NL': ' \u2013 ', 'nl-BE': ' \u2013 ', 'ro-RO': ' \u2013 ',
+  'sc': ' \u2013 ', 'sv': ' \u2013 ', 'nb': ' \u2013 ',
+  'da': ' \u2013 ', 'fi': ' \u2013 ', 'cs': ' \u2013 ',
+  'fr-FR': '\u202F\u2014\u202F',
+  'es-ES': ' \u2014 ', 'es-MX': ' \u2014 ', 'ru': ' \u2014 ',
+};
+
+// Fractions
+const FRACTIONS = {'1/2':'\u00BD','1/4':'\u00BC','3/4':'\u00BE','1/3':'\u2153','2/3':'\u2154'};
+
+// ================================================================
+// CHARACTER-LEVEL DIFF HIGHLIGHTING
+// ================================================================
+function diffHighlight(original, corrected) {
+  // Walk both strings with two pointers. When chars match, emit plain text.
+  // When they diverge, consume from corrected until we re-sync, wrapping
+  // the new chars in <mark>. This works well for substitution-heavy diffs
+  // where the overall structure is preserved (our case exactly).
+  const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  let html = '';
+  let i = 0, j = 0;
+  while (i < original.length && j < corrected.length) {
+    if (original[i] === corrected[j]) {
+      html += esc(corrected[j]);
+      i++; j++;
+    } else {
+      // Find how far the divergence extends in both strings.
+      // Look ahead in original to find where corrected[j+k] matches again.
+      let bestOI = -1, bestCJ = -1, bestLen = 0;
+      // Try to find re-sync within a reasonable window
+      const maxLook = 20;
+      for (let di = 0; di <= maxLook && i + di <= original.length; di++) {
+        for (let dj = 0; dj <= maxLook && j + dj <= corrected.length; dj++) {
+          if (di === 0 && dj === 0) continue;
+          if (i + di < original.length && j + dj < corrected.length &&
+              original[i + di] === corrected[j + dj]) {
+            // Check how many chars match from this sync point
+            let matchLen = 0;
+            while (i + di + matchLen < original.length &&
+                   j + dj + matchLen < corrected.length &&
+                   original[i + di + matchLen] === corrected[j + dj + matchLen]) {
+              matchLen++;
+            }
+            if (matchLen > bestLen) {
+              bestLen = matchLen;
+              bestOI = di;
+              bestCJ = dj;
+            }
+            if (matchLen >= 3) break; // good enough sync
+          }
+        }
+        if (bestLen >= 3) break;
+      }
+      if (bestLen >= 2) {
+        // Emit the corrected chars as highlighted
+        const segment = corrected.slice(j, j + bestCJ);
+        if (segment.length > 0) {
+          html += '<mark>' + esc(segment) + '</mark>';
+        }
+        i += bestOI;
+        j += bestCJ;
+      } else {
+        // No good sync found, just mark current corrected char
+        html += '<mark>' + esc(corrected[j]) + '</mark>';
+        j++;
+        if (i < original.length) i++;
+      }
+    }
+  }
+  // Remaining corrected chars
+  if (j < corrected.length) {
+    html += '<mark>' + esc(corrected.slice(j)) + '</mark>';
+  }
+  return html;
+}
+
+// ================================================================
+// LIVE DEMO ENGINE
+// ================================================================
+function runDemo() {
+  const input = document.getElementById('demo-input').value;
+  const lang = document.getElementById('demo-lang').value;
+  const corrections = [];
+  let text = input;
+
+  // 1. Ellipsis
+  text = text.replace(/\.\.\./g, (m, off) => {
+    corrections.push({rule:'ellipsis', desc:'Three periods \u2192 ellipsis character (U+2026)', orig:'...', repl:'\u2026'});
+    return '\u2026';
+  });
+
+  // 2. Legal symbols
+  text = text.replace(/\(c\)/gi, (m) => {
+    corrections.push({rule:'copyright_sign', desc:'(c) \u2192 \u00A9', orig:m, repl:'\u00A9'});
+    return '\u00A9';
+  });
+  text = text.replace(/\(r\)/gi, (m) => {
+    corrections.push({rule:'registered_sign', desc:'(r) \u2192 \u00AE', orig:m, repl:'\u00AE'});
+    return '\u00AE';
+  });
+  text = text.replace(/\(tm\)/gi, (m) => {
+    corrections.push({rule:'trademark_sign', desc:'(tm) \u2192 \u2122', orig:m, repl:'\u2122'});
+    return '\u2122';
+  });
+
+  // 3. Fractions
+  for (const [frac, uni] of Object.entries(FRACTIONS)) {
+    const re = new RegExp('(?<!\\d)' + frac.replace('/', '\\/') + '(?!\\d|/)', 'g');
+    text = text.replace(re, (m) => {
+      corrections.push({rule:'fractions', desc:frac + ' \u2192 ' + uni, orig:frac, repl:uni});
+      return uni;
+    });
+  }
+
+  // 4. Multiplication sign
+  text = text.replace(/(\d)\s*x\s*(\d)/g, (m, a, b) => {
+    corrections.push({rule:'multiplication_sign', desc:'x between numbers \u2192 \u00D7', orig:'x', repl:'\u2009\u00D7\u2009'});
+    return a + '\u2009\u00D7\u2009' + b;
+  });
+
+  // 5. Arrows
+  text = text.replace(/ <-> /g, () => {
+    corrections.push({rule:'left_right_arrow', desc:'<-> \u2192 \u2194', orig:'<->', repl:'\u2194'});
+    return ' \u2194 ';
+  });
+  text = text.replace(/ -> /g, () => {
+    corrections.push({rule:'right_arrow', desc:'-> \u2192 \u2192', orig:'->', repl:'\u2192'});
+    return ' \u2192 ';
+  });
+  text = text.replace(/ <- /g, () => {
+    corrections.push({rule:'left_arrow', desc:'<- \u2192 \u2190', orig:'<-', repl:'\u2190'});
+    return ' \u2190 ';
+  });
+
+  // 6. Dashes: " -- " or " - " to locale dash
+  const dash = DASH_STYLES[lang] || '\u2014';
+  text = text.replace(/(?<=\S) --? (?=\S)/g, () => {
+    corrections.push({rule:'parenthetical_dash', desc:'Spaced hyphen \u2192 locale dash', orig:' - ', repl:dash});
+    return dash;
+  });
+
+  // 7. Double space
+  text = text.replace(/(?<=\S)  +(?=\S)/g, () => {
+    corrections.push({rule:'double_space', desc:'Multiple spaces \u2192 single space', orig:'  ', repl:' '});
+    return ' ';
+  });
+
+  // 8. Apostrophe curling
+  text = text.replace(/(\w)'(\w)/g, (m, a, b) => {
+    corrections.push({rule:'apostrophe', desc:"Straight apostrophe \u2192 \u2019", orig:"'", repl:'\u2019'});
+    return a + '\u2019' + b;
+  });
+
+  // 9. Quotation marks (locale-aware)
+  const qs = QUOTE_STYLES[lang] || QUOTE_STYLES['en-US'];
+  const [po, pc, no, nc, ps, ns] = qs;
+  // Simple approach: replace paired straight double quotes
+  let quoteDepth = 0;
+  let result = '';
+  for (let i = 0; i < text.length; i++) {
+    if (text[i] === '"') {
+      const before = i > 0 ? text[i-1] : ' ';
+      const after = i < text.length-1 ? text[i+1] : ' ';
+      const isOpen = /[\s(\[\{]/.test(before) || i === 0;
+      if (isOpen) {
+        if (quoteDepth === 0) {
+          result += po + ps;
+          quoteDepth = 1;
+        } else {
+          result += no + ns;
+          quoteDepth = 2;
+        }
+      } else {
+        if (quoteDepth === 2) {
+          result += ns + nc;
+          quoteDepth = 1;
+        } else {
+          result += ps + pc;
+          quoteDepth = 0;
+        }
+      }
+      corrections.push({rule:'quotation_marks', desc:'Straight quote \u2192 locale-appropriate typographic quote', orig:'"', repl:'(locale)'});
+    } else {
+      result += text[i];
+    }
+  }
+  text = result;
+
+  // Deduplicate corrections for display
+  const seen = new Set();
+  const uniqueCorr = corrections.filter(c => {
+    const key = c.rule + c.desc;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+
+  const outputEl = document.getElementById('demo-output');
+  const corrEl = document.getElementById('demo-corrections');
+
+  // Lint pulse animation
+  outputEl.classList.remove('pulsing');
+  void outputEl.offsetWidth;
+  outputEl.classList.add('pulsing');
+
+  if (text === input) {
+    outputEl.innerHTML = '<span style="color:var(--ink-muted)">No corrections needed \u2014 your text is already typographically clean.</span>';
+    corrEl.innerHTML = '';
+    return;
+  }
+
+  // Character-level diff: highlight each changed glyph in green
+  // Use a simple LCS-based approach to align input and output
+  outputEl.innerHTML = diffHighlight(input, text);
+
+  // Stagger mark pulse animations
+  outputEl.querySelectorAll('mark').forEach((mark, i) => {
+    mark.style.animationDelay = (i * 20) + 'ms';
+  });
+
+  // Build correction list
+  corrEl.innerHTML = uniqueCorr.map(c =>
+    '<li><span class="corr-rule">' + c.rule + '</span> \u2014 ' + c.desc + '</li>'
+  ).join('');
+}
+
+// Run demo on load
+document.addEventListener('DOMContentLoaded', runDemo);
+
+// ================================================================
+// FILTER LOGIC
+// ================================================================
+(function() {
+  const rules = document.querySelectorAll('.rule[data-langs]');
+  const catGroups = document.querySelectorAll('.category-group');
+  const langFilters = document.getElementById('lang-filters');
+  const catFilters = document.getElementById('cat-filters');
+  const countEl = document.getElementById('filter-count');
+
+  let activeLangs = new Set(['all']);
+  let activeCat = null;
+
+  function applyFilters() {
+    let visible = 0;
+    rules.forEach(rule => {
+      const rLangs = rule.dataset.langs.split(',');
+      const rCat = rule.dataset.category;
+
+      let langMatch = activeLangs.has('all') ||
+        rLangs.some(l => activeLangs.has(l)) ||
+        (activeLangs.has('universal') && rLangs.includes('universal'));
+
+      let catMatch = !activeCat || rCat === activeCat;
+
+      if (langMatch && catMatch) {
+        rule.classList.remove('hidden');
+        visible++;
+      } else {
+        rule.classList.add('hidden');
+      }
+    });
+
+    // Hide empty category groups
+    catGroups.forEach(g => {
+      const visibleRules = g.querySelectorAll('.rule:not(.hidden)');
+      g.classList.toggle('hidden', visibleRules.length === 0);
+    });
+
+    countEl.textContent = visible + ' rule' + (visible !== 1 ? 's' : '');
+  }
+
+  // Language pill clicks
+  langFilters.addEventListener('click', e => {
+    const pill = e.target.closest('.filter-pill');
+    if (!pill) return;
+    const lang = pill.dataset.lang;
+
+    if (lang === 'all') {
+      activeLangs = new Set(['all']);
+      langFilters.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+    } else {
+      // Remove "all"
+      activeLangs.delete('all');
+      langFilters.querySelector('[data-lang="all"]').classList.remove('active');
+
+      if (activeLangs.has(lang)) {
+        activeLangs.delete(lang);
+        pill.classList.remove('active');
+        if (activeLangs.size === 0) {
+          activeLangs.add('all');
+          langFilters.querySelector('[data-lang="all"]').classList.add('active');
+        }
+      } else {
+        activeLangs.add(lang);
+        pill.classList.add('active');
+      }
+    }
+    applyFilters();
+  });
+
+  // Category pill clicks
+  catFilters.addEventListener('click', e => {
+    const pill = e.target.closest('.filter-pill');
+    if (!pill) return;
+    const cat = pill.dataset.cat;
+
+    catFilters.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+
+    if (activeCat === cat) {
+      activeCat = null;
+    } else {
+      activeCat = cat;
+      pill.classList.add('active');
+      // Scroll to category
+      const target = document.getElementById('cat-' + cat);
+      if (target) {
+        const barH = document.getElementById('filter-bar').offsetHeight;
+        const y = target.getBoundingClientRect().top + window.scrollY - barH - 16;
+        window.scrollTo({top: y, behavior: 'smooth'});
+      }
+    }
+    applyFilters();
+  });
+})();
+
+// ================================================================
+// MOTION & ANIMATION SYSTEM
+// ================================================================
+(function() {
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // --- Word splitting utility ---
+  function splitWords(el) {
+    const text = el.textContent;
+    el.innerHTML = text.split(/(\s+)/).map(part =>
+      /^\s+$/.test(part) ? part : '<span class="word">' + part.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</span>'
+    ).join('');
+  }
+
+  // --- Premise word reveal ---
+  const premiseLead = document.querySelector('.premise-lead');
+  if (premiseLead && !reducedMotion) {
+    splitWords(premiseLead);
+    premiseLead.querySelectorAll('.word').forEach((w, i) => {
+      w.style.transitionDelay = (i * 40) + 'ms';
+    });
+  }
+
+  // --- CTA: no JS animation, always visible ---
+
+  // --- Rule cards: staggered reveal ---
+  const ruleObserver = new IntersectionObserver((entries) => {
+    const byGroup = new Map();
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !entry.target.classList.contains('visible')) {
+        const group = entry.target.closest('.category-group') || entry.target;
+        if (!byGroup.has(group)) byGroup.set(group, []);
+        byGroup.get(group).push(entry.target);
+      }
+    });
+    byGroup.forEach(rules => {
+      rules.forEach((rule, i) => {
+        if (!reducedMotion) {
+          rule.style.transitionDelay = (i * 60) + 'ms';
+          const ex = rule.querySelector('.examples');
+          if (ex) ex.style.transitionDelay = (i * 60 + 100) + 'ms';
+        }
+        requestAnimationFrame(() => rule.classList.add('visible'));
+      });
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.rule').forEach(el => ruleObserver.observe(el));
+
+  // --- Journey cards: scroll reveal ---
+  const journeyObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        journeyObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.journey-card').forEach(el => journeyObserver.observe(el));
+
+  // --- Section reveals (premise, CTA) ---
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+
+      if (entry.target.classList.contains('premise-lead')) {
+        entry.target.classList.add('revealed');
+        sectionObserver.unobserve(entry.target);
+      }
+
+      // CTA section: no animation, always visible
+    });
+  }, { threshold: 0.15 });
+
+  if (premiseLead) sectionObserver.observe(premiseLead);
+
+  // --- Accordion body fade + count-up stats ---
+  function animateValue(el, start, end, duration, format) {
+    const t0 = performance.now();
+    (function step(now) {
+      const p = Math.min((now - t0) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = format(start + (end - start) * eased);
+      if (p < 1) requestAnimationFrame(step);
+    })(t0);
+  }
+
+  document.querySelectorAll('details.journey-card').forEach(details => {
+    const body = details.querySelector('.accordion-body');
+    if (!body) return;
+    let counted = false;
+
+    details.addEventListener('toggle', () => {
+      if (details.open) {
+        // Smooth body reveal
+        if (!reducedMotion) {
+          body.style.transition = 'none';
+          body.style.opacity = '0';
+          body.style.transform = 'translateY(-8px)';
+          void body.offsetHeight;
+          body.style.transition = 'opacity 400ms ease, transform 400ms ease';
+          body.style.opacity = '1';
+          body.style.transform = 'translateY(0)';
+        }
+
+        // Count-up stats (first open only)
+        if (!counted && !reducedMotion) {
+          counted = true;
+          details.querySelectorAll('.journey-stat').forEach(stat => {
+            const text = stat.textContent.trim();
+            const fm = text.match(/^(\d+)\/(\d+)$/);
+            const pm = text.match(/^([\d.]+)%$/);
+            if (fm) animateValue(stat, 0, parseInt(fm[1]), 800, v => Math.round(v) + '/' + fm[2]);
+            else if (pm) animateValue(stat, 0, parseFloat(pm[1]), 800, v => v.toFixed(1) + '%');
+          });
+        }
+      }
+    });
+  });
+
+  // --- Parallax: cover fades out on scroll ---
+  if (!reducedMotion) {
+    const cover = document.querySelector('.cover');
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (ticking || document.hidden) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        if (cover) {
+          const ratio = Math.min(window.scrollY / (window.innerHeight * 0.6), 1);
+          cover.style.opacity = 1 - ratio;
+        }
+        ticking = false;
+      });
+    }, { passive: true });
+  }
+})();
+</script>
+
+</body>
+</html>
