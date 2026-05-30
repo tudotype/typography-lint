@@ -578,43 +578,63 @@
   }
 
   @media screen and (max-width: 700px) {
-    /* Global padding reset */
-    .cover { padding: 48px 20px; }
-    .cover h1 { font-size: 28pt; }
-    .cover h2 { font-size: 13pt; margin-bottom: 40px; }
+    /* Reduce global spacing */
+    :root { --section-gap: 40px; }
+
+    /* Cover */
+    .cover { padding: 48px 20px; min-height: 100dvh; min-height: -webkit-fill-available; }
+    .cover h1 { font-size: 24pt; }
+    .cover h2 { font-size: 13pt; margin-bottom: 32px; }
     .cover-desc { font-size: 10pt !important; }
     .cover-meta { line-height: 2.2; }
 
+    /* Premise */
+    .premise { padding: 40px 20px !important; }
+    .premise-lead { font-size: 14pt !important; }
+    .premise p { font-size: 10pt; }
+
+    /* Overview + content */
     .overview, .content { padding-left: 20px; padding-right: 20px; }
     .overview-intro { font-size: 12pt; }
 
-    /* Journey */
-    .journey { padding: 48px 20px; }
-    .journey-card { padding: 24px 20px; }
+    /* Journey — specificity must beat details.journey-card */
+    .journey { padding: 40px 20px; }
+    .journey-card { padding: 20px !important; }
+    details.journey-card { padding: 20px; }
+    details.journey-card[open] { padding: 20px 20px 28px; }
     .journey-card h3 { font-size: 14pt; }
-    .journey-stat { font-size: 32pt; }
-    .journey-stats-row { flex-direction: column; gap: 16px; }
+    .journey-stat { font-size: 28pt; }
+    .journey-stat-label { margin-bottom: 0; }
+    .journey-stats-row { flex-direction: column; gap: 12px; }
+    .accordion-trigger { font-size: 14pt; min-height: 44px; padding: 8px 0; }
+    .accordion-icon { font-size: 16pt; margin-left: 12px; }
 
     /* Demo */
     .demo-section { padding: 0 20px var(--section-gap); }
     .demo-panel { padding: 24px 20px; }
     .demo-panel h3 { font-size: 14pt; }
+    .demo-controls { flex-wrap: wrap; }
+    .demo-select { flex: 1; min-width: 0; min-height: 44px; padding: 10px 12px; }
+    .demo-btn { min-height: 44px; padding: 12px 24px; }
+    .demo-textarea { width: 100%; }
+    .demo-output { overflow-wrap: break-word; }
 
     /* Filter bar */
-    .filter-bar { padding: 12px 20px 16px; }
+    .filter-bar { padding: 10px 20px 12px; overflow: hidden; gap: 8px; }
     .filter-pills { gap: 5px; }
-    .filter-label { min-width: 56px; font-size: 8px; }
-    .filter-pill { font-size: 8px; padding: 5px 10px; }
+    .filter-label { min-width: 48px; font-size: 8px; }
+    .filter-pill { font-size: 8px; padding: 6px 10px; }
     .filter-count { font-size: 8px; }
 
     /* Rule cards */
+    .rule { margin-bottom: 24px; }
     .rule-header { flex-direction: column; gap: 4px; }
-    .rule-name { align-self: flex-start; }
+    .rule-name { align-self: flex-start; white-space: normal; word-break: break-word; }
     .rule-title { font-size: 12pt; }
     .rule-desc { font-size: 9.5pt; }
 
     /* Examples — stack vertically */
-    .examples { padding: 16px; }
+    .examples { padding: 14px; }
     .example-row {
       display: flex;
       flex-direction: column;
@@ -623,30 +643,33 @@
       font-size: 11pt;
     }
     .example-row .arrow { display: none; }
-    .raw, .correct { font-size: 10pt; }
+    .raw, .correct { font-size: 10pt; word-break: break-word; overflow-wrap: break-word; max-width: 100%; }
     .raw { order: 1; }
     .correct { order: 2; }
-    .correct::before { content: '→ '; color: var(--border); }
+    .correct::before { content: '\2192\00a0'; color: var(--border); }
     .unicode-note { order: 3; margin-left: 0; font-size: 7px; }
     .example-lang { text-align: left; padding-top: 0; }
 
-    /* Matrix tables — horizontal scroll */
+    /* Tables — horizontal scroll */
     table.matrix { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-    table.matrix thead, table.matrix tbody { min-width: 500px; }
+    table.matrix tr { white-space: nowrap; }
+    table.matrix td:last-child { white-space: normal; min-width: 120px; }
     table.lang-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    table.lang-table tr { white-space: nowrap; }
+    table.lang-table td:last-child { white-space: normal; min-width: 160px; }
 
     /* Category headings */
     h2.category { font-size: 13pt; }
     .category-desc { font-size: 9.5pt; }
 
     /* CTA */
-    .cta-section { padding: 48px 20px; }
+    .cta-section { padding: 40px 20px; }
     .cta-heading { font-size: 20pt; }
     .cta-body { font-size: 10pt; }
     .cta-buttons { flex-direction: column; }
-    .cta-btn { justify-content: center; }
-    .install-card { padding: 20px; }
-    .install-card pre { font-size: 8pt; overflow-x: auto; white-space: pre; word-break: break-all; }
+    .cta-btn { justify-content: center; min-height: 44px; padding: 14px 24px; }
+    .install-card { padding: 16px; }
+    .install-card pre { font-size: 7.5pt; white-space: pre-wrap; overflow-wrap: break-word; word-break: break-all; }
 
     /* Author */
     .author-section { padding: 32px 20px 0; }
@@ -658,13 +681,8 @@
     .footer { padding: 20px; flex-direction: column; gap: 8px; }
     .footer-right { text-align: left; }
 
-    /* Premise */
-    .premise { padding: 48px 20px !important; }
-    .premise-lead { font-size: 14pt !important; }
-    .premise p { font-size: 10pt; }
-
     /* Code snippets */
-    pre.code-snippet { font-size: 8pt; overflow-x: auto; padding: 12px 16px; }
+    pre.code-snippet { font-size: 8pt; white-space: pre-wrap; word-break: break-all; padding: 12px 16px; }
   }
 
   /* ================================================================
