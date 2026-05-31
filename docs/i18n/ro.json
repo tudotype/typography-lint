@@ -40,7 +40,7 @@
   "demo_subtitle": "Lipește-ți textul. Selectează limba. Vezi ce se schimbă. <strong>Glifele modificate sunt evidențiate în verde</strong> – corecțiile pe care cei mai mulți nu le observă, făcute vizibile.",
   "demo_your_text": "Textul tău",
   "demo_corrected": "Corectat",
-  "demo_btn": "Lint",
+  "demo_btn": "Proof",
   "demo_note": "Se afișează un subset de reguli (puncte de suspensie, ghilimele, linii de pauză, simboluri juridice, săgeți, semnul de înmulțire, fracții, apostrofuri, spații duble). Linterul complet Python gestionează toate cele peste 46 de reguli, inclusiv NBSP, diacritice și accesibilitate.",
 
   "filter_language": "Limbă",

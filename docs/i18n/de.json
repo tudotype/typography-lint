@@ -40,7 +40,7 @@
   "demo_subtitle": "Eigenen Text einfügen. Sprache wählen. Änderungen sehen. <strong>Geänderte Glyphen werden grün hervorgehoben</strong> – die Korrekturen, die den meisten entgehen, sichtbar gemacht.",
   "demo_your_text": "Ihr Text",
   "demo_corrected": "Korrigiert",
-  "demo_btn": "Lint",
+  "demo_btn": "Proof",
   "demo_note": "Zeigt eine Auswahl von Regeln (Auslassungspunkte, Anführungszeichen, Gedankenstriche, Rechtssymbole, Pfeile, Multiplikation, Brüche, Apostrophe, Doppelleerzeichen). Der vollständige Python-Linter deckt alle 46+ Regeln ab, einschließlich NBSP, Diakritika und Barrierefreiheit.",
 
   "filter_language": "Sprache",

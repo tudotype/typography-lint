@@ -40,7 +40,7 @@
   "demo_subtitle": "Plak uw eigen tekst. Selecteer uw taal. Bekijk de wijzigingen. <strong>Gewijzigde tekens worden groen gemarkeerd</strong> – de correcties die de meeste mensen nooit opmerken, zichtbaar gemaakt.",
   "demo_your_text": "Uw tekst",
   "demo_corrected": "Gecorrigeerd",
-  "demo_btn": "Lint",
+  "demo_btn": "Proof",
   "demo_note": "Toont een subset van regels (beletselteken, aanhalingstekens, streepjes, juridische symbolen, pijlen, vermenigvuldiging, breuken, apostrofs, dubbele spaties). De volledige Python-linter verwerkt alle 46+ regels inclusief NBSP, diakritische tekens en toegankelijkheid.",
 
   "filter_language": "Taal",

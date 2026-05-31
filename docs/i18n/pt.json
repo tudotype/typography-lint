@@ -40,7 +40,7 @@
   "demo_subtitle": "Cola o teu texto. Seleciona o idioma. Vê o que muda. <strong>Os glifos alterados são realçados a verde</strong> – as correções que a maioria das pessoas nunca nota, tornadas visíveis.",
   "demo_your_text": "O teu texto",
   "demo_corrected": "Corrigido",
-  "demo_btn": "Lint",
+  "demo_btn": "Proof",
   "demo_note": "A mostrar um subconjunto de regras (reticências, aspas, travessões, símbolos legais, setas, multiplicação, frações, apóstrofos, espaços duplos). O linter Python completo trata das 46+ regras, incluindo NBSP, diacríticos e acessibilidade.",
 
   "filter_language": "Idioma",

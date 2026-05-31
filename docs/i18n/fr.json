@@ -32,7 +32,7 @@
   "demo_subtitle": "Collez votre texte. Sélectionnez votre langue. Voyez ce qui change. <strong>Les glyphes modifiés sont surlignés en vert</strong> – les corrections que la plupart des gens ne remarquent jamais, rendues visibles.",
   "demo_your_text": "Votre texte",
   "demo_corrected": "Corrigé",
-  "demo_btn": "Lint",
+  "demo_btn": "Proof",
   "demo_note": "Affichage d’un sous-ensemble de règles (points de suspension, guillemets, tirets, symboles juridiques, flèches, multiplication, fractions, apostrophes, doubles espaces). Le linter Python complet gère les 46+ règles, y compris NBSP, diacritiques et accessibilité.",
   "filter_language": "Langue",
   "filter_show_all": "Tout afficher",

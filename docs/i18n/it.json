@@ -40,7 +40,7 @@
   "demo_subtitle": "Incolla il testo. Seleziona la lingua. Guarda cosa cambia. <strong>I glifi modificati sono evidenziati in verde</strong> — le correzioni che la maggior parte delle persone non nota mai, rese visibili.",
   "demo_your_text": "Il tuo testo",
   "demo_corrected": "Corretto",
-  "demo_btn": "Lint",
+  "demo_btn": "Proof",
   "demo_note": "Mostra un sottoinsieme di regole (puntini di sospensione, virgolette, lineette, simboli legali, frecce, moltiplicazione, frazioni, apostrofi, doppi spazi). Il linter Python completo gestisce tutte le 46+ regole, inclusi NBSP, diacritici e accessibilità.",
 
   "filter_language": "Lingua",

@@ -40,7 +40,7 @@
   "demo_subtitle": "Paste your own text. Select your language. See what changes. <strong>Changed glyphs are highlighted in green</strong> \u2013 the corrections most people never notice, made visible.",
   "demo_your_text": "Your text",
   "demo_corrected": "Corrected",
-  "demo_btn": "Lint",
+  "demo_btn": "Proof",
   "demo_note": "Showing a subset of rules (ellipsis, quotes, dashes, legal symbols, arrows, multiplication, fractions, apostrophes, double spaces). The full Python linter handles all 46+ rules including NBSP, diacritics, and accessibility.",
 
   "filter_language": "Language",

@@ -40,7 +40,7 @@
   "demo_subtitle": "Wklej własny tekst. Wybierz język. Zobacz, co się zmienia. <strong>Zmienione glify są podświetlone na zielono</strong> \u2013 korekty, których większość ludzi nigdy nie zauważa, uwidocznione.",
   "demo_your_text": "Twój tekst",
   "demo_corrected": "Skorygowany",
-  "demo_btn": "Lint",
+  "demo_btn": "Proof",
   "demo_note": "Pokazano podzbiór reguł (wielokropek, cudzysłowy, pauzy, symbole prawne, strzałki, mnożenie, ułamki, apostrofy, podwójne odstępy). Pełny linter Python obsługuje wszystkie 46+ reguł, w\u00a0tym NBSP, diakrytyki i\u00a0dostępność.",
 
   "filter_language": "Język",
