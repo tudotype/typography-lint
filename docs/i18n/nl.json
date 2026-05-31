@@ -57,10 +57,10 @@
   "cta_install_title": "Installeren",
 
   "author_title": "Over de auteur",
-  "author_role": "Brand Designer bij <a href=\"https://automattic.design\" target=\"_blank\" style=\"color:var(--ink-subtle); text-decoration:none; border-bottom:1px solid var(--border-light);\">Automattic</a>",
-  "author_bio": "João is een Portugese merk- en letterontwerper met meer dan tien jaar ervaring bij bureaus zoals Pentagram, Wolff Olins en R/GA. Bij <a href=\"https://automattic.design\" target=\"_blank\" style=\"color:var(--ink-subtle); text-decoration:none; border-bottom:1px solid var(--border-light);\">Automattic</a> geeft hij vorm aan de visuele identiteit van WordPress – het platform dat meer dan 40% van het web aandrijft. Hij richtte ook <a href=\"https://tudotype.com\" target=\"_blank\" style=\"color:var(--ink-subtle); text-decoration:none; border-bottom:1px solid var(--border-light);\">tudotype</a> op, een onafhankelijke lettertypegieterij.",
+  "author_role": "Brand Designer bij <a href=\"https://automattic.design\" target=\"_blank\" style=\"color:rgba(255,255,255,0.5); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.2);\">Automattic</a>",
+  "author_bio": "João is een Portugese merk- en letterontwerper met meer dan tien jaar ervaring bij bureaus zoals Pentagram, Wolff Olins en R/GA. Bij <a href=\"https://automattic.design\" target=\"_blank\" style=\"color:rgba(255,255,255,0.5); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.2);\">Automattic</a> geeft hij vorm aan de visuele identiteit van WordPress – het platform dat meer dan 40% van het web aandrijft. Hij richtte ook <a href=\"https://tudotype.com\" target=\"_blank\" style=\"color:rgba(255,255,255,0.5); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.2);\">tudotype</a> op, een onafhankelijke lettertypegieterij.",
 
-  "footer_text": "<span class=\"amber\">46+ regels</span> &middot; 21 taalvarianten &middot; mei 2026<br>Gezet in <a href=\"https://fonts.google.com/specimen/Google+Sans\" target=\"_blank\" style=\"color:var(--ink-muted); text-decoration:none; border-bottom:1px solid var(--border-light);\">Google Sans</a>",
+  "footer_text": "<span class=\"amber\">46+ regels</span> &middot; 21 taalvarianten &middot; mei 2026<br>Gezet in <a href=\"https://fonts.google.com/specimen/Google+Sans\" target=\"_blank\" style=\"color:rgba(255,255,255,0.4); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.15);\">Google Sans</a>",
 
   "floating_contribute": "Bijdragen"
 }

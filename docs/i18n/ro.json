@@ -57,10 +57,10 @@
   "cta_install_title": "Instalare",
 
   "author_title": "Despre autor",
-  "author_role": "Brand Designer la <a href=\"https://automattic.design\" target=\"_blank\" style=\"color:var(--ink-subtle); text-decoration:none; border-bottom:1px solid var(--border-light);\">Automattic</a>",
-  "author_bio": "João este un designer portughez de brand și tipografie cu peste un deceniu de experiență în agenții precum Pentagram, Wolff Olins și R/GA. La <a href=\"https://automattic.design\" target=\"_blank\" style=\"color:var(--ink-subtle); text-decoration:none; border-bottom:1px solid var(--border-light);\">Automattic</a>, modelează identitatea vizuală a WordPress – platforma care alimentează peste 40% din web. A fondat și <a href=\"https://tudotype.com\" target=\"_blank\" style=\"color:var(--ink-subtle); text-decoration:none; border-bottom:1px solid var(--border-light);\">tudotype</a>, o turnătorie de fonturi independentă.",
+  "author_role": "Brand Designer la <a href=\"https://automattic.design\" target=\"_blank\" style=\"color:rgba(255,255,255,0.5); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.2);\">Automattic</a>",
+  "author_bio": "João este un designer portughez de brand și tipografie cu peste un deceniu de experiență în agenții precum Pentagram, Wolff Olins și R/GA. La <a href=\"https://automattic.design\" target=\"_blank\" style=\"color:rgba(255,255,255,0.5); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.2);\">Automattic</a>, modelează identitatea vizuală a WordPress – platforma care alimentează peste 40% din web. A fondat și <a href=\"https://tudotype.com\" target=\"_blank\" style=\"color:rgba(255,255,255,0.5); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.2);\">tudotype</a>, o turnătorie de fonturi independentă.",
 
-  "footer_text": "<span class=\"amber\">46+ reguli</span> &middot; 21 de variante lingvistice &middot; mai 2026<br>Compus în <a href=\"https://fonts.google.com/specimen/Google+Sans\" target=\"_blank\" style=\"color:var(--ink-muted); text-decoration:none; border-bottom:1px solid var(--border-light);\">Google Sans</a>",
+  "footer_text": "<span class=\"amber\">46+ reguli</span> &middot; 21 de variante lingvistice &middot; mai 2026<br>Compus în <a href=\"https://fonts.google.com/specimen/Google+Sans\" target=\"_blank\" style=\"color:rgba(255,255,255,0.4); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.15);\">Google Sans</a>",
 
   "floating_contribute": "Contribuie"
 }

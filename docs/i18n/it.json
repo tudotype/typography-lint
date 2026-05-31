@@ -57,10 +57,10 @@
   "cta_install_title": "Installazione",
 
   "author_title": "L\u2019autore",
-  "author_role": "Brand Designer presso <a href=\"https://automattic.design\" target=\"_blank\" style=\"color:var(--ink-subtle); text-decoration:none; border-bottom:1px solid var(--border-light);\">Automattic</a>",
-  "author_bio": "João è un brand e type designer portoghese con oltre un decennio di esperienza in agenzie tra cui Pentagram, Wolff Olins e R/GA. In <a href=\"https://automattic.design\" target=\"_blank\" style=\"color:var(--ink-subtle); text-decoration:none; border-bottom:1px solid var(--border-light);\">Automattic</a>, dà forma all\u2019identità visiva di WordPress — la piattaforma che alimenta oltre il 40% del web. Ha inoltre fondato <a href=\"https://tudotype.com\" target=\"_blank\" style=\"color:var(--ink-subtle); text-decoration:none; border-bottom:1px solid var(--border-light);\">tudotype</a>, una fonderia tipografica indipendente.",
+  "author_role": "Brand Designer presso <a href=\"https://automattic.design\" target=\"_blank\" style=\"color:rgba(255,255,255,0.5); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.2);\">Automattic</a>",
+  "author_bio": "João è un brand e type designer portoghese con oltre un decennio di esperienza in agenzie tra cui Pentagram, Wolff Olins e R/GA. In <a href=\"https://automattic.design\" target=\"_blank\" style=\"color:rgba(255,255,255,0.5); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.2);\">Automattic</a>, dà forma all\u2019identità visiva di WordPress — la piattaforma che alimenta oltre il 40% del web. Ha inoltre fondato <a href=\"https://tudotype.com\" target=\"_blank\" style=\"color:rgba(255,255,255,0.5); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.2);\">tudotype</a>, una fonderia tipografica indipendente.",
 
-  "footer_text": "<span class=\"amber\">46+ regole</span> &middot; 21 varianti linguistiche &middot; maggio 2026<br>Composto in <a href=\"https://fonts.google.com/specimen/Google+Sans\" target=\"_blank\" style=\"color:var(--ink-muted); text-decoration:none; border-bottom:1px solid var(--border-light);\">Google Sans</a>",
+  "footer_text": "<span class=\"amber\">46+ regole</span> &middot; 21 varianti linguistiche &middot; maggio 2026<br>Composto in <a href=\"https://fonts.google.com/specimen/Google+Sans\" target=\"_blank\" style=\"color:rgba(255,255,255,0.4); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.15);\">Google Sans</a>",
 
   "floating_contribute": "Contribuisci"
 }

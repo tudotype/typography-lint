@@ -57,10 +57,10 @@
   "cta_install_title": "Instalacja",
 
   "author_title": "O\u00a0autorze",
-  "author_role": "Brand Designer w\u00a0<a href=\"https://automattic.design\" target=\"_blank\" style=\"color:var(--ink-subtle); text-decoration:none; border-bottom:1px solid var(--border-light);\">Automattic</a>",
-  "author_bio": "João jest portugalskim projektantem marek i\u00a0krojów pisma z\u00a0ponad dekadą doświadczenia w\u00a0agencjach takich jak Pentagram, Wolff Olins i\u00a0R/GA. W\u00a0<a href=\"https://automattic.design\" target=\"_blank\" style=\"color:var(--ink-subtle); text-decoration:none; border-bottom:1px solid var(--border-light);\">Automattic</a> kształtuje tożsamość wizualną WordPressa \u2013 platformy napędzającej ponad 40% sieci. Założył też <a href=\"https://tudotype.com\" target=\"_blank\" style=\"color:var(--ink-subtle); text-decoration:none; border-bottom:1px solid var(--border-light);\">tudotype</a>, niezależną odlewnię czcionek.",
+  "author_role": "Brand Designer w\u00a0<a href=\"https://automattic.design\" target=\"_blank\" style=\"color:rgba(255,255,255,0.5); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.2);\">Automattic</a>",
+  "author_bio": "João jest portugalskim projektantem marek i\u00a0krojów pisma z\u00a0ponad dekadą doświadczenia w\u00a0agencjach takich jak Pentagram, Wolff Olins i\u00a0R/GA. W\u00a0<a href=\"https://automattic.design\" target=\"_blank\" style=\"color:rgba(255,255,255,0.5); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.2);\">Automattic</a> kształtuje tożsamość wizualną WordPressa \u2013 platformy napędzającej ponad 40% sieci. Założył też <a href=\"https://tudotype.com\" target=\"_blank\" style=\"color:rgba(255,255,255,0.5); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.2);\">tudotype</a>, niezależną odlewnię czcionek.",
 
-  "footer_text": "<span class=\"amber\">46+ reguł</span> &middot; 21 wariantów językowych &middot; maj 2026<br>Skład w\u00a0<a href=\"https://fonts.google.com/specimen/Google+Sans\" target=\"_blank\" style=\"color:var(--ink-muted); text-decoration:none; border-bottom:1px solid var(--border-light);\">Google Sans</a>",
+  "footer_text": "<span class=\"amber\">46+ reguł</span> &middot; 21 wariantów językowych &middot; maj 2026<br>Skład w\u00a0<a href=\"https://fonts.google.com/specimen/Google+Sans\" target=\"_blank\" style=\"color:rgba(255,255,255,0.4); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.15);\">Google Sans</a>",
 
   "floating_contribute": "Współtwórz"
 }

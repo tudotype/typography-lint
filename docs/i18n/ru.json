@@ -57,10 +57,10 @@
   "cta_install_title": "Установка",
 
   "author_title": "Об авторе",
-  "author_role": "Бренд-дизайнер в <a href=\"https://automattic.design\" target=\"_blank\" style=\"color:var(--ink-subtle); text-decoration:none; border-bottom:1px solid var(--border-light);\">Automattic</a>",
-  "author_bio": "Жуан — португальский бренд- и шрифтовой дизайнер с более чем десятилетним опытом работы в консалтинговых агентствах, включая Pentagram, Wolff Olins и R/GA. В <a href=\"https://automattic.design\" target=\"_blank\" style=\"color:var(--ink-subtle); text-decoration:none; border-bottom:1px solid var(--border-light);\">Automattic</a> он формирует визуальную идентичность WordPress — платформы, на которой работает более 40% веба. Он также основал <a href=\"https://tudotype.com\" target=\"_blank\" style=\"color:var(--ink-subtle); text-decoration:none; border-bottom:1px solid var(--border-light);\">tudotype</a> — независимую шрифтовую мастерскую.",
+  "author_role": "Бренд-дизайнер в <a href=\"https://automattic.design\" target=\"_blank\" style=\"color:rgba(255,255,255,0.5); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.2);\">Automattic</a>",
+  "author_bio": "Жуан — португальский бренд- и шрифтовой дизайнер с более чем десятилетним опытом работы в консалтинговых агентствах, включая Pentagram, Wolff Olins и R/GA. В <a href=\"https://automattic.design\" target=\"_blank\" style=\"color:rgba(255,255,255,0.5); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.2);\">Automattic</a> он формирует визуальную идентичность WordPress — платформы, на которой работает более 40% веба. Он также основал <a href=\"https://tudotype.com\" target=\"_blank\" style=\"color:rgba(255,255,255,0.5); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.2);\">tudotype</a> — независимую шрифтовую мастерскую.",
 
-  "footer_text": "<span class=\"amber\">46+ правил</span> &middot; 21 языковой вариант &middot; Май 2026<br>Набрано шрифтом <a href=\"https://fonts.google.com/specimen/Google+Sans\" target=\"_blank\" style=\"color:var(--ink-muted); text-decoration:none; border-bottom:1px solid var(--border-light);\">Google Sans</a>",
+  "footer_text": "<span class=\"amber\">46+ правил</span> &middot; 21 языковой вариант &middot; Май 2026<br>Набрано шрифтом <a href=\"https://fonts.google.com/specimen/Google+Sans\" target=\"_blank\" style=\"color:rgba(255,255,255,0.4); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.15);\">Google Sans</a>",
 
   "floating_contribute": "Внести вклад"
 }

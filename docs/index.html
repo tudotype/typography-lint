@@ -19,16 +19,19 @@
     --surface-light: #F7F7F7;
     --ink:           #1D1D1D;
     --ink-subtle:    #4F4F4F;
-    --ink-muted:     #707070;
+    --ink-muted:     #5F5F5F;
     --amber:         #FFA000;
     --amber-soft:    #FFF3CC;
-    --amber-dark:    #CC8000;
+    --amber-dark:    #996000;
     --red:           #FF4517;
     --red-soft:      #FFEEE9;
     --green:         #397C42;
     --green-soft:    #EBF4EC;
     --border:        #B4B4B4;
     --border-light:  #E0DFDB;
+    --ink-faint:     #A8A6A0;
+    --green-text:    #1B5E20;
+    --red-text:      #B71C1C;
 
     --sans:  "Google Sans", sans-serif;
     --mono:  "Google Sans Mono", "SF Mono", "Fira Code", monospace;
@@ -48,9 +51,11 @@
     line-height: 1.6;
     color: var(--ink);
     background: var(--amber);
+    overflow-x: hidden;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
+
   /* ================================================================
      COVER
      ================================================================ */
@@ -74,7 +79,7 @@
     font-weight: 500;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: #5C3600;
+    color: #3D1F00;
     margin-bottom: 32px;
   }
   .cover h1 {
@@ -88,13 +93,13 @@
   }
   .cover .title-accent {
     display: inline-block;
-    color: var(--surface-white);
+    color: var(--surface);
   }
   .cover h2 {
     font-family: var(--sans);
     font-size: 18pt;
     font-weight: 400;
-    color: #5C3600;
+    color: #3D1F00;
     line-height: 1.3;
     max-width: 520px;
     margin-bottom: 64px;
@@ -102,7 +107,7 @@
   .cover-meta {
     font-family: var(--mono);
     font-size: 10px;
-    color: #5C3600;
+    color: #3D1F00;
     line-height: 2;
     letter-spacing: 0.02em;
   }
@@ -121,6 +126,9 @@
     border-radius: 0;
     margin-right: 0;
     font-weight: 400;
+    margin-top: 8px;
+    max-width: 200px;
+    line-height: 1.6;
   }
 
   /* ================================================================
@@ -456,10 +464,20 @@
      AUTHOR
      ================================================================ */
 
-  .author-section {
-    padding: 48px 48px 0;
-    border-top: 1px solid var(--border-light);
+  /* ── Dark zone: author + footer ── */
+  .dark-zone {
+    background: var(--ink);
+    color: rgba(255,255,255,0.85);
     margin-top: var(--section-gap);
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    width: 100vw;
+    padding: 48px 48px 32px;
+  }
+  .author-section {
     max-width: 800px;
   }
   .author-section h4 {
@@ -468,7 +486,7 @@
     font-weight: 500;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: var(--ink-muted);
+    color: rgba(255,255,255,0.5);
     margin-bottom: 16px;
   }
   .author-card {
@@ -495,13 +513,13 @@
     font-family: var(--sans);
     font-size: 12pt;
     font-weight: 500;
-    color: var(--ink);
+    color: #fff;
     margin-bottom: 2px;
   }
   .author-name a {
-    color: var(--ink);
+    color: #fff;
     text-decoration: none;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid rgba(255,255,255,0.3);
     transition: border-color 0.2s;
   }
   .author-name a:hover {
@@ -513,41 +531,30 @@
     font-weight: 500;
     letter-spacing: 0.04em;
     text-transform: uppercase;
-    color: var(--ink-muted);
+    color: rgba(255,255,255,0.5);
     margin-bottom: 10px;
   }
   .author-bio {
     font-family: var(--text);
     font-size: 10pt;
     line-height: 1.6;
-    color: var(--ink-subtle);
+    color: rgba(255,255,255,0.7);
   }
 
   .footer {
     margin-top: 48px;
-    padding: 24px 48px;
-    border-top: 2px solid var(--ink);
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-  }
-  .footer-left {
-    font-family: var(--mono);
-    font-size: 9px;
-    font-weight: 500;
-    color: var(--ink-muted);
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
+    max-width: 800px;
+    /* Align with author bio: avatar 48px + gap 20px = 68px offset */
+    padding-left: 68px;
   }
   .footer-right {
     font-family: var(--mono);
     font-size: 9px;
-    color: var(--ink-muted);
+    color: rgba(255,255,255,0.4);
     letter-spacing: 0.02em;
-    text-align: right;
   }
   .footer-right .amber {
-    color: var(--amber-dark);
+    color: var(--amber);
     font-weight: 500;
   }
 
@@ -710,6 +717,7 @@
     .premise-lead .word { opacity: 1 !important; transform: none !important; }
     .rule.hidden { display: block !important; }
     .category-group.hidden { display: block !important; }
+
   }
 
   /* ================================================================
@@ -728,11 +736,12 @@
     body { font-size: 16px; }
 
     /* All sections: 15px outer margin (GOV.UK gutter-half) */
-    .cover { padding: 30px 15px; min-height: 100dvh; min-height: -webkit-fill-available; }
-    .cover h1 { font-size: 32px; }
-    .cover h2 { font-size: 21px; margin-bottom: 20px; }
-    .cover-desc { font-size: 16px !important; }
+    .cover { padding: 24px 16px; min-height: 100dvh; min-height: -webkit-fill-available; }
+    .cover h1 { font-size: 28px; letter-spacing: -0.02em; }
+    .cover h2 { font-size: 18px; margin-bottom: 16px; }
+    .cover-desc { font-size: 14px !important; }
     .cover-meta { line-height: 2.2; }
+    .cover-eyebrow { margin-bottom: 20px; }
 
     .premise { padding: 25px 15px !important; }
     .premise-lead { font-size: 19px !important; }
@@ -768,11 +777,11 @@
     .demo-area-label { font-size: 11px; }
 
     /* Filter bar — 15px outer, compact pills */
-    .filter-bar { padding: 8px 15px 10px; overflow: hidden; gap: 5px; }
-    .filter-pills { gap: 5px; }
-    .filter-label { min-width: 50px; font-size: 11px; }
-    .filter-pill { font-size: 11px; padding: 8px 12px; }
-    .filter-count { font-size: 11px; }
+    .filter-bar { padding: 8px 16px; gap: 6px; }
+    .filter-toggle { font-size: 10px; padding: 10px 14px; min-height: 44px; }
+    .filter-pill { font-size: 11px; padding: 8px 14px; min-height: 36px; }
+    .filter-dropdown { min-width: 160px; max-width: calc(100vw - 32px); }
+    .filter-count { font-size: 10px; }
 
     /* Rule cards */
     .rule { margin-bottom: 25px; }
@@ -826,19 +835,31 @@
     .install-card { padding: 15px; }
     .install-card pre { font-size: 14px; white-space: pre-wrap; overflow-wrap: break-word; word-break: break-all; }
 
+    /* Dark zone */
+    .dark-zone { padding: 24px 16px 24px; }
+
     /* Author */
-    .author-section { padding: 20px 15px 0; }
-    .author-card { flex-direction: column; gap: 10px; }
-    .author-avatar { width: 40px; height: 40px; font-size: 16px; }
+    .author-card { gap: 16px; }
+    .author-avatar { width: 40px; height: 40px; }
     .author-bio { font-size: 16px; }
     .author-role { font-size: 11px; }
 
     /* Footer */
-    .footer { padding: 15px; flex-direction: column; gap: 10px; }
-    .footer-right { text-align: left; font-size: 11px; }
+    .footer { margin-top: 32px; padding-left: 0; }
+    .footer-right { font-size: 11px; }
 
     /* Code snippets */
     pre.code-snippet { font-size: 14px; white-space: pre-wrap; word-break: break-all; padding: 10px 15px; }
+
+    /* Erosion */
+    .erosion-wrap { padding: 0 16px 48px; }
+    .erosion-stage { padding: 28px 16px 24px; }
+    .erosion-prose { font-size: 15pt; }
+    .erosion-strip { gap: 5px; padding: 8px 10px; }
+    .erosion-strip-code { display: none; }
+    .erosion-strip-sep  { display: none; }
+    .erosion-strip-glyph { width: 20px; height: 20px; font-size: 11px; }
+    .erosion-strip-rule { font-size: 7px; }
   }
 
   /* ================================================================
@@ -922,6 +943,7 @@
     border: 1px solid var(--border-light);
     border-radius: var(--radius-card);
     padding: 40px 48px;
+    max-width: 800px;
   }
   .demo-panel h3 {
     font-family: var(--sans);
@@ -965,8 +987,9 @@
     outline: none;
     transition: border-color 0.2s;
   }
-  .demo-textarea:focus {
-    border-color: var(--amber);
+  .demo-textarea:focus-visible {
+    outline: 2px solid var(--amber);
+    outline-offset: 2px;
   }
   .demo-select {
     font-family: var(--mono);
@@ -979,6 +1002,10 @@
     cursor: pointer;
     outline: none;
   }
+  .demo-select:focus-visible {
+    outline: 2px solid var(--amber);
+    outline-offset: 2px;
+  }
   .demo-btn {
     font-family: var(--mono);
     font-size: 9px;
@@ -986,14 +1013,22 @@
     letter-spacing: 0.06em;
     text-transform: uppercase;
     padding: 10px 24px;
-    background: var(--amber);
-    color: white;
+    background: var(--ink);
+    color: #fff;
     border: none;
     border-radius: var(--radius-pill);
     cursor: pointer;
     transition: background 0.2s;
   }
-  .demo-btn:hover { background: var(--amber-dark); }
+  .demo-btn:hover { background: #333; }
+  .demo-btn:focus-visible,
+  .filter-pill:focus-visible,
+  .filter-toggle:focus-visible,
+  .lang-pill:focus-visible,
+  .pill-contribute:focus-visible {
+    outline: 2px solid var(--amber);
+    outline-offset: 2px;
+  }
   .demo-output {
     border: 1px solid var(--border-light);
     border-radius: var(--radius-card);
@@ -1057,81 +1092,117 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(242,241,237,0.75);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    padding: 20px 48px 24px;
-    margin-bottom: 8px;
-    border-bottom: 1px solid var(--border-light);
+    background: rgba(242,241,237,0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: 12px 48px;
     display: flex;
-    flex-direction: column;
-    gap: 12px;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    transition: opacity 0.3s ease, transform 0.3s ease;
   }
-  /* Noise/grain overlay */
+  .filter-bar.filter-hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-100%);
+  }
   .filter-bar::after {
     content: '';
     position: absolute;
-    inset: 0;
-    opacity: 0.4;
+    bottom: -12px;
+    left: 0;
+    right: 0;
+    height: 12px;
+    background: linear-gradient(to bottom, rgba(242,241,237,0.5), transparent);
     pointer-events: none;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
-    background-size: 128px 128px;
-    mix-blend-mode: overlay;
-    border-radius: 0;
   }
-  .filter-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    overflow-x: auto;
-    scrollbar-width: none;
+
+  .filter-group {
     position: relative;
-    z-index: 1;
   }
-  .filter-row::-webkit-scrollbar { display: none; }
-  .filter-label {
+
+  .filter-toggle {
     font-family: var(--mono);
     font-size: 9px;
     font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--ink-muted);
-    flex-shrink: 0;
-    min-width: 72px;
-  }
-  .filter-pills {
+    letter-spacing: 0.03em;
+    padding: 7px 14px;
+    border-radius: var(--radius-pill);
+    border: none;
+    background: var(--ink);
+    color: #fff;
+    cursor: pointer;
+    white-space: nowrap;
     display: flex;
+    align-items: center;
     gap: 6px;
-    flex-wrap: nowrap;
+    transition: background 0.15s;
   }
+  .filter-toggle:hover { background: #333; }
+  .filter-toggle .ft-label {
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .filter-toggle .ft-divider {
+    width: 1px;
+    height: 12px;
+    background: rgba(255,255,255,0.25);
+  }
+  .filter-toggle .ft-value {
+    color: rgba(255,255,255,0.7);
+  }
+  .filter-toggle.has-selection .ft-value {
+    color: var(--amber);
+  }
+
+  .filter-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    background: var(--ink);
+    border-radius: 12px;
+    padding: 8px;
+    gap: 4px;
+    flex-wrap: wrap;
+    min-width: 200px;
+    max-width: 420px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    z-index: 110;
+  }
+  .filter-group.open .filter-dropdown {
+    display: flex;
+  }
+
   .filter-pill {
     font-family: var(--mono);
     font-size: 9px;
     font-weight: 500;
-    padding: 6px 14px;
+    padding: 5px 12px;
     border-radius: var(--radius-pill);
-    border: 1px solid var(--border);
+    border: 1px solid rgba(255,255,255,0.15);
     background: transparent;
-    color: var(--ink);
+    color: rgba(255,255,255,0.7);
     cursor: pointer;
     white-space: nowrap;
     transition: all 0.15s;
     letter-spacing: 0.03em;
   }
   .filter-pill:hover {
-    border-color: var(--amber);
-    color: var(--amber-dark);
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.3);
   }
   .filter-pill.active {
-    background: var(--amber);
-    border-color: var(--amber);
-    color: white;
+    background: var(--ink);
+    border-color: rgba(255,255,255,0.5);
+    color: #fff;
   }
+
   .filter-count {
     font-family: var(--mono);
     font-size: 9px;
     color: var(--ink-muted);
-    flex-shrink: 0;
     margin-left: auto;
   }
 
@@ -1180,11 +1251,157 @@
     height: 28px;
     width: auto;
   }
-  .footer-logo svg {
-    height: 18px;
-    width: auto;
-    opacity: 0.5;
+
+  /* ================================================================
+     EROSION ILLUSTRATION
+     ================================================================ */
+
+  .erosion-wrap {
+    padding: 0 48px 80px;
+    display: flex;
+    justify-content: center;
   }
+  .erosion {
+    max-width: 800px;
+    width: 100%;
+  }
+  .erosion-frame {
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--surface-white);
+  }
+  .erosion-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 14px;
+    border-bottom: 1px solid var(--border-light);
+    background: var(--surface);
+  }
+  .erosion-bar-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .erosion-dot {
+    width: 6px;
+    height: 6px;
+    min-width: 6px;
+    min-height: 6px;
+    border-radius: 50%;
+    transition: background 0.4s ease;
+    background: var(--green);
+    flex-shrink: 0;
+    aspect-ratio: 1;
+  }
+  .erosion-dot.eroding { background: var(--red); }
+  .erosion-dot.restoring { background: var(--amber); }
+  .erosion-bar-title {
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .erosion-locale {
+    font-family: var(--mono);
+    font-size: 8px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--amber-dark);
+    background: var(--amber-soft);
+    padding: 2px 8px;
+    border-radius: var(--radius-pill);
+    transition: opacity 0.3s ease;
+  }
+  .erosion-status {
+    font-family: var(--mono);
+    font-size: 8px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.4s ease;
+  }
+  .erosion-status.correct  { color: var(--green); }
+  .erosion-status.eroding  { color: var(--red); }
+  .erosion-status.restoring { color: var(--amber); }
+
+  .erosion-stage {
+    padding: 36px 28px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .erosion-prose {
+    font-family: var(--text);
+    font-size: 18pt;
+    line-height: 1.55;
+    color: var(--ink);
+    text-align: center;
+    transition: opacity 0.35s ease;
+    width: 100%;
+  }
+  .erosion-prose.fading { opacity: 0; }
+
+  .erosion-prose .eg {
+    display: inline;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    border-radius: 3px;
+  }
+  .erosion-prose .eg.erode {
+    color: var(--red-text);
+    background: var(--red-soft);
+    padding: 0 1px;
+  }
+  .erosion-prose .eg.restore {
+    color: var(--green-text);
+    background: var(--green-soft);
+    padding: 0 1px;
+  }
+
+  .erosion-strip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 9px 14px;
+    border-top: 1px solid var(--border-light);
+    background: var(--surface);
+    height: 40px;
+    flex-wrap: nowrap;
+    overflow: hidden;
+  }
+  .erosion-strip-glyph {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--text);
+    font-size: 12px;
+    width: 22px;
+    height: 22px;
+    border-radius: 4px;
+    border: 1px solid var(--border-light);
+    background: var(--surface-white);
+    color: var(--ink);
+    transition: all 0.3s ease;
+  }
+  .erosion-strip-glyph.bad  { border-color: var(--red); color: var(--red-text); background: var(--red-soft); }
+  .erosion-strip-glyph.good { border-color: var(--green); color: var(--green-text); background: var(--green-soft); }
+  .erosion-strip-glyph.dim  { color: var(--ink-faint); border-color: var(--border-light); }
+  .erosion-strip-arrow { font-family: var(--mono); font-size: 10px; color: var(--ink-faint); }
+  .erosion-strip-code  { font-family: var(--mono); font-size: 8px; letter-spacing: 0.02em; color: var(--ink-faint); }
+  .erosion-strip-sep   { width: 1px; height: 14px; background: var(--border-light); margin: 0 4px; }
+  .erosion-strip-rule  { font-family: var(--mono); font-size: 8px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.3s ease; }
+  .erosion-strip-rule.erode   { color: var(--red); }
+  .erosion-strip-rule.restore { color: var(--green); }
+  .erosion-strip-rule.idle    { color: var(--ink-faint); }
+  .erosion-strip-msg   { font-family: var(--mono); font-size: 8px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; }
+  .erosion-strip-msg.erode   { color: var(--red); }
+  .erosion-strip-msg.restore { color: var(--green); }
+  .erosion-strip-msg.idle    { color: var(--ink-faint); }
 
   /* ================================================================
      PREMISE SECTION
@@ -1192,7 +1409,7 @@
 
   .premise {
     padding: 80px 48px;
-    border-bottom: 1px solid var(--border-light);
+    position: relative;
   }
   .premise-lead {
     font-family: var(--sans);
@@ -1472,6 +1689,7 @@
       opacity: 1 !important;
       transform: none !important;
     }
+
   }
 
 </style>
@@ -1479,11 +1697,11 @@
 <body>
 
 <!-- ============================================================
-     COVER
+     COVER (scrolls over the transition)
      ============================================================ -->
 
-<section class="cover">
-  <div class="cover-logo"><svg width="88" height="22" viewBox="0 0 88 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M83.061 16.3436C85.4069 16.3436 86.7513 15.7372 87.8851 14.2083L87.595 13.9182C86.8569 14.5245 86.2245 14.7879 84.7216 14.7879C82.4311 14.7879 81.875 13.4696 81.875 10.8342V9.04187C81.875 6.32695 82.1652 5.56218 82.8237 5.56218C83.4822 5.56218 83.7723 6.32568 83.7723 9.04187C83.7723 9.59542 83.7723 10.2546 83.7195 10.8342L84.9322 10.5441H81.1866L81.2394 11.0976H87.8565C88.4889 6.85379 87.0656 5.06079 82.9007 5.06079C78.7885 5.06079 77.1012 6.69536 77.1012 10.7547C77.1037 14.7351 78.8172 16.3436 83.061 16.3436ZM70.3556 15.2893C69.8809 15.2893 69.6703 14.9992 69.1696 14.3406L69.4597 14.8942V6.77551L69.1696 7.53903C69.6703 6.87986 69.8815 6.58973 70.3556 6.58973C71.1464 6.58973 71.357 7.43341 71.357 10.9653C71.357 14.4431 71.1464 15.2887 70.3556 15.2887V15.2893ZM64.8729 21.405H69.4597V15.5005C70.0133 16.1069 70.8041 16.3442 71.9901 16.3442C74.9951 16.3442 76.1551 14.7364 76.1551 10.7032C76.1551 6.66991 74.9691 5.06207 72.3063 5.06207C70.4612 5.06207 69.4858 6.19525 68.2203 7.75091L69.4591 6.5121V5.27333H64.8723L64.8729 21.405ZM51.4027 16.3436C52.2567 16.3498 53.1002 16.1549 53.8649 15.7748C54.6297 15.3947 55.2943 14.84 55.805 14.1555L55.5676 13.8653C55.0321 14.3285 54.3514 14.5896 53.6436 14.6034C52.8801 14.6034 52.5619 14.2605 52.5619 13.3907V5.79887H56.0677V5.27139H52.5619V1.60719H52.1668L48.1075 5.27139L46.0511 5.5348V5.79821H47.9739V13.0999C47.9739 15.421 49.4252 16.3436 51.402 16.3436H51.4027ZM40.9114 15.8689C40.1479 15.8689 39.9628 14.8674 39.9628 10.7025C39.9628 6.27414 40.1473 5.53608 40.9114 5.53608C41.6756 5.53608 41.8601 6.27414 41.8601 10.7025C41.8601 14.8674 41.6749 15.8689 40.9114 15.8689ZM40.9114 16.3436C44.9975 16.3436 46.6581 14.7357 46.6581 10.7025C46.6581 6.66925 44.9975 5.06145 40.9114 5.06145C36.8254 5.06145 35.1647 6.66925 35.1647 10.7025C35.1647 14.7357 36.8254 16.3436 40.9114 16.3436ZM26.5186 16.3436C28.3638 16.3436 29.3391 15.2098 30.6047 13.6547L29.3659 14.8936V16.1323H33.9527V0H29.3659V5.9045C28.8123 5.29814 28.0215 5.06079 26.8355 5.06079C23.8304 5.06079 22.6705 6.66863 22.6705 10.7019C22.6705 14.7351 23.8559 16.3436 26.5186 16.3436ZM28.4694 14.8165C27.6785 14.8165 27.4679 13.9729 27.4679 10.441C27.4679 6.96129 27.6785 6.11762 28.4694 6.11762C28.944 6.11762 29.1546 6.40777 29.6554 7.0663L29.3652 6.51276V14.6314L29.6554 13.8679C29.1546 14.5245 28.9434 14.8146 28.4688 14.8146L28.4694 14.8165ZM13.7864 16.3436C16.1851 16.3436 16.7915 14.9203 17.6613 13.6815L16.8704 14.4195V16.133H21.4572V5.27267H16.8704V14.2617L17.1338 13.7082C16.5014 14.6047 16.1323 14.7097 15.8155 14.7097C15.2358 14.7097 14.919 14.3667 14.919 13.628V5.27205H10.3589V13.0745C10.3596 15.421 11.8096 16.3436 13.7864 16.3436ZM5.35094 16.3436C6.20494 16.3498 7.04843 16.155 7.8132 15.7749C8.57797 15.3948 9.24255 14.84 9.75321 14.1555L9.51588 13.8653C8.98038 14.3285 8.29969 14.5896 7.59184 14.6034C6.82833 14.6034 6.5102 14.2605 6.5102 13.3907V5.79887H9.48916V5.27139H6.51083V1.60719H6.11572L2.05639 5.27139L0 5.53546V5.79887H1.92405V13.1006C1.92405 15.421 3.37217 16.3436 5.35094 16.3436ZM53.3528 21.405H55.4881C57.2015 21.405 58.3614 20.4296 59.1523 18.6634L65.1624 5.27267H64.4244L61.4193 12.2842L62.1313 11.4934L59.4953 5.27267H54.2232L59.9165 16.9245L60.1799 15.2899L59.4679 16.5287C59.0225 17.2923 58.6509 17.583 57.8601 17.583H53.3522L53.3528 21.405Z" fill="#1D1D1D"/></svg></div>
+<section class="cover" aria-label="Cover">
+  <div class="cover-logo"><svg width="88" height="22" viewBox="0 0 88 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M83.061 16.3436C85.4069 16.3436 86.7513 15.7372 87.8851 14.2083L87.595 13.9182C86.8569 14.5245 86.2245 14.7879 84.7216 14.7879C82.4311 14.7879 81.875 13.4696 81.875 10.8342V9.04187C81.875 6.32695 82.1652 5.56218 82.8237 5.56218C83.4822 5.56218 83.7723 6.32568 83.7723 9.04187C83.7723 9.59542 83.7723 10.2546 83.7195 10.8342L84.9322 10.5441H81.1866L81.2394 11.0976H87.8565C88.4889 6.85379 87.0656 5.06079 82.9007 5.06079C78.7885 5.06079 77.1012 6.69536 77.1012 10.7547C77.1037 14.7351 78.8172 16.3436 83.061 16.3436ZM70.3556 15.2893C69.8809 15.2893 69.6703 14.9992 69.1696 14.3406L69.4597 14.8942V6.77551L69.1696 7.53903C69.6703 6.87986 69.8815 6.58973 70.3556 6.58973C71.1464 6.58973 71.357 7.43341 71.357 10.9653C71.357 14.4431 71.1464 15.2887 70.3556 15.2887V15.2893ZM64.8729 21.405H69.4597V15.5005C70.0133 16.1069 70.8041 16.3442 71.9901 16.3442C74.9951 16.3442 76.1551 14.7364 76.1551 10.7032C76.1551 6.66991 74.9691 5.06207 72.3063 5.06207C70.4612 5.06207 69.4858 6.19525 68.2203 7.75091L69.4591 6.5121V5.27333H64.8723L64.8729 21.405ZM51.4027 16.3436C52.2567 16.3498 53.1002 16.1549 53.8649 15.7748C54.6297 15.3947 55.2943 14.84 55.805 14.1555L55.5676 13.8653C55.0321 14.3285 54.3514 14.5896 53.6436 14.6034C52.8801 14.6034 52.5619 14.2605 52.5619 13.3907V5.79887H56.0677V5.27139H52.5619V1.60719H52.1668L48.1075 5.27139L46.0511 5.5348V5.79821H47.9739V13.0999C47.9739 15.421 49.4252 16.3436 51.402 16.3436H51.4027ZM40.9114 15.8689C40.1479 15.8689 39.9628 14.8674 39.9628 10.7025C39.9628 6.27414 40.1473 5.53608 40.9114 5.53608C41.6756 5.53608 41.8601 6.27414 41.8601 10.7025C41.8601 14.8674 41.6749 15.8689 40.9114 15.8689ZM40.9114 16.3436C44.9975 16.3436 46.6581 14.7357 46.6581 10.7025C46.6581 6.66925 44.9975 5.06145 40.9114 5.06145C36.8254 5.06145 35.1647 6.66925 35.1647 10.7025C35.1647 14.7357 36.8254 16.3436 40.9114 16.3436ZM26.5186 16.3436C28.3638 16.3436 29.3391 15.2098 30.6047 13.6547L29.3659 14.8936V16.1323H33.9527V0H29.3659V5.9045C28.8123 5.29814 28.0215 5.06079 26.8355 5.06079C23.8304 5.06079 22.6705 6.66863 22.6705 10.7019C22.6705 14.7351 23.8559 16.3436 26.5186 16.3436ZM28.4694 14.8165C27.6785 14.8165 27.4679 13.9729 27.4679 10.441C27.4679 6.96129 27.6785 6.11762 28.4694 6.11762C28.944 6.11762 29.1546 6.40777 29.6554 7.0663L29.3652 6.51276V14.6314L29.6554 13.8679C29.1546 14.5245 28.9434 14.8146 28.4688 14.8146L28.4694 14.8165ZM13.7864 16.3436C16.1851 16.3436 16.7915 14.9203 17.6613 13.6815L16.8704 14.4195V16.133H21.4572V5.27267H16.8704V14.2617L17.1338 13.7082C16.5014 14.6047 16.1323 14.7097 15.8155 14.7097C15.2358 14.7097 14.919 14.3667 14.919 13.628V5.27205H10.3589V13.0745C10.3596 15.421 11.8096 16.3436 13.7864 16.3436ZM5.35094 16.3436C6.20494 16.3498 7.04843 16.155 7.8132 15.7749C8.57797 15.3948 9.24255 14.84 9.75321 14.1555L9.51588 13.8653C8.98038 14.3285 8.29969 14.5896 7.59184 14.6034C6.82833 14.6034 6.5102 14.2605 6.5102 13.3907V5.79887H9.48916V5.27139H6.51083V1.60719H6.11572L2.05639 5.27139L0 5.53546V5.79887H1.92405V13.1006C1.92405 15.421 3.37217 16.3436 5.35094 16.3436ZM53.3528 21.405H55.4881C57.2015 21.405 58.3614 20.4296 59.1523 18.6634L65.1624 5.27267H64.4244L61.4193 12.2842L62.1313 11.4934L59.4953 5.27267H54.2232L59.9165 16.9245L60.1799 15.2899L59.4679 16.5287C59.0225 17.2923 58.6509 17.583 57.8601 17.583H53.3522L53.3528 21.405Z" fill="#1D1D1D"/></svg></div>
   <h1><span class="cover-line cover-line-1">Typeproof<span class="title-accent">.</span></span></h1>
   <h2 data-i18n="cover_subtitle">Language-aware typographic correction<br>for the multilingual web</h2>
   <p class="cover-desc" data-i18n="cover_desc" style="font-family:var(--text); font-size:11pt; color:#5C3600; max-width:440px; margin-bottom:48px; line-height:1.6;">Indexing the rules for everyone before they&#x2019;re forgotten by a flood of synthetic text. 46 deterministic rules across 21 language variants, encoded as executable infrastructure.</p>
@@ -1497,7 +1715,7 @@
      PREMISE
      ============================================================ -->
 
-<section class="premise">
+<section class="premise" aria-label="Premise">
   <p class="premise-lead" data-i18n="premise_lead">The growing volume of synthetic text is changing how we think, how we write but also degrading how good writing should look like on the page.</p>
   <div class="premise-body">
     <p data-i18n="premise_p1">Every day, more machine-generated text enters circulation. Most of it is typographically illiterate: straight quotes where curly quotes belong, hyphens masquerading as dashes, no awareness of locale conventions. As adoption grows, and more synthetic text gets published, these errors compound due to the flattening of the references we rely on. The good points of reference get harder to find due to a combination of human written data scarcity getting swallowed by the volume of synthetic text being generated. Although partially, it includes this text too.</p>
@@ -1507,10 +1725,35 @@
 </section>
 
 <!-- ============================================================
+     EROSION ILLUSTRATION
+     ============================================================ -->
+
+<div class="erosion-wrap">
+  <div class="erosion">
+    <div class="erosion-frame">
+      <div class="erosion-bar">
+        <div class="erosion-bar-left">
+          <div class="erosion-dot" id="erosion-dot"></div>
+          <span class="erosion-bar-title">Specimen</span>
+          <span class="erosion-locale" id="erosion-locale">EN-US</span>
+        </div>
+        <span class="erosion-status correct" id="erosion-status">Correct</span>
+      </div>
+      <div class="erosion-stage" id="erosion-stage">
+        <div class="erosion-prose" id="erosion-prose"></div>
+      </div>
+      <div class="erosion-strip" id="erosion-strip">
+        <span class="erosion-strip-msg idle">Monitoring</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
      THE JOURNEY
      ============================================================ -->
 
-<section class="journey">
+<section class="journey" aria-label="The Journey">
   <div class="journey-eyebrow" data-i18n="journey_eyebrow">The Journey</div>
 
   <details class="journey-card">
@@ -1572,7 +1815,7 @@
      OVERVIEW
      ============================================================ -->
 
-<section class="overview">
+<section class="overview" aria-label="Overview">
   <p class="overview-intro" data-i18n="overview_intro">Typeproof is a fast, pure-Python deterministic typographic correction library. It handles the 80% of corrections that are straightforward substitution rules: curly quotes, locale-correct dashes, non-breaking spaces, diacritic integrity, and more. No ML dependencies.</p>
 
   <h3 data-i18n="overview_languages_title">Supported Languages</h3>
@@ -1621,20 +1864,20 @@ python3 typeproof.py "He said \"hello\" and left." --lang en-US --diff</pre>
      LIVE DEMO
      ============================================================ -->
 
-<section class="demo-section">
+<section class="demo-section" aria-label="Live Demo">
   <div class="demo-panel">
     <h3 data-i18n="demo_title">Try It Live</h3>
     <p class="demo-subtitle" data-i18n="demo_subtitle">Paste your own text. Select your language. See what changes. <strong>Changed glyphs are highlighted in green</strong> &#x2013; the corrections most people never notice, made visible.</p>
     <div class="demo-grid">
       <div class="demo-input-area">
-        <span class="demo-area-label" data-i18n="demo_your_text">Your text</span>
+        <label for="demo-input" class="demo-area-label" data-i18n="demo_your_text">Your text</label>
         <textarea class="demo-textarea" id="demo-input" placeholder="Paste text in any language&#x2026;">He said "hello" and left... She replied "goodbye" -- then walked away.
 
 The room was 1920x1080. It cost (c) 2024. See p. 42 for 3/4 of the data.
 
 Click -> next, or go <- back.</textarea>
         <div class="demo-controls">
-          <select class="demo-select" id="demo-lang">
+          <select class="demo-select" id="demo-lang" aria-label="Select language">
             <option value="en-US" selected>en-US</option>
             <option value="en-GB">en-GB</option>
             <option value="fr-FR">fr-FR</option>
@@ -1662,10 +1905,10 @@ Click -> next, or go <- back.</textarea>
       </div>
       <div>
         <span class="demo-area-label" data-i18n="demo_corrected">Corrected</span>
-        <div class="demo-output" id="demo-output"></div>
+        <div class="demo-output" id="demo-output" aria-live="polite" role="status"></div>
       </div>
     </div>
-    <ul class="demo-corrections" id="demo-corrections"></ul>
+    <ul class="demo-corrections" id="demo-corrections" aria-live="polite"></ul>
     <p class="demo-note" data-i18n="demo_note">Showing a subset of rules (ellipsis, quotes, dashes, legal symbols, arrows, multiplication, fractions, apostrophes, double spaces). The full Python linter handles all 46+ rules including NBSP, diacritics, and accessibility.</p>
   </div>
 </section>
@@ -1675,9 +1918,13 @@ Click -> next, or go <- back.</textarea>
      ============================================================ -->
 
 <div class="filter-bar" id="filter-bar">
-  <div class="filter-row">
-    <span class="filter-label" data-i18n="filter_language">Language</span>
-    <div class="filter-pills" id="lang-filters">
+  <div class="filter-group">
+    <button class="filter-toggle" id="lang-toggle-filter" aria-haspopup="true" aria-expanded="false" aria-controls="lang-filters">
+      <span class="ft-label">Language</span>
+      <span class="ft-divider"></span>
+      <span class="ft-value" id="lang-value">Show All</span>
+    </button>
+    <div class="filter-dropdown" id="lang-filters" role="group" aria-label="Language filter">
       <button class="filter-pill active" data-lang="all" data-i18n="filter_show_all">Show All</button>
       <button class="filter-pill" data-lang="universal">Universal</button>
       <button class="filter-pill" data-lang="en-US">en-US</button>
@@ -1696,11 +1943,15 @@ Click -> next, or go <- back.</textarea>
       <button class="filter-pill" data-lang="da">da</button>
       <button class="filter-pill" data-lang="ru">ru</button>
     </div>
-    <span class="filter-count" id="filter-count">46 rules</span>
   </div>
-  <div class="filter-row">
-    <span class="filter-label" data-i18n="filter_category">Category</span>
-    <div class="filter-pills" id="cat-filters">
+  <div class="filter-group">
+    <button class="filter-toggle" id="cat-toggle-filter" aria-haspopup="true" aria-expanded="false" aria-controls="cat-filters">
+      <span class="ft-label">Category</span>
+      <span class="ft-divider"></span>
+      <span class="ft-value" id="cat-value">All</span>
+    </button>
+    <div class="filter-dropdown" id="cat-filters" role="group" aria-label="Category filter">
+      <button class="filter-pill active" data-cat="all">All</button>
       <button class="filter-pill" data-cat="normalization">Normalization</button>
       <button class="filter-pill" data-cat="diacritics">Diacritics</button>
       <button class="filter-pill" data-cat="homoglyphs">Homoglyphs</button>
@@ -1718,6 +1969,7 @@ Click -> next, or go <- back.</textarea>
       <button class="filter-pill" data-cat="code-exclusion">Code Exclusion</button>
     </div>
   </div>
+  <span class="filter-count" id="filter-count">46 rules</span>
 </div>
 
 <!-- ============================================================
@@ -2920,7 +3172,7 @@ Click -> next, or go <- back.</textarea>
      CALL TO ACTION
      ============================================================ -->
 
-<section class="cta-section" id="contribute">
+<section class="cta-section" id="contribute" aria-label="Contribute">
   <div class="cta-eyebrow" data-i18n="cta_eyebrow">Open Source</div>
   <h2 class="cta-heading" data-i18n="cta_heading">This work needs native speakers.</h2>
   <div class="cta-body">
@@ -2948,12 +3200,10 @@ curl -O https://raw.githubusercontent.com/tudotype/typeproof/main/skills/typepro
 </section>
 
 <!-- ============================================================
-     FOOTER
+     DARK ZONE: AUTHOR + FOOTER
      ============================================================ -->
 
-<!-- ============================================================
-     AUTHOR
-     ============================================================ -->
+<div class="dark-zone">
 
 <div class="author-section">
   <h4 data-i18n="author_title">About the Author</h4>
@@ -2961,22 +3211,17 @@ curl -O https://raw.githubusercontent.com/tudotype/typeproof/main/skills/typepro
     <div class="author-avatar"><img src="https://1.gravatar.com/avatar/9a0ab25741b2c5a8d81e498d4924bb909c62ebad44a09175613abfceebd90963?s=96" alt="Jo&#x00E3;o Miranda"></div>
     <div class="author-info">
       <div class="author-name"><a href="https://www.linkedin.com/in/walkingfearless/" target="_blank">Jo&#x00E3;o Miranda</a></div>
-      <div class="author-role" data-i18n="author_role">Brand Designer at <a href="https://automattic.design" target="_blank" style="color:var(--ink-subtle); text-decoration:none; border-bottom:1px solid var(--border-light);">Automattic</a></div>
-      <p class="author-bio" data-i18n="author_bio">Jo&#x00E3;o is a Portuguese brand and type designer with over a decade of experience at consultancies including Pentagram, Wolff Olins and R/GA. At <a href="https://automattic.design" target="_blank" style="color:var(--ink-subtle); text-decoration:none; border-bottom:1px solid var(--border-light);">Automattic</a>, he shapes the visual identity of WordPress &#x2013; the platform that powers over 40% of the web. He also founded <a href="https://tudotype.com" target="_blank" style="color:var(--ink-subtle); text-decoration:none; border-bottom:1px solid var(--border-light);">tudotype</a>, an independent type foundry.</p>
+      <div class="author-role" data-i18n="author_role">Brand Designer at <a href="https://automattic.design" target="_blank" style="color:rgba(255,255,255,0.5); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.2);">Automattic</a></div>
+      <p class="author-bio" data-i18n="author_bio">Jo&#x00E3;o is a Portuguese brand and type designer with over a decade of experience at consultancies including Pentagram, Wolff Olins and R/GA. At <a href="https://automattic.design" target="_blank" style="color:rgba(255,255,255,0.7); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.2);">Automattic</a>, he shapes the visual identity of WordPress &#x2013; the platform that powers over 40% of the web. He also founded <a href="https://tudotype.com" target="_blank" style="color:rgba(255,255,255,0.7); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.2);">tudotype</a>, an independent type foundry.</p>
     </div>
   </div>
 </div>
 
-<!-- ============================================================
-     FOOTER
-     ============================================================ -->
-
 <div class="footer">
-  <div class="footer-left">
-    <span class="footer-logo"><svg width="88" height="22" viewBox="0 0 88 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M83.061 16.3436C85.4069 16.3436 86.7513 15.7372 87.8851 14.2083L87.595 13.9182C86.8569 14.5245 86.2245 14.7879 84.7216 14.7879C82.4311 14.7879 81.875 13.4696 81.875 10.8342V9.04187C81.875 6.32695 82.1652 5.56218 82.8237 5.56218C83.4822 5.56218 83.7723 6.32568 83.7723 9.04187C83.7723 9.59542 83.7723 10.2546 83.7195 10.8342L84.9322 10.5441H81.1866L81.2394 11.0976H87.8565C88.4889 6.85379 87.0656 5.06079 82.9007 5.06079C78.7885 5.06079 77.1012 6.69536 77.1012 10.7547C77.1037 14.7351 78.8172 16.3436 83.061 16.3436ZM70.3556 15.2893C69.8809 15.2893 69.6703 14.9992 69.1696 14.3406L69.4597 14.8942V6.77551L69.1696 7.53903C69.6703 6.87986 69.8815 6.58973 70.3556 6.58973C71.1464 6.58973 71.357 7.43341 71.357 10.9653C71.357 14.4431 71.1464 15.2887 70.3556 15.2887V15.2893ZM64.8729 21.405H69.4597V15.5005C70.0133 16.1069 70.8041 16.3442 71.9901 16.3442C74.9951 16.3442 76.1551 14.7364 76.1551 10.7032C76.1551 6.66991 74.9691 5.06207 72.3063 5.06207C70.4612 5.06207 69.4858 6.19525 68.2203 7.75091L69.4591 6.5121V5.27333H64.8723L64.8729 21.405ZM51.4027 16.3436C52.2567 16.3498 53.1002 16.1549 53.8649 15.7748C54.6297 15.3947 55.2943 14.84 55.805 14.1555L55.5676 13.8653C55.0321 14.3285 54.3514 14.5896 53.6436 14.6034C52.8801 14.6034 52.5619 14.2605 52.5619 13.3907V5.79887H56.0677V5.27139H52.5619V1.60719H52.1668L48.1075 5.27139L46.0511 5.5348V5.79821H47.9739V13.0999C47.9739 15.421 49.4252 16.3436 51.402 16.3436H51.4027ZM40.9114 15.8689C40.1479 15.8689 39.9628 14.8674 39.9628 10.7025C39.9628 6.27414 40.1473 5.53608 40.9114 5.53608C41.6756 5.53608 41.8601 6.27414 41.8601 10.7025C41.8601 14.8674 41.6749 15.8689 40.9114 15.8689ZM40.9114 16.3436C44.9975 16.3436 46.6581 14.7357 46.6581 10.7025C46.6581 6.66925 44.9975 5.06145 40.9114 5.06145C36.8254 5.06145 35.1647 6.66925 35.1647 10.7025C35.1647 14.7357 36.8254 16.3436 40.9114 16.3436ZM26.5186 16.3436C28.3638 16.3436 29.3391 15.2098 30.6047 13.6547L29.3659 14.8936V16.1323H33.9527V0H29.3659V5.9045C28.8123 5.29814 28.0215 5.06079 26.8355 5.06079C23.8304 5.06079 22.6705 6.66863 22.6705 10.7019C22.6705 14.7351 23.8559 16.3436 26.5186 16.3436ZM28.4694 14.8165C27.6785 14.8165 27.4679 13.9729 27.4679 10.441C27.4679 6.96129 27.6785 6.11762 28.4694 6.11762C28.944 6.11762 29.1546 6.40777 29.6554 7.0663L29.3652 6.51276V14.6314L29.6554 13.8679C29.1546 14.5245 28.9434 14.8146 28.4688 14.8146L28.4694 14.8165ZM13.7864 16.3436C16.1851 16.3436 16.7915 14.9203 17.6613 13.6815L16.8704 14.4195V16.133H21.4572V5.27267H16.8704V14.2617L17.1338 13.7082C16.5014 14.6047 16.1323 14.7097 15.8155 14.7097C15.2358 14.7097 14.919 14.3667 14.919 13.628V5.27205H10.3589V13.0745C10.3596 15.421 11.8096 16.3436 13.7864 16.3436ZM5.35094 16.3436C6.20494 16.3498 7.04843 16.155 7.8132 15.7749C8.57797 15.3948 9.24255 14.84 9.75321 14.1555L9.51588 13.8653C8.98038 14.3285 8.29969 14.5896 7.59184 14.6034C6.82833 14.6034 6.5102 14.2605 6.5102 13.3907V5.79887H9.48916V5.27139H6.51083V1.60719H6.11572L2.05639 5.27139L0 5.53546V5.79887H1.92405V13.1006C1.92405 15.421 3.37217 16.3436 5.35094 16.3436ZM53.3528 21.405H55.4881C57.2015 21.405 58.3614 20.4296 59.1523 18.6634L65.1624 5.27267H64.4244L61.4193 12.2842L62.1313 11.4934L59.4953 5.27267H54.2232L59.9165 16.9245L60.1799 15.2899L59.4679 16.5287C59.0225 17.2923 58.6509 17.583 57.8601 17.583H53.3522L53.3528 21.405Z" fill="#1D1D1D"/></svg></span>
-  </div>
-  <div class="footer-right" data-i18n="footer_text"><span class="amber">46+ rules</span> &middot; 21 language variants &middot; May 2026<br>Set in <a href="https://fonts.google.com/specimen/Google+Sans" target="_blank" style="color:var(--ink-muted); text-decoration:none; border-bottom:1px solid var(--border-light);">Google Sans</a></div>
+  <div class="footer-right" data-i18n="footer_text"><span class="amber">46+ rules</span> &middot; 21 language variants &middot; May 2026<br>Set in <a href="https://fonts.google.com/specimen/Google+Sans" target="_blank" style="color:rgba(255,255,255,0.4); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.15);">Google Sans</a></div>
 </div>
+
+</div><!-- .dark-zone -->
 
 <script>
 // ================================================================
@@ -3249,9 +3494,30 @@ document.addEventListener('DOMContentLoaded', runDemo);
   const langFilters = document.getElementById('lang-filters');
   const catFilters = document.getElementById('cat-filters');
   const countEl = document.getElementById('filter-count');
+  const langToggle = document.getElementById('lang-toggle-filter');
+  const catToggle = document.getElementById('cat-toggle-filter');
+  const langValue = document.getElementById('lang-value');
+  const catValue = document.getElementById('cat-value');
 
   let activeLangs = new Set(['all']);
   let activeCat = null;
+
+  function updateLabels() {
+    if (activeLangs.has('all')) {
+      langValue.textContent = 'Show All';
+      langToggle.classList.remove('has-selection');
+    } else {
+      langValue.textContent = Array.from(activeLangs).join(', ');
+      langToggle.classList.add('has-selection');
+    }
+    if (activeCat) {
+      catValue.textContent = activeCat.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+      catToggle.classList.add('has-selection');
+    } else {
+      catValue.textContent = 'All';
+      catToggle.classList.remove('has-selection');
+    }
+  }
 
   function applyFilters() {
     let visible = 0;
@@ -3273,19 +3539,55 @@ document.addEventListener('DOMContentLoaded', runDemo);
       }
     });
 
-    // Hide empty category groups
     catGroups.forEach(g => {
       const visibleRules = g.querySelectorAll('.rule:not(.hidden)');
       g.classList.toggle('hidden', visibleRules.length === 0);
     });
 
     countEl.textContent = visible + ' rule' + (visible !== 1 ? 's' : '');
+    updateLabels();
   }
+
+  // Toggle dropdowns — open/close on the .filter-group wrapper
+  const langGroup = langToggle.parentElement;
+  const catGroup = catToggle.parentElement;
+
+  function closeAll() {
+    langGroup.classList.remove('open');
+    catGroup.classList.remove('open');
+    langToggle.setAttribute('aria-expanded', 'false');
+    catToggle.setAttribute('aria-expanded', 'false');
+  }
+
+  function toggleGroup(group, toggle) {
+    const wasOpen = group.classList.contains('open');
+    closeAll();
+    if (!wasOpen) {
+      group.classList.add('open');
+      toggle.setAttribute('aria-expanded', 'true');
+    }
+  }
+
+  langToggle.addEventListener('click', e => {
+    e.stopPropagation();
+    toggleGroup(langGroup, langToggle);
+  });
+
+  catToggle.addEventListener('click', e => {
+    e.stopPropagation();
+    toggleGroup(catGroup, catToggle);
+  });
+
+  document.addEventListener('click', closeAll);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeAll();
+  });
 
   // Language pill clicks
   langFilters.addEventListener('click', e => {
     const pill = e.target.closest('.filter-pill');
     if (!pill) return;
+    e.stopPropagation();
     const lang = pill.dataset.lang;
 
     if (lang === 'all') {
@@ -3293,7 +3595,6 @@ document.addEventListener('DOMContentLoaded', runDemo);
       langFilters.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
       pill.classList.add('active');
     } else {
-      // Remove "all"
       activeLangs.delete('all');
       langFilters.querySelector('[data-lang="all"]').classList.remove('active');
 
@@ -3316,16 +3617,17 @@ document.addEventListener('DOMContentLoaded', runDemo);
   catFilters.addEventListener('click', e => {
     const pill = e.target.closest('.filter-pill');
     if (!pill) return;
+    e.stopPropagation();
     const cat = pill.dataset.cat;
 
     catFilters.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
 
-    if (activeCat === cat) {
+    if (cat === 'all' || activeCat === cat) {
       activeCat = null;
+      catFilters.querySelector('[data-cat="all"]').classList.add('active');
     } else {
       activeCat = cat;
       pill.classList.add('active');
-      // Scroll to category
       const target = document.getElementById('cat-' + cat);
       if (target) {
         const barH = document.getElementById('filter-bar').offsetHeight;
@@ -3335,6 +3637,22 @@ document.addEventListener('DOMContentLoaded', runDemo);
     }
     applyFilters();
   });
+
+  // Hide filter bar when CTA section enters viewport
+  var filterBar = document.getElementById('filter-bar');
+  var ctaSection = document.getElementById('contribute');
+  if (filterBar && ctaSection) {
+    var ctaObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          filterBar.classList.add('filter-hidden');
+        } else {
+          filterBar.classList.remove('filter-hidden');
+        }
+      });
+    }, { threshold: 0 });
+    ctaObserver.observe(ctaSection);
+  }
 })();
 
 // ================================================================
@@ -3532,12 +3850,12 @@ document.addEventListener('DOMContentLoaded', runDemo);
 <!-- Floating contribute CTA -->
 <div class="floating-cta hidden" id="floating-cta" role="toolbar" aria-label="Page tools">
   <button class="lang-toggle" id="lang-toggle" aria-label="Change language" title="Change language">
-    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/></svg>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/></svg>
   </button>
   <div class="lang-selector" id="lang-selector"></div>
   <span class="pill-divider" id="pill-divider"></span>
   <button class="pill-contribute" id="pill-contribute">
-    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
     <span data-i18n="floating_contribute">Contribute</span>
   </button>
 </div>
@@ -3641,20 +3959,32 @@ document.addEventListener('DOMContentLoaded', runDemo);
       return;
     }
 
-    fetch('i18n/' + lang + '.json')
-      .then(function(res) {
-        if (!res.ok) throw new Error('Translation file not found: ' + lang);
-        return res.json();
-      })
-      .then(function(strings) {
-        translationCache[lang] = strings;
-        applyTranslations(strings);
-      })
-      .catch(function(err) {
-        console.warn('Typeproof i18n: ' + err.message + '. Falling back to English.');
+    // Use XMLHttpRequest for file:// compatibility
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'i18n/' + lang + '.json', true);
+    xhr.onload = function() {
+      if (xhr.status === 200 || xhr.status === 0) {
+        try {
+          var strings = JSON.parse(xhr.responseText);
+          translationCache[lang] = strings;
+          applyTranslations(strings);
+        } catch(e) {
+          console.warn('Typeproof i18n: invalid JSON for ' + lang);
+          currentLang = 'en';
+          localStorage.setItem(STORAGE_KEY, 'en');
+        }
+      } else {
+        console.warn('Typeproof i18n: translation file not found: ' + lang);
         currentLang = 'en';
         localStorage.setItem(STORAGE_KEY, 'en');
-      });
+      }
+    };
+    xhr.onerror = function() {
+      console.warn('Typeproof i18n: failed to load ' + lang + '. Falling back to English.');
+      currentLang = 'en';
+      localStorage.setItem(STORAGE_KEY, 'en');
+    };
+    xhr.send();
   }
 
   // ================================================================
@@ -3765,6 +4095,322 @@ document.addEventListener('DOMContentLoaded', runDemo);
   } else {
     init();
   }
+})();
+</script>
+
+<!-- ── Erosion illustration ──────────────────────── -->
+<script>
+(function() {
+  const SPECIMENS = [
+    {
+      locale: 'EN-US',
+      correct: '\u201CIt doesn\u2019t matter,\u201D she said \u2014 but it does\u2026',
+      rules: [
+        { correct: '\u201C', wrong: '"',   label: 'quotation_marks', codeFrom: 'U+201C', codeTo: 'U+0022' },
+        { correct: '\u2019', wrong: "'",   label: 'apostrophe',      codeFrom: 'U+2019', codeTo: 'U+0027' },
+        { correct: '\u201D', wrong: '"',   label: 'quotation_marks', codeFrom: 'U+201D', codeTo: 'U+0022' },
+        { correct: '\u2014', wrong: '--',  label: 'em_dash',         codeFrom: 'U+2014', codeTo: 'U+002D\u00d72' },
+        { correct: '\u2026', wrong: '...', label: 'ellipsis',        codeFrom: 'U+2026', codeTo: 'U+002E\u00d73' },
+      ]
+    },
+    {
+      locale: 'FR-FR',
+      correct: 'Elle a dit\u202F: \u00abLa typographie compte\u00bb \u2014 c\u2019est vrai\u2026',
+      rules: [
+        { correct: '\u202F:', wrong: ' :',  label: 'nnbsp_colon',  codeFrom: 'U+202F', codeTo: 'U+0020' },
+        { correct: '\u00ab',  wrong: '"',   label: 'guillemets',   codeFrom: 'U+00AB', codeTo: 'U+0022' },
+        { correct: '\u00bb',  wrong: '"',   label: 'guillemets',   codeFrom: 'U+00BB', codeTo: 'U+0022' },
+        { correct: '\u2014',  wrong: '-',   label: 'em_dash',      codeFrom: 'U+2014', codeTo: 'U+002D' },
+        { correct: '\u2019',  wrong: "'",   label: 'apostrophe',   codeFrom: 'U+2019', codeTo: 'U+0027' },
+        { correct: '\u2026',  wrong: '...', label: 'ellipsis',     codeFrom: 'U+2026', codeTo: 'U+002E\u00d73' },
+      ]
+    },
+    {
+      locale: 'PT-PT',
+      correct: 'Ela disse: \u00abA tipografia importa\u00bb \u2014 at\u00e9 nos detalhes\u2026',
+      rules: [
+        { correct: '\u00ab', wrong: '"',   label: 'guillemets',     codeFrom: 'U+00AB', codeTo: 'U+0022' },
+        { correct: '\u00bb', wrong: '"',   label: 'guillemets',     codeFrom: 'U+00BB', codeTo: 'U+0022' },
+        { correct: '\u2014', wrong: '--',  label: 'travess\u00e3o', codeFrom: 'U+2014', codeTo: 'U+002D\u00d72' },
+        { correct: '\u2026', wrong: '...', label: 'ellipsis',       codeFrom: 'U+2026', codeTo: 'U+002E\u00d73' },
+      ]
+    },
+    {
+      locale: 'DE-DE',
+      correct: 'Sie sagte: \u201ETypografie ist wichtig\u201C \u2013 selbst die Details\u2026',
+      rules: [
+        { correct: '\u201E', wrong: '"',   label: 'anf\u00fchrungszeichen', codeFrom: 'U+201E', codeTo: 'U+0022' },
+        { correct: '\u201C', wrong: '"',   label: 'anf\u00fchrungszeichen', codeFrom: 'U+201C', codeTo: 'U+0022' },
+        { correct: '\u2013', wrong: '-',   label: 'en_dash',       codeFrom: 'U+2013', codeTo: 'U+002D' },
+        { correct: '\u2026', wrong: '...', label: 'ellipsis',      codeFrom: 'U+2026', codeTo: 'U+002E\u00d73' },
+      ]
+    },
+    {
+      locale: 'ES-ES',
+      correct: 'Ella dijo: \u00abLa tipograf\u00eda importa\u00bb \u2014 incluso los detalles\u2026',
+      rules: [
+        { correct: '\u00ab', wrong: '"',   label: 'comillas',     codeFrom: 'U+00AB', codeTo: 'U+0022' },
+        { correct: '\u00bb', wrong: '"',   label: 'comillas',     codeFrom: 'U+00BB', codeTo: 'U+0022' },
+        { correct: '\u2014', wrong: '--',  label: 'raya',         codeFrom: 'U+2014', codeTo: 'U+002D\u00d72' },
+        { correct: '\u2026', wrong: '...', label: 'ellipsis',     codeFrom: 'U+2026', codeTo: 'U+002E\u00d73' },
+      ]
+    },
+    {
+      locale: 'IT-IT',
+      correct: 'Lei disse: \u00abLa tipografia conta\u00bb \u2013 anche i dettagli\u2026',
+      rules: [
+        { correct: '\u00ab', wrong: '"',   label: 'virgolette',   codeFrom: 'U+00AB', codeTo: 'U+0022' },
+        { correct: '\u00bb', wrong: '"',   label: 'virgolette',   codeFrom: 'U+00BB', codeTo: 'U+0022' },
+        { correct: '\u2013', wrong: '-',   label: 'en_dash',      codeFrom: 'U+2013', codeTo: 'U+002D' },
+        { correct: '\u2026', wrong: '...', label: 'ellipsis',     codeFrom: 'U+2026', codeTo: 'U+002E\u00d73' },
+      ]
+    },
+    {
+      locale: 'RO-RO',
+      correct: 'Ea a spus: \u201ETipografia conteaz\u0103\u201D \u2013 chiar \u0219i detaliile\u2026',
+      rules: [
+        { correct: '\u201E', wrong: '"',   label: 'ghilimele',    codeFrom: 'U+201E', codeTo: 'U+0022' },
+        { correct: '\u201D', wrong: '"',   label: 'ghilimele',    codeFrom: 'U+201D', codeTo: 'U+0022' },
+        { correct: '\u2013', wrong: '-',   label: 'en_dash',      codeFrom: 'U+2013', codeTo: 'U+002D' },
+        { correct: '\u2026', wrong: '...', label: 'ellipsis',     codeFrom: 'U+2026', codeTo: 'U+002E\u00d73' },
+      ]
+    },
+    {
+      locale: 'EN-GB',
+      correct: '\u2018It doesn\u2019t matter,\u2019 she said \u2013 but it does\u2026',
+      rules: [
+        { correct: '\u2018', wrong: "'",   label: 'single_quotes', codeFrom: 'U+2018', codeTo: 'U+0027' },
+        { correct: '\u2019t', wrong: "'t", label: 'apostrophe',    codeFrom: 'U+2019', codeTo: 'U+0027', matchStr: true },
+        { correct: ',\u2019', wrong: ",'", label: 'single_quotes', codeFrom: 'U+2019', codeTo: 'U+0027', matchStr: true },
+        { correct: '\u2013', wrong: '-',   label: 'en_dash',       codeFrom: 'U+2013', codeTo: 'U+002D' },
+        { correct: '\u2026', wrong: '...', label: 'ellipsis',      codeFrom: 'U+2026', codeTo: 'U+002E\u00d73' },
+      ]
+    },
+    {
+      locale: 'PL-PL',
+      correct: 'Powiedzia\u0142a: \u201ETypografia ma znaczenie\u201D \u2013 nawet detale\u2026',
+      rules: [
+        { correct: '\u201E', wrong: '"',   label: 'cudzys\u0142\u00f3w', codeFrom: 'U+201E', codeTo: 'U+0022' },
+        { correct: '\u201D', wrong: '"',   label: 'cudzys\u0142\u00f3w', codeFrom: 'U+201D', codeTo: 'U+0022' },
+        { correct: '\u2013', wrong: '-',   label: 'p\u00f3\u0142pauza',  codeFrom: 'U+2013', codeTo: 'U+002D' },
+        { correct: '\u2026', wrong: '...', label: 'wielokropek',  codeFrom: 'U+2026', codeTo: 'U+002E\u00d73' },
+      ]
+    },
+  ];
+
+  let specimenIdx = 0, chars, targets, currentSpec;
+  let phase = 'correct', stepIdx = 0, timer = null;
+
+  const proseEl  = document.getElementById('erosion-prose');
+  const dotEl    = document.getElementById('erosion-dot');
+  const statusEl = document.getElementById('erosion-status');
+  const localeEl = document.getElementById('erosion-locale');
+  const stripEl  = document.getElementById('erosion-strip');
+  const stageEl  = document.getElementById('erosion-stage');
+
+  if (!proseEl) return;
+
+  // Respect prefers-reduced-motion: show static specimen, skip animation
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    proseEl.textContent = SPECIMENS[0].correct;
+    localeEl.textContent = SPECIMENS[0].locale;
+    return;
+  }
+
+  function locateTargets(text, rules) {
+    return rules.map(function(d) {
+      var pos;
+      if (d.matchStr) {
+        pos = text.indexOf(d.correct);
+        if (pos >= 0) {
+          for (var k = 0; k < d.correct.length; k++) {
+            if (d.correct[k] !== d.wrong[k]) {
+              return Object.assign({}, d, { pos: pos + k, correct: d.correct[k], wrong: d.wrong[k] });
+            }
+          }
+        }
+      } else {
+        pos = text.indexOf(d.correct);
+      }
+      return Object.assign({}, d, { pos: pos });
+    }).filter(function(t) { return t.pos >= 0; });
+  }
+
+  function loadSpecimen(idx) {
+    currentSpec = SPECIMENS[idx];
+    chars = currentSpec.correct.split('');
+    targets = locateTargets(currentSpec.correct, currentSpec.rules);
+    localeEl.textContent = currentSpec.locale;
+  }
+
+  function render(hlPositions, hlClass) {
+    var hl = new Set(hlPositions || []);
+    var html = '';
+    for (var i = 0; i < chars.length; i++) {
+      if (chars[i] === null) continue;
+      var ch = chars[i];
+      if (hl.has(i)) {
+        html += '<span class="eg ' + hlClass + '">' + esc(ch) + '</span>';
+      } else {
+        html += esc(ch);
+      }
+    }
+    proseEl.innerHTML = html;
+  }
+
+  function esc(ch) {
+    if (ch === '<') return '&lt;';
+    if (ch === '>') return '&gt;';
+    if (ch === '&') return '&amp;';
+    return ch;
+  }
+
+  function setStatus(text, cls) {
+    statusEl.className = 'erosion-status ' + cls;
+    statusEl.textContent = text;
+    dotEl.className = 'erosion-dot ' + cls;
+  }
+
+  function setStrip(t, mode) {
+    if (!t) {
+      stripEl.innerHTML = '<span class="erosion-strip-msg idle">Monitoring</span>';
+      return;
+    }
+    var isErode = mode === 'erode';
+    var fromGlyph = isErode ? t.correct : t.wrong;
+    var toGlyph   = isErode ? t.wrong   : t.correct;
+    var fromCode  = isErode ? t.codeFrom : t.codeTo;
+    var toCode    = isErode ? t.codeTo   : t.codeFrom;
+    var fromCls   = isErode ? 'dim' : 'bad';
+    var toCls     = isErode ? 'bad' : 'good';
+
+    stripEl.innerHTML =
+      '<span class="erosion-strip-glyph ' + fromCls + '">' + esc(fromGlyph) + '</span>' +
+      '<span class="erosion-strip-code">' + fromCode + '</span>' +
+      '<span class="erosion-strip-arrow">\u2192</span>' +
+      '<span class="erosion-strip-glyph ' + toCls + '">' + esc(toGlyph) + '</span>' +
+      '<span class="erosion-strip-code">' + toCode + '</span>' +
+      '<span class="erosion-strip-sep"></span>' +
+      '<span class="erosion-strip-rule ' + mode + '">' + t.label + '</span>';
+  }
+
+  function setStripMsg(msg, cls) {
+    stripEl.innerHTML = '<span class="erosion-strip-msg ' + cls + '">' + msg + '</span>';
+  }
+
+  function erodeStep() {
+    if (stepIdx >= targets.length) {
+      phase = 'eroded';
+      setStatus('Eroded', 'eroding');
+      render();
+      setStripMsg(targets.length + ' rules degraded', 'erode');
+      timer = setTimeout(function() {
+        phase = 'restoring';
+        stepIdx = 0;
+        setStatus('Restoring', 'restoring');
+        setStripMsg('Lint pass', 'restore');
+        timer = setTimeout(restoreStep, 700);
+      }, 1800);
+      return;
+    }
+    var t = targets[stepIdx];
+    if (t.wrong.length > t.correct.length) {
+      chars[t.pos] = t.wrong[0];
+      var extra = t.wrong.slice(1).split('');
+      chars.splice(t.pos + 1, 0, extra[0]);
+      if (extra.length > 1) chars.splice(t.pos + 2, 0, extra[1]);
+      targets.forEach(function(ot) { if (ot.pos > t.pos) ot.pos += extra.length; });
+      var hlPos = [];
+      for (var k = 0; k < t.wrong.length; k++) hlPos.push(t.pos + k);
+      render(hlPos, 'erode');
+    } else {
+      chars[t.pos] = t.wrong;
+      render([t.pos], 'erode');
+    }
+    setStrip(t, 'erode');
+    stepIdx++;
+    timer = setTimeout(erodeStep, 1000);
+  }
+
+  function restoreStep() {
+    if (stepIdx >= targets.length) {
+      phase = 'correct';
+      setStatus('Correct', 'correct');
+      render();
+      setStripMsg('All rules restored', 'restore');
+      timer = setTimeout(function() {
+        proseEl.classList.add('fading');
+        setStrip(null);
+        timer = setTimeout(function() {
+          specimenIdx = (specimenIdx + 1) % SPECIMENS.length;
+          loadSpecimen(specimenIdx);
+          render();
+          setStatus('Correct', 'correct');
+          requestAnimationFrame(function() {
+            proseEl.classList.remove('fading');
+            timer = setTimeout(startErosion, 2200);
+          });
+        }, 400);
+      }, 1800);
+      return;
+    }
+    var t = targets[stepIdx];
+    if (t.wrong.length > t.correct.length) {
+      chars[t.pos] = t.correct;
+      var removeCount = t.wrong.length - t.correct.length;
+      chars.splice(t.pos + 1, removeCount);
+      targets.forEach(function(ot) { if (ot.pos > t.pos) ot.pos -= removeCount; });
+    } else {
+      chars[t.pos] = t.correct;
+    }
+    render([t.pos], 'restore');
+    setStrip(t, 'restore');
+    stepIdx++;
+    timer = setTimeout(restoreStep, 1000);
+  }
+
+  function startErosion() {
+    loadSpecimen(specimenIdx);
+    phase = 'eroding';
+    stepIdx = 0;
+    setStatus('Eroding', 'eroding');
+    render();
+    setStrip(null);
+    timer = setTimeout(erodeStep, 900);
+  }
+
+  function lockStageHeight() {
+    stageEl.style.minHeight = '';
+    var maxH = 0;
+    SPECIMENS.forEach(function(spec) {
+      var eroded = spec.rules.reduce(function(txt, r) {
+        return txt.replace(r.correct, r.wrong);
+      }, spec.correct);
+      proseEl.textContent = eroded;
+      var h = stageEl.scrollHeight;
+      if (h > maxH) maxH = h;
+    });
+    stageEl.style.minHeight = maxH + 'px';
+  }
+
+  // Use IntersectionObserver to start only when visible
+  var started = false;
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting && !started) {
+        started = true;
+        timer = setTimeout(startErosion, 1200);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  loadSpecimen(0);
+  render();
+  setStatus('Correct', 'correct');
+  lockStageHeight();
+  window.addEventListener('resize', lockStageHeight);
+  observer.observe(stageEl);
 })();
 </script>
 
