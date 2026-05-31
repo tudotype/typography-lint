@@ -829,8 +829,8 @@
     .cta-section { padding: 25px 15px; }
     .cta-heading { font-size: 27px; }
     .cta-body { font-size: 16px; }
-    .cta-buttons { flex-direction: column; }
-    .cta-btn { justify-content: center; min-height: 44px; padding: 14px 20px; }
+    .cta-toggle { font-size: 10px; padding: 10px 14px; min-height: 44px; }
+    .cta-pill { font-size: 10px; padding: 8px 14px; min-height: 36px; }
     .install-card { padding: 15px; }
     .install-card pre { font-size: 14px; white-space: pre-wrap; overflow-wrap: anywhere; }
     .install-copy { font-size: 10px; padding: 6px 12px; }
@@ -1025,7 +1025,9 @@
   .filter-pill:focus-visible,
   .filter-toggle:focus-visible,
   .lang-pill:focus-visible,
-  .pill-contribute:focus-visible {
+  .pill-contribute:focus-visible,
+  .cta-toggle:focus-visible,
+  .cta-pill:focus-visible {
     outline: 2px solid var(--amber);
     outline-offset: 2px;
   }
@@ -1520,37 +1522,68 @@
     margin-bottom: 40px;
   }
   .cta-body p { margin-bottom: 12px; }
-  .cta-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
+  .cta-actions {
+    position: relative;
+    display: inline-block;
     margin-bottom: 40px;
   }
-  .cta-btn {
+  .cta-toggle {
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    padding: 7px 14px;
+    border-radius: var(--radius-pill);
+    border: none;
+    background: var(--ink);
+    color: #fff;
+    cursor: pointer;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.15s;
+  }
+  .cta-toggle:hover { background: #333; }
+  .cta-toggle .ft-label { text-transform: uppercase; letter-spacing: 0.06em; }
+  .cta-toggle .ft-divider { width: 1px; height: 12px; background: rgba(255,255,255,0.25); }
+  .cta-toggle .ft-value { color: rgba(255,255,255,0.7); }
+  .cta-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    background: var(--ink);
+    border-radius: 12px;
+    padding: 8px;
+    gap: 4px;
+    flex-wrap: wrap;
+    min-width: 200px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    z-index: 110;
+  }
+  .cta-actions.open .cta-dropdown { display: flex; }
+  .cta-pill {
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    padding: 6px 14px;
+    border-radius: var(--radius-pill);
+    border: 1px solid rgba(255,255,255,0.15);
+    background: transparent;
+    color: rgba(255,255,255,0.7);
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+    text-transform: uppercase;
+    transition: all 0.15s;
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    font-family: var(--mono);
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    padding: 12px 24px;
-    border-radius: var(--radius-pill);
-    text-decoration: none;
-    transition: all 0.2s;
+    gap: 6px;
   }
-  .cta-btn-primary {
-    background: var(--ink);
-    color: var(--surface);
-  }
-  .cta-btn-primary:hover { background: #333; }
-  .cta-btn-secondary {
-    background: transparent;
-    color: var(--ink);
-    border: 1px solid var(--border);
-  }
-  .cta-btn-secondary:hover { border-color: var(--amber); color: var(--amber-dark); }
+  .cta-pill:hover { border-color: var(--amber); color: #fff; }
+  .cta-pill svg { width: 14px; height: 14px; flex-shrink: 0; }
 
   /* Install snippet */
   .install-card {
@@ -1950,22 +1983,22 @@ Click -> next, or go <- back.</textarea>
     </button>
     <div class="filter-dropdown" id="lang-filters" role="group" aria-label="Language filter">
       <button class="filter-pill active" data-lang="all" data-i18n="filter_show_all">Show All</button>
-      <button class="filter-pill" data-lang="universal">Universal</button>
-      <button class="filter-pill" data-lang="en-US">en-US</button>
-      <button class="filter-pill" data-lang="en-GB">en-GB</button>
-      <button class="filter-pill" data-lang="fr-FR">fr-FR</button>
-      <button class="filter-pill" data-lang="de-DE">de-DE</button>
-      <button class="filter-pill" data-lang="pt-PT">pt-PT</button>
-      <button class="filter-pill" data-lang="pt-BR">pt-BR</button>
-      <button class="filter-pill" data-lang="it-IT">it-IT</button>
-      <button class="filter-pill" data-lang="es-ES">es-ES</button>
-      <button class="filter-pill" data-lang="es-MX">es-MX</button>
-      <button class="filter-pill" data-lang="nl-NL">nl-NL</button>
-      <button class="filter-pill" data-lang="ro-RO">ro-RO</button>
-      <button class="filter-pill" data-lang="pl">pl</button>
-      <button class="filter-pill" data-lang="sv">sv</button>
-      <button class="filter-pill" data-lang="da">da</button>
-      <button class="filter-pill" data-lang="ru">ru</button>
+      <button class="filter-pill" data-lang="universal">&#x1F310; Universal</button>
+      <button class="filter-pill" data-lang="en-US">&#x1F1FA;&#x1F1F8; en-US</button>
+      <button class="filter-pill" data-lang="en-GB">&#x1F1EC;&#x1F1E7; en-GB</button>
+      <button class="filter-pill" data-lang="fr-FR">&#x1F1EB;&#x1F1F7; fr-FR</button>
+      <button class="filter-pill" data-lang="de-DE">&#x1F1E9;&#x1F1EA; de-DE</button>
+      <button class="filter-pill" data-lang="pt-PT">&#x1F1F5;&#x1F1F9; pt-PT</button>
+      <button class="filter-pill" data-lang="pt-BR">&#x1F1E7;&#x1F1F7; pt-BR</button>
+      <button class="filter-pill" data-lang="it-IT">&#x1F1EE;&#x1F1F9; it-IT</button>
+      <button class="filter-pill" data-lang="es-ES">&#x1F1EA;&#x1F1F8; es-ES</button>
+      <button class="filter-pill" data-lang="es-MX">&#x1F1F2;&#x1F1FD; es-MX</button>
+      <button class="filter-pill" data-lang="nl-NL">&#x1F1F3;&#x1F1F1; nl-NL</button>
+      <button class="filter-pill" data-lang="ro-RO">&#x1F1F7;&#x1F1F4; ro-RO</button>
+      <button class="filter-pill" data-lang="pl">&#x1F1F5;&#x1F1F1; pl</button>
+      <button class="filter-pill" data-lang="sv">&#x1F1F8;&#x1F1EA; sv</button>
+      <button class="filter-pill" data-lang="da">&#x1F1E9;&#x1F1F0; da</button>
+      <button class="filter-pill" data-lang="ru">&#x1F1F7;&#x1F1FA; ru</button>
     </div>
   </div>
   <div class="filter-group">
@@ -3204,10 +3237,17 @@ Click -> next, or go <- back.</textarea>
     <p data-i18n="cta_p2">This is where Typeproof can &#x2013; and should &#x2013; scale. Extend the schema to new languages. Catch conventions I got wrong. Add the rules that only a native would know to look for. The YAML schema is designed for exactly this: auditable, extensible, open.</p>
   </div>
 
-  <div class="cta-buttons">
-    <a href="https://github.com/tudotype/typeproof" class="cta-btn cta-btn-primary" target="_blank" data-i18n="cta_btn_github">View on GitHub</a>
-    <a href="https://github.com/tudotype/typeproof/issues" class="cta-btn cta-btn-secondary" target="_blank" data-i18n="cta_btn_issues">Report an Issue</a>
-    <a href="https://github.com/tudotype/typeproof/fork" class="cta-btn cta-btn-secondary" target="_blank" data-i18n="cta_btn_fork">Fork &amp; Contribute</a>
+  <div class="cta-actions" id="cta-actions">
+    <button class="cta-toggle" id="cta-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="cta-dropdown">
+      <span class="ft-label">Contribute</span>
+      <span class="ft-divider"></span>
+      <span class="ft-value" data-i18n="cta_btn_github">View on GitHub</span>
+    </button>
+    <div class="cta-dropdown" id="cta-dropdown" role="group" aria-label="Contribute actions">
+      <a href="https://github.com/tudotype/typeproof" class="cta-pill" target="_blank"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg> <span data-i18n="cta_btn_github">View on GitHub</span></a>
+      <a href="https://github.com/tudotype/typeproof/issues" class="cta-pill" target="_blank"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/><path fill-rule="evenodd" d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"/></svg> <span data-i18n="cta_btn_issues">Report an Issue</span></a>
+      <a href="https://github.com/tudotype/typeproof/fork" class="cta-pill" target="_blank"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z"/></svg> <span data-i18n="cta_btn_fork">Fork &amp; Contribute</span></a>
+    </div>
   </div>
 
   <div class="install-card" style="margin-bottom: 24px;">
@@ -3534,12 +3574,21 @@ document.addEventListener('DOMContentLoaded', runDemo);
   let activeLangs = new Set(['all']);
   let activeCat = null;
 
+  const LANG_FLAGS = {
+    'universal': '\u{1F310}', 'en-US': '\u{1F1FA}\u{1F1F8}', 'en-GB': '\u{1F1EC}\u{1F1E7}',
+    'fr-FR': '\u{1F1EB}\u{1F1F7}', 'de-DE': '\u{1F1E9}\u{1F1EA}', 'pt-PT': '\u{1F1F5}\u{1F1F9}',
+    'pt-BR': '\u{1F1E7}\u{1F1F7}', 'it-IT': '\u{1F1EE}\u{1F1F9}', 'es-ES': '\u{1F1EA}\u{1F1F8}',
+    'es-MX': '\u{1F1F2}\u{1F1FD}', 'nl-NL': '\u{1F1F3}\u{1F1F1}', 'ro-RO': '\u{1F1F7}\u{1F1F4}',
+    'pl': '\u{1F1F5}\u{1F1F1}', 'sv': '\u{1F1F8}\u{1F1EA}', 'da': '\u{1F1E9}\u{1F1F0}',
+    'ru': '\u{1F1F7}\u{1F1FA}'
+  };
+
   function updateLabels() {
     if (activeLangs.has('all')) {
       langValue.textContent = 'Show All';
       langToggle.classList.remove('has-selection');
     } else {
-      langValue.textContent = Array.from(activeLangs).join(', ');
+      langValue.textContent = Array.from(activeLangs).map(l => (LANG_FLAGS[l] || '') + ' ' + l).join(', ');
       langToggle.classList.add('has-selection');
     }
     if (activeCat) {
@@ -3685,6 +3734,35 @@ document.addEventListener('DOMContentLoaded', runDemo);
     }, { threshold: 0 });
     ctaObserver.observe(ctaSection);
   }
+})();
+
+// ================================================================
+// CTA CONTRIBUTE TOGGLE
+// ================================================================
+(function() {
+  var actions = document.getElementById('cta-actions');
+  var toggle = document.getElementById('cta-toggle');
+  if (!actions || !toggle) return;
+
+  toggle.addEventListener('click', function() {
+    var isOpen = actions.classList.contains('open');
+    actions.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+  });
+
+  document.addEventListener('click', function(e) {
+    if (!actions.contains(e.target)) {
+      actions.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      actions.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+  });
 })();
 
 // ================================================================
