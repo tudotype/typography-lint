@@ -15,7 +15,7 @@
 **H1:** Typeproof.
 <!-- h1 — "Lint." has amber-colored period via span.title-accent -->
 
-**H2:** Rule Reference
+**H2:** Language-aware typographic correction for the multilingual web
 <!-- h2 -->
 
 **Description (p.cover-desc):** Indexing the rules for everyone before they're forgotten by a flood of synthetic text. 46 deterministic rules across 21 language variants, encoded as executable infrastructure.
