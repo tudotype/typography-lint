@@ -832,7 +832,8 @@
     .cta-buttons { flex-direction: column; }
     .cta-btn { justify-content: center; min-height: 44px; padding: 14px 20px; }
     .install-card { padding: 15px; }
-    .install-card pre { font-size: 14px; white-space: pre-wrap; overflow-wrap: break-word; word-break: break-all; }
+    .install-card pre { font-size: 14px; white-space: pre-wrap; overflow-wrap: anywhere; }
+    .install-copy { font-size: 10px; padding: 6px 12px; }
 
     /* Dark zone */
     .dark-zone { padding: 24px 16px 24px; }
@@ -1568,16 +1569,39 @@
     color: var(--ink-muted);
     margin-bottom: 12px;
   }
-  .install-card pre {
+  .install-snippet {
+    position: relative;
+    margin-bottom: 12px;
+  }
+  .install-snippet + .install-snippet { margin-top: 0; }
+  .install-snippet pre {
     font-family: var(--mono);
     font-size: 9.5pt;
     line-height: 1.7;
     color: var(--ink);
-    margin-bottom: 12px;
     overflow-x: auto;
     white-space: pre;
+    margin: 0;
   }
-  .install-card pre + pre { margin-top: 0; }
+  .install-copy {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-family: var(--mono);
+    font-size: 8px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-pill);
+    background: var(--surface);
+    color: var(--ink-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .install-copy:hover { border-color: var(--amber); color: var(--ink); }
+  .install-copy.copied { border-color: var(--green); color: var(--green); }
 
   /* ================================================================
      MOTION & ANIMATION SYSTEM
@@ -3188,14 +3212,22 @@ Click -> next, or go <- back.</textarea>
 
   <div class="install-card" style="margin-bottom: 24px;">
     <h4 data-i18n="cta_install_title">Install</h4>
-    <pre><b>pip</b>
+    <div class="install-snippet">
+      <pre><b>pip</b>
 pip install typeproof</pre>
-    <pre><b>Standalone</b>
+      <button class="install-copy" data-copy="pip install typeproof">Copy</button>
+    </div>
+    <div class="install-snippet">
+      <pre><b>Standalone</b>
 curl -O https://raw.githubusercontent.com/tudotype/typeproof/main/typeproof.py
 python3 typeproof.py "your text" --lang fr-FR</pre>
-    <pre><b>Claude Code Skill</b>
-# Add to your .claude/skills/ directory:
+      <button class="install-copy" data-copy="curl -O https://raw.githubusercontent.com/tudotype/typeproof/main/typeproof.py&#10;python3 typeproof.py &quot;your text&quot; --lang fr-FR">Copy</button>
+    </div>
+    <div class="install-snippet">
+      <pre><b>Claude Code Skill</b>
 curl -O https://raw.githubusercontent.com/tudotype/typeproof/main/skills/typeproof.md</pre>
+      <button class="install-copy" data-copy="curl -O https://raw.githubusercontent.com/tudotype/typeproof/main/skills/typeproof.md">Copy</button>
+    </div>
   </div>
 </section>
 
@@ -3656,6 +3688,21 @@ document.addEventListener('DOMContentLoaded', runDemo);
 })();
 
 // ================================================================
+// INSTALL COPY BUTTONS
+document.querySelectorAll('.install-copy').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var text = btn.getAttribute('data-copy');
+    navigator.clipboard.writeText(text).then(function() {
+      btn.textContent = 'Copied';
+      btn.classList.add('copied');
+      setTimeout(function() {
+        btn.textContent = 'Copy';
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  });
+});
+
 // MOTION & ANIMATION SYSTEM
 // ================================================================
 (function() {
