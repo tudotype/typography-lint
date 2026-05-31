@@ -545,6 +545,49 @@
     font-weight: 500;
   }
 
+  /* Floating contribute button */
+  .floating-cta {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 900;
+    background: var(--ink);
+    color: #fff;
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 12px 20px;
+    border-radius: var(--radius-pill);
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+    transition: opacity 0.3s, transform 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .floating-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(0,0,0,0.24);
+  }
+  .floating-cta.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(12px);
+  }
+  .floating-cta svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  @media print {
+    .floating-cta { display: none !important; }
+  }
+
   /* Reduced motion: skip amber landing, go straight to cream */
   @media (prefers-reduced-motion: reduce) {
     body { background: var(--surface); }
@@ -2764,7 +2807,7 @@ Click -> next, or go <- back.</textarea>
      CALL TO ACTION
      ============================================================ -->
 
-<section class="cta-section">
+<section class="cta-section" id="contribute">
   <div class="cta-eyebrow">Open Source</div>
   <h2 class="cta-heading">This work needs native speakers.</h2>
   <div class="cta-body">
@@ -3331,6 +3374,37 @@ document.addEventListener('DOMContentLoaded', runDemo);
       });
     }, { passive: true });
   }
+})();
+</script>
+
+<!-- Floating contribute CTA -->
+<button class="floating-cta hidden" id="floating-cta" aria-label="Contribute to Typeproof">
+  <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  Contribute
+</button>
+<script>
+(function() {
+  var btn = document.getElementById('floating-cta');
+  var target = document.getElementById('contribute');
+  if (!btn || !target) return;
+
+  btn.addEventListener('click', function() {
+    target.scrollIntoView({ behavior: 'smooth' });
+  });
+
+  var io = new IntersectionObserver(function(entries) {
+    btn.classList.toggle('hidden', entries[0].isIntersecting);
+  }, { threshold: 0.1 });
+  io.observe(target);
+
+  // Show after initial scroll past cover
+  var shown = false;
+  window.addEventListener('scroll', function() {
+    if (!shown && window.scrollY > window.innerHeight * 0.5) {
+      shown = true;
+      btn.classList.remove('hidden');
+    }
+  }, { passive: true });
 })();
 </script>
 
