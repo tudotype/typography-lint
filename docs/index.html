@@ -566,8 +566,8 @@
     .filter-bar { display: none !important; }
     .demo-section { display: none !important; }
     .journey-card { opacity: 1 !important; transform: none !important; }
-    .cover-logo, .cover-eyebrow, .cover h1, .cover h2, .cover-desc,
-    .cover-meta span, .cover-line-1, .cover-line-2 { opacity: 1 !important; transform: none !important; clip-path: none !important; animation: none !important; }
+    .cover-logo, .cover h1, .cover h2, .cover-desc,
+    .cover-meta span, .cover-line-1 { opacity: 1 !important; transform: none !important; clip-path: none !important; animation: none !important; }
     .rule .examples { opacity: 1 !important; transform: none !important; }
     .premise-lead .word { opacity: 1 !important; transform: none !important; }
     .rule.hidden { display: block !important; }
@@ -1244,14 +1244,10 @@
   }
 
   .cover-logo { animation: coverFadeIn 600ms ease-out both; }
-  .cover-eyebrow { animation: coverSlideUp 500ms ease-out 200ms both; }
 
-  .cover-line-1,
-  .cover-line-2 { display: inline-block; }
-  .cover-line-1 { animation: clipReveal 800ms cubic-bezier(0.16, 1, 0.3, 1) 400ms both; }
-  .cover-line-2 { animation: clipReveal 600ms cubic-bezier(0.16, 1, 0.3, 1) 900ms both; }
+  .cover-line-1 { display: inline-block; animation: clipReveal 800ms cubic-bezier(0.16, 1, 0.3, 1) 400ms both; }
 
-  .cover h2 { animation: coverSlideUp 500ms ease-out 1200ms both; }
+  .cover h2 { animation: coverSlideUp 500ms ease-out 900ms both; }
   .cover-desc { animation: coverSlideUp 500ms ease-out 1500ms both; }
 
   .cover-meta span { animation: coverFadeIn 400ms ease-out both; }
@@ -1308,8 +1304,8 @@
       transition-duration: 0.01ms !important;
     }
     html { scroll-behavior: auto !important; }
-    .cover-logo, .cover-eyebrow, .cover h2, .cover-desc,
-    .cover-meta span, .cover-line-1, .cover-line-2 {
+    .cover-logo, .cover h1, .cover h2, .cover-desc,
+    .cover-meta span, .cover-line-1 {
       opacity: 1 !important;
       transform: none !important;
       clip-path: none !important;
@@ -1334,9 +1330,8 @@
 
 <section class="cover">
   <div class="cover-logo"><svg width="88" height="22" viewBox="0 0 88 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M83.061 16.3436C85.4069 16.3436 86.7513 15.7372 87.8851 14.2083L87.595 13.9182C86.8569 14.5245 86.2245 14.7879 84.7216 14.7879C82.4311 14.7879 81.875 13.4696 81.875 10.8342V9.04187C81.875 6.32695 82.1652 5.56218 82.8237 5.56218C83.4822 5.56218 83.7723 6.32568 83.7723 9.04187C83.7723 9.59542 83.7723 10.2546 83.7195 10.8342L84.9322 10.5441H81.1866L81.2394 11.0976H87.8565C88.4889 6.85379 87.0656 5.06079 82.9007 5.06079C78.7885 5.06079 77.1012 6.69536 77.1012 10.7547C77.1037 14.7351 78.8172 16.3436 83.061 16.3436ZM70.3556 15.2893C69.8809 15.2893 69.6703 14.9992 69.1696 14.3406L69.4597 14.8942V6.77551L69.1696 7.53903C69.6703 6.87986 69.8815 6.58973 70.3556 6.58973C71.1464 6.58973 71.357 7.43341 71.357 10.9653C71.357 14.4431 71.1464 15.2887 70.3556 15.2887V15.2893ZM64.8729 21.405H69.4597V15.5005C70.0133 16.1069 70.8041 16.3442 71.9901 16.3442C74.9951 16.3442 76.1551 14.7364 76.1551 10.7032C76.1551 6.66991 74.9691 5.06207 72.3063 5.06207C70.4612 5.06207 69.4858 6.19525 68.2203 7.75091L69.4591 6.5121V5.27333H64.8723L64.8729 21.405ZM51.4027 16.3436C52.2567 16.3498 53.1002 16.1549 53.8649 15.7748C54.6297 15.3947 55.2943 14.84 55.805 14.1555L55.5676 13.8653C55.0321 14.3285 54.3514 14.5896 53.6436 14.6034C52.8801 14.6034 52.5619 14.2605 52.5619 13.3907V5.79887H56.0677V5.27139H52.5619V1.60719H52.1668L48.1075 5.27139L46.0511 5.5348V5.79821H47.9739V13.0999C47.9739 15.421 49.4252 16.3436 51.402 16.3436H51.4027ZM40.9114 15.8689C40.1479 15.8689 39.9628 14.8674 39.9628 10.7025C39.9628 6.27414 40.1473 5.53608 40.9114 5.53608C41.6756 5.53608 41.8601 6.27414 41.8601 10.7025C41.8601 14.8674 41.6749 15.8689 40.9114 15.8689ZM40.9114 16.3436C44.9975 16.3436 46.6581 14.7357 46.6581 10.7025C46.6581 6.66925 44.9975 5.06145 40.9114 5.06145C36.8254 5.06145 35.1647 6.66925 35.1647 10.7025C35.1647 14.7357 36.8254 16.3436 40.9114 16.3436ZM26.5186 16.3436C28.3638 16.3436 29.3391 15.2098 30.6047 13.6547L29.3659 14.8936V16.1323H33.9527V0H29.3659V5.9045C28.8123 5.29814 28.0215 5.06079 26.8355 5.06079C23.8304 5.06079 22.6705 6.66863 22.6705 10.7019C22.6705 14.7351 23.8559 16.3436 26.5186 16.3436ZM28.4694 14.8165C27.6785 14.8165 27.4679 13.9729 27.4679 10.441C27.4679 6.96129 27.6785 6.11762 28.4694 6.11762C28.944 6.11762 29.1546 6.40777 29.6554 7.0663L29.3652 6.51276V14.6314L29.6554 13.8679C29.1546 14.5245 28.9434 14.8146 28.4688 14.8146L28.4694 14.8165ZM13.7864 16.3436C16.1851 16.3436 16.7915 14.9203 17.6613 13.6815L16.8704 14.4195V16.133H21.4572V5.27267H16.8704V14.2617L17.1338 13.7082C16.5014 14.6047 16.1323 14.7097 15.8155 14.7097C15.2358 14.7097 14.919 14.3667 14.919 13.628V5.27205H10.3589V13.0745C10.3596 15.421 11.8096 16.3436 13.7864 16.3436ZM5.35094 16.3436C6.20494 16.3498 7.04843 16.155 7.8132 15.7749C8.57797 15.3948 9.24255 14.84 9.75321 14.1555L9.51588 13.8653C8.98038 14.3285 8.29969 14.5896 7.59184 14.6034C6.82833 14.6034 6.5102 14.2605 6.5102 13.3907V5.79887H9.48916V5.27139H6.51083V1.60719H6.11572L2.05639 5.27139L0 5.53546V5.79887H1.92405V13.1006C1.92405 15.421 3.37217 16.3436 5.35094 16.3436ZM53.3528 21.405H55.4881C57.2015 21.405 58.3614 20.4296 59.1523 18.6634L65.1624 5.27267H64.4244L61.4193 12.2842L62.1313 11.4934L59.4953 5.27267H54.2232L59.9165 16.9245L60.1799 15.2899L59.4679 16.5287C59.0225 17.2923 58.6509 17.583 57.8601 17.583H53.3522L53.3528 21.405Z" fill="#1D1D1D"/></svg></div>
-  <div class="cover-eyebrow">Typeproof</div>
-  <h1><span class="cover-line cover-line-1">Type</span><br><span class="cover-line cover-line-2">proof<span class="title-accent">.</span></span></h1>
-  <h2>Language-aware typographic correction for the multilingual web</h2>
+  <h1><span class="cover-line cover-line-1">Typeproof<span class="title-accent">.</span></span></h1>
+  <h2>Language-aware typographic correction<br>for the multilingual web</h2>
   <p class="cover-desc" style="font-family:var(--text); font-size:11pt; color:#5C3600; max-width:440px; margin-bottom:48px; line-height:1.6;">Indexing the rules for everyone before they&#x2019;re forgotten by a flood of synthetic text. 46 deterministic rules across 21 language variants, encoded as executable infrastructure.</p>
   <div class="cover-meta">
     <span>v1.0</span> <span>May 2026</span> <span>46+ rules</span> <span>open-source</span><br>
