@@ -9,7 +9,7 @@
 **Logo:** [Tudotype SVG wordmark]
 <!-- div.cover-logo > svg -->
 
-**Eyebrow:** Typography Intelligence . Layer 1
+**Eyebrow:** Typography Intelligence
 <!-- div.cover-eyebrow -->
 
 **H1:** Typography Lint.
@@ -18,13 +18,14 @@
 **H2:** Rule Reference
 <!-- h2 -->
 
-**Description (p.cover-desc):** Someone has to write the rules down before they're forgotten. 46 rules across 21 language variants, encoded as executable infrastructure – not documentation that drifts from practice.
+**Description (p.cover-desc):** Writing the rules down before they're forgotten. 46 rules across 21 language variants, encoded as executable infrastructure – not documentation that drifts from practice.
 <!-- p.cover-desc -->
 
 **Meta pills:**
 - v1.0
 - May 2026
 - 46+ rules
+- open-source
 <!-- span elements inside div.cover-meta -->
 
 **Meta text:** Automattic . Typography Intelligence Project
