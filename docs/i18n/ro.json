@@ -5,7 +5,7 @@
 
   "premise_lead": "Volumul crescând de text sintetic schimbă modul în care gândim, modul în care scriem, dar degradează și felul în care textul bun ar trebui să arate pe pagină.",
   "premise_p1": "În fiecare zi, tot mai mult text generat automat intră în circulație. Cea mai mare parte este analfabet tipografic: ghilimele drepte în loc de ghilimele rotunde, cratime deghizate în linii de pauză, nicio conștientizare a convențiilor locale. Pe măsură ce adoptarea crește și se publică tot mai mult text sintetic, aceste erori se acumulează din cauza aplatizării referințelor pe care ne bazăm. Punctele bune de referință devin tot mai greu de găsit, pe fondul unui amestec de raritate a textului scris de oameni, înghițit de volumul de text sintetic generat. Deși parțial, această observație include și textul de față.",
-  "premise_p2": "Nu ajută nici faptul că hegemonia limbii engleze — o limbă care diferă deja între țările anglofone — ne aplatizează capacitatea de a scrie nativ. Regulile franceze de spațiere dispar. Ghilimelele franțuzești din portugheză devin ghilimele americane rotunde. Ghilimelele germane jos-sus sunt înlocuite cu cele englezești. ADN-ul tipografic al fiecărei limbi se erodează în tăcere, apel API cu apel API.",
+  "premise_p2": "Nu ajută nici faptul că hegemonia limbii engleze – o limbă care diferă deja între țările anglofone – ne aplatizează capacitatea de a scrie nativ. Regulile franceze de spațiere dispar. Ghilimelele franțuzești din portugheză devin ghilimele americane rotunde. Ghilimelele germane jos-sus sunt înlocuite cu cele englezești. ADN-ul tipografic al fiecărei limbi se erodează în tăcere, apel API cu apel API.",
   "premise_p3": "Acest proiect există pentru că cineva trebuie să scrie regulile și să le împărtășească cu comunitatea, înainte ca ele să fie uitate. Nu ca documentație care se desprinde de practică, ci ca infrastructură executabilă: o schemă care generează date de antrenament, un linter care impune convențiile, un model care învață deciziile de judecată pe care niciun tabel de corespondență nu le poate lua.",
 
   "journey_eyebrow": "Parcursul",
@@ -23,14 +23,14 @@
   "journey_data_title": "Lecția datelor",
   "journey_data_stat1_label": "potriviri exacte v1",
   "journey_data_stat2_label": "potriviri exacte v2",
-  "journey_data_p1": "v1 a fost antrenat pe 3.292 de perechi, incluzând 815 perechi de detectare și explicare. Acele perechi au învățat modelul să <em>explice</em> tipografia în loc să o <em>corecteze</em>. Instruc\u021biunea spunea \u201Ecorectează textul\u201D, dar modelul înv\u0103\u021base c\u0103 output-ul înseamn\u0103 explica\u021bie.",
-  "journey_data_p2": "v2 a schimbat trei lucruri: a ad\u0103ugat \u201EReturneaz\u0103 doar textul corectat, f\u0103r\u0103 explica\u021bie\u201D la fiecare instruc\u021biune, a eliminat perechile de explicare și a crescut de la 3 la 12 epoci. Rezultatul: 1/83 → 22/83 potriviri exacte. Cel mai mare salt individual din întregul proiect. Lecția a fost clară: <strong>calitatea datelor bate cantitatea datelor</strong>. Și bate dimensiunea modelului, arhitectura și ajustarea hiperparametrilor.",
+  "journey_data_p1": "v1 a fost antrenat pe 3.292 de perechi, incluzând 815 perechi de detectare și explicare. Acele perechi au învățat modelul să <em>explice</em> tipografia în loc să o <em>corecteze</em>. Instrucțiunea spunea \u201Ecorectează textul\u201D, dar modelul învățase că output-ul înseamnă explicație.",
+  "journey_data_p2": "v2 a schimbat trei lucruri: a adăugat \u201EReturnează doar textul corectat, fără explicație\u201D la fiecare instrucțiune, a eliminat perechile de explicare și a crescut de la 3 la 12 epoci. Rezultatul: 1/83 → 22/83 potriviri exacte. Cel mai mare salt individual din întregul proiect. Lecția a fost clară: <strong>calitatea datelor bate cantitatea datelor</strong>. Și bate dimensiunea modelului, arhitectura și ajustarea hiperparametrilor.",
 
   "journey_ceiling_title": "Plafonul",
   "journey_ceiling_stat1_label": "plafonul 3B (v3–v4)",
   "journey_ceiling_stat2_label": "saltul 7B (v5)",
   "journey_ceiling_p1": "Trei iterații pe Llama 3.2 3B au plafonat la 23/83 (27,7%). Ajustarea rangului, ajustarea epocilor, extinderea șabloanelor – nimic nu a mișcat acul. Eșecurile rămase se grupau în jurul unei cauze-rădăcină: caracterele Unicode invizibile. NBSP (U+00A0), NNBSP (U+202F), ZWNJ (U+200C) – caractere pe care tokenizerul nu le putea reprezenta la scara 3B.",
-  "journey_ceiling_p2": "Trecerea la Mistral 7B a urcat la 42/83 (50,6%). Modul de e\u0219ec nu era \u201Emodelul nu poate înv\u0103\u021ba\u201D \u2013 era \u201Etokenizerul nu poate reprezenta\u201D. Lecțiile din v1–v4 (calitatea datelor, formatul instrucțiunilor, șabloanele doar-de-corecție) s-au transferat în totalitate. Modelul 7B le-a moștenit la nivel de set de date și a adăugat singurul lucru pe care 3B nu-l putea oferi: reprezentări stabile ale punctelor de cod pentru caractere invizibile.",
+  "journey_ceiling_p2": "Trecerea la Mistral 7B a urcat la 42/83 (50,6%). Modul de eșec nu era \u201Emodelul nu poate învăța\u201D – era \u201Etokenizerul nu poate reprezenta\u201D. Lecțiile din v1–v4 (calitatea datelor, formatul instrucțiunilor, șabloanele doar-de-corecție) s-au transferat în totalitate. Modelul 7B le-a moștenit la nivel de set de date și a adăugat singurul lucru pe care 3B nu-l putea oferi: reprezentări stabile ale punctelor de cod pentru caractere invizibile.",
 
   "overview_intro": "Typeproof este o bibliotecă deterministă de corecție tipografică, rapidă, scrisă exclusiv în Python. Se ocupă de cele 80% din corecții care sunt reguli simple de substituție: ghilimele rotunde, linii de pauză corecte pentru fiecare limbă, spații incasabile, integritatea diacriticelor și altele. Fără dependențe ML.",
   "overview_languages_title": "Limbi suportate",
@@ -49,7 +49,7 @@
 
   "cta_eyebrow": "Open Source",
   "cta_heading": "Această muncă are nevoie de vorbitori nativi.",
-  "cta_p1": "Am verificat sursele pe care le-a extras LLM-ul. Am cross-referențiat gramatici, ghiduri de stil și autorități tipografice pentru fiecare variantă lingvistică. Dar nimic nu se compară cu un vorbitor nativ pentru a valida cu adevărat acest tip de muncă. Regulile limbii tale merită să fie revizuite de cineva care a crescut scriind în ea.",
+  "cta_p1": "Am verificat sursele pe care le-a extras LLM-ul. Am confruntat cu gramatici, ghiduri de stil și autorități tipografice pentru fiecare variantă lingvistică. Dar nimic nu se compară cu un vorbitor nativ pentru a valida cu adevărat acest tip de muncă. Regulile limbii tale merită să fie revizuite de cineva care a crescut scriind în ea.",
   "cta_p2": "Aici poate – și ar trebui – să se extindă Typeproof. Extinde schema la limbi noi. Identifică convențiile pe care le-am greșit. Adaugă regulile pe care doar un vorbitor nativ ar ști să le caute. Schema YAML este proiectată exact pentru asta: auditabilă, extensibilă, deschisă.",
   "cta_btn_github": "Vezi pe GitHub",
   "cta_btn_issues": "Raportează o problemă",

@@ -4,7 +4,7 @@
   "cover_meta_text": "Typeproof. Un proyecto de tipografía e IA de João Miranda",
 
   "premise_lead": "El volumen creciente de texto sintético está cambiando cómo pensamos, cómo escribimos, pero también degradando el aspecto que debería tener un texto bien escrito en la página.",
-  "premise_p1": "Cada día entra en circulación más texto generado por máquinas. La mayor parte es tipográficamente analfabeto: comillas rectas donde deberían ir comillas tipográficas, guiones haciéndose pasar por rayas, sin conciencia de las convenciones locales. A medida que crece la adopción y se publica más texto sintético, estos errores se acumulan por el aplanamiento de las referencias en las que nos apoyamos. Los buenos puntos de referencia son cada vez más difíciles de encontrar, porque la escasez de datos escritos por humanos queda engullida por el volumen de texto sintético que se genera. Aunque parcialmente, esto incluye también este texto.",
+  "premise_p1": "Cada día entra en circulación más texto generado por máquinas. La mayor parte es tipográficamente analfabeta: comillas rectas donde deberían ir comillas tipográficas, guiones haciéndose pasar por rayas, sin conciencia de las convenciones locales. A medida que crece la adopción y se publica más texto sintético, estos errores se acumulan por el aplanamiento de las referencias en las que nos apoyamos. Los buenos puntos de referencia son cada vez más difíciles de encontrar, porque los escasos datos escritos por humanos quedan engullidos por el volumen de texto sintético que se genera. Aunque parcialmente, esto incluye también este texto.",
   "premise_p2": "No ayuda que la hegemonía del inglés —un idioma que ya difiere entre países angloparlantes— esté aplanando nuestra capacidad de escribir en nuestras lenguas nativas. Las reglas de espaciado del francés desaparecen. Las comillas angulares del portugués se convierten en comillas tipográficas americanas. Las comillas bajas-altas del alemán se sustituyen por las inglesas. El ADN tipográfico de cada idioma se erosiona en silencio, una llamada a la API tras otra.",
   "premise_p3": "Este proyecto existe porque alguien tiene que escribir las reglas y compartirlas con la comunidad antes de que se olviden. No como documentación que se desincroniza de la práctica, sino como infraestructura ejecutable: un esquema que genera datos de entrenamiento, un linter que impone convenciones, un modelo que aprende las decisiones de criterio que ninguna tabla de búsqueda puede tomar.",
 
@@ -12,8 +12,8 @@
 
   "journey_spark_title": "La chispa",
   "journey_spark_p1": "Empezó con una conversación interna sobre la raya. Pablo Honey inició un debate sobre cómo debería usarse, cuáles son las convenciones y si Automattic debería estandarizarlo. Personas de distintos equipos, distintos países, distintas tradiciones editoriales dieron su opinión. Todos tenían algo que decir sobre un solo carácter.",
-  "journey_spark_p2": "Seguir ese hilo significaba seguir la raya a través de las fronteras. El inglés americano la usa sin espacios. El inglés británico prefiere un semirraya con espacios. El portugués usa travessão para el diálogo. El francés usa tiret con espacios irrompibles. La misma función —una pausa parentética— expresada de forma diferente en cada idioma que WordPress sirve.",
-  "journey_spark_p3": "No existía un buen sistema. Gutenberg hacía comillas tipográficas básicas, solo en inglés. Grammarly y ProWritingAid apenas tocaban la corrección tipográfica. Las herramientas de traducción arrastraban las convenciones del idioma de origen al idioma de destino. Decidí construir la infraestructura como un experimento con ML. El impacto global de los productos de Automattic, incluidas sus contribuciones al núcleo de WordPress, hacía este experimento aún más relevante, ya que hay una gran oportunidad de hacer <em>lo correcto</em> y promover nuestro espíritu de código abierto para compartirlo ampliamente.",
+  "journey_spark_p2": "Seguir ese hilo significaba seguir la raya a través de las fronteras. El inglés americano la usa sin espacios. El inglés británico prefiere una semirraya con espacios. El portugués usa travessão para el diálogo. El francés usa tiret con espacios irrompibles. La misma función —una pausa parentética— expresada de forma diferente en cada idioma que WordPress sirve.",
+  "journey_spark_p3": "No existía un buen sistema. Gutenberg aplicaba comillas tipográficas básicas, solo en inglés. Grammarly y ProWritingAid apenas tocaban la corrección tipográfica. Las herramientas de traducción arrastraban las convenciones del idioma de origen al idioma de destino. Decidí construir la infraestructura como un experimento con ML. El impacto global de los productos de Automattic, incluidas sus contribuciones al núcleo de WordPress, hacía este experimento aún más relevante, ya que hay una gran oportunidad de hacer <em>lo correcto</em> y promover nuestro espíritu de código abierto para compartirlo ampliamente.",
 
   "journey_arch_title": "La arquitectura",
   "journey_arch_p1": "La idea clave fue la división 80/20. La mayoría de las correcciones tipográficas son deterministas: sustituir comillas rectas por comillas tipográficas es una operación de búsqueda. Pero algunas requieren un criterio genuino: ¿esta raya es parentética o de rango? ¿Debe ir en mayúscula lo que sigue a los dos puntos? ¿Esta abreviatura lleva punto en este idioma?",
@@ -23,7 +23,7 @@
   "journey_data_title": "La lección de los datos",
   "journey_data_stat1_label": "coincidencias exactas en v1",
   "journey_data_stat2_label": "coincidencias exactas en v2",
-  "journey_data_p1": "La v1 se entrenó con 3292 pares, incluidos 815 pares de detección y explicación. Esos pares enseñaron al modelo a <em>explicar</em> la tipografía en lugar de <em>corregirla</em>. La instrucción decía «corrige el texto», pero el modelo había aprendido que la salida significa explicación.",
+  "journey_data_p1": "La v1 se entrenó con 3.292 pares, incluidos 815 pares de detección y explicación. Esos pares enseñaron al modelo a <em>explicar</em> la tipografía en lugar de <em>corregirla</em>. La instrucción decía «corrige el texto», pero el modelo había aprendido que la salida significa explicación.",
   "journey_data_p2": "La v2 cambió tres cosas: añadió «Devuelve solo el texto corregido, sin explicación» a cada instrucción, eliminó los pares de explicación y aumentó de 3 a 12 épocas. El resultado: 1/83 → 22/83 coincidencias exactas. El mayor salto individual de todo el proyecto. La lección fue clara: <strong>la calidad de los datos supera a la cantidad</strong>. Y supera al tamaño del modelo, la arquitectura y el ajuste de hiperparámetros.",
 
   "journey_ceiling_title": "El techo",
@@ -37,8 +37,8 @@
   "overview_usage_title": "Uso",
 
   "demo_title": "Pruébalo en vivo",
-  "demo_subtitle": "Pega tu propio texto. Selecciona tu idioma. Mira qué cambia. <strong>Los glifos modificados se resaltan en verde</strong>: las correcciones que la mayoría de la gente nunca nota, hechas visibles.",
-  "demo_your_text": "Tu texto",
+  "demo_subtitle": "Pegue su propio texto. Seleccione el idioma. Vea qué cambia. <strong>Los glifos modificados se resaltan en verde</strong>: las correcciones que la mayoría de la gente nunca nota, hechas visibles.",
+  "demo_your_text": "Su texto",
   "demo_corrected": "Corregido",
   "demo_btn": "Lint",
   "demo_note": "Se muestra un subconjunto de reglas (puntos suspensivos, comillas, rayas, símbolos legales, flechas, multiplicación, fracciones, apóstrofos, espacios dobles). El linter completo en Python gestiona las más de 46 reglas, incluidos NBSP, diacríticos y accesibilidad.",
@@ -49,7 +49,7 @@
 
   "cta_eyebrow": "Código abierto",
   "cta_heading": "Este trabajo necesita hablantes nativos.",
-  "cta_p1": "Verifiqué las fuentes que el LLM consultó. Contrasté gramáticas, guías de estilo y autoridades tipográficas de cada variante lingüística. Pero nada sustituye a un nativo para validar de verdad este tipo de trabajo. Las reglas de tu idioma merecen ser revisadas por alguien que creció escribiendo en él.",
+  "cta_p1": "Verifiqué las fuentes que el LLM consultó. Contrasté gramáticas, guías de estilo y autoridades tipográficas de cada variante lingüística. Pero nada sustituye a un nativo para validar de verdad este tipo de trabajo. Las reglas de su idioma merecen ser revisadas por alguien que creció escribiendo en él.",
   "cta_p2": "Aquí es donde Typeproof puede —y debe— escalar. Ampliar el esquema a nuevos idiomas. Detectar convenciones que haya errado. Añadir las reglas que solo un nativo sabría buscar. El esquema YAML está diseñado exactamente para esto: auditable, extensible, abierto.",
   "cta_btn_github": "Ver en GitHub",
   "cta_btn_issues": "Reportar un problema",

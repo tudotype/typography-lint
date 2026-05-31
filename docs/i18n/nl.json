@@ -3,7 +3,7 @@
   "cover_desc": "De regels voor iedereen vastleggen voordat ze verdwijnen in een vloed van synthetische tekst. 46 deterministische regels voor 21 taalvarianten, gecodeerd als uitvoerbare infrastructuur.",
   "cover_meta_text": "Typeproof. Een typografie- & AI-project van João Miranda",
 
-  "premise_lead": "Het groeiende volume synthetische tekst verandert hoe we denken, hoe we schrijven, maar holt ook uit hoe goed geschreven tekst er op de pagina hoort uit te zien.",
+  "premise_lead": "Het groeiende volume synthetische tekst verandert hoe we denken, hoe we schrijven, maar tast ook aan hoe goed geschreven tekst er op de pagina hoort uit te zien.",
   "premise_p1": "Elke dag komt er meer machinaal gegenereerde tekst in omloop. Het meeste is typografisch ongeletterd: rechte aanhalingstekens waar gekrulde horen, koppeltekens die zich voordoen als gedachtestreepjes, geen besef van lokale conventies. Naarmate de adoptie groeit en er meer synthetische tekst wordt gepubliceerd, stapelen deze fouten zich op door de vervlakking van de referenties waarop we vertrouwen. De goede referentiepunten worden steeds moeilijker te vinden doordat menselijk geschreven data verdwijnt in het volume synthetische tekst dat wordt gegenereerd. Hoewel gedeeltelijk, geldt dat ook voor deze tekst.",
   "premise_p2": "Het helpt niet dat de Engelse hegemonie, een taal die al verschilt tussen Engelstalige landen, ons vermogen om in onze moedertaal te schrijven afvlakt. Franse spatieringsregels verdwijnen. Portugese guillemets worden Amerikaanse gekrulde aanhalingstekens. Duitse laag-hoog-aanhalingstekens worden vervangen door Engelse. Het typografische DNA van elke taal erodeert stilletjes, één API-aanroep per keer.",
   "premise_p3": "Dit project bestaat omdat iemand de regels moet opschrijven en met de gemeenschap moet delen voordat ze vergeten worden. Niet als documentatie die afdrijft van de praktijk, maar als uitvoerbare infrastructuur: een schema dat trainingsdata genereert, een linter die conventies afdwingt, een model dat de afwegingen leert die geen opzoektabel kan maken.",
@@ -37,8 +37,8 @@
   "overview_usage_title": "Gebruik",
 
   "demo_title": "Probeer het live",
-  "demo_subtitle": "Plak je eigen tekst. Selecteer je taal. Bekijk de wijzigingen. <strong>Gewijzigde tekens worden groen gemarkeerd</strong> – de correcties die de meeste mensen nooit opmerken, zichtbaar gemaakt.",
-  "demo_your_text": "Jouw tekst",
+  "demo_subtitle": "Plak uw eigen tekst. Selecteer uw taal. Bekijk de wijzigingen. <strong>Gewijzigde tekens worden groen gemarkeerd</strong> – de correcties die de meeste mensen nooit opmerken, zichtbaar gemaakt.",
+  "demo_your_text": "Uw tekst",
   "demo_corrected": "Gecorrigeerd",
   "demo_btn": "Lint",
   "demo_note": "Toont een subset van regels (beletselteken, aanhalingstekens, streepjes, juridische symbolen, pijlen, vermenigvuldiging, breuken, apostrofs, dubbele spaties). De volledige Python-linter verwerkt alle 46+ regels inclusief NBSP, diakritische tekens en toegankelijkheid.",
@@ -49,7 +49,7 @@
 
   "cta_eyebrow": "Open source",
   "cta_heading": "Dit werk heeft moedertaalsprekers nodig.",
-  "cta_p1": "Ik heb de bronnen gecontroleerd die het LLM heeft aangehaald. Ik heb grammatica's, stijlgidsen en typografische autoriteiten voor elke taalvariant kruislings geverifieerd. Maar er gaat niets boven een moedertaalspreker om dit soort werk echt te valideren. De regels voor jouw taal verdienen het om beoordeeld te worden door iemand die erin is opgegroeid.",
+  "cta_p1": "Ik heb de bronnen gecontroleerd die het LLM heeft aangehaald. Ik heb grammatica's, stijlgidsen en typografische autoriteiten voor elke taalvariant geverifieerd. Maar er gaat niets boven een moedertaalspreker om dit soort werk echt te valideren. De regels voor uw taal verdienen het om beoordeeld te worden door iemand die erin is opgegroeid.",
   "cta_p2": "Dit is waar Typeproof kan – en zou moeten – opschalen. Breid het schema uit naar nieuwe talen. Wijs conventies aan die ik verkeerd heb. Voeg de regels toe die alleen een moedertaalspreker zou weten te zoeken. Het YAML-schema is precies hiervoor ontworpen: auditeerbaar, uitbreidbaar, open.",
   "cta_btn_github": "Bekijk op GitHub",
   "cta_btn_issues": "Meld een probleem",

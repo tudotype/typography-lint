@@ -38,7 +38,7 @@
 
   "demo_title": "Live ausprobieren",
   "demo_subtitle": "Eigenen Text einfügen. Sprache wählen. Änderungen sehen. <strong>Geänderte Glyphen werden grün hervorgehoben</strong> – die Korrekturen, die den meisten entgehen, sichtbar gemacht.",
-  "demo_your_text": "Dein Text",
+  "demo_your_text": "Ihr Text",
   "demo_corrected": "Korrigiert",
   "demo_btn": "Lint",
   "demo_note": "Zeigt eine Auswahl von Regeln (Auslassungspunkte, Anführungszeichen, Gedankenstriche, Rechtssymbole, Pfeile, Multiplikation, Brüche, Apostrophe, Doppelleerzeichen). Der vollständige Python-Linter deckt alle 46+ Regeln ab, einschließlich NBSP, Diakritika und Barrierefreiheit.",
@@ -49,7 +49,7 @@
 
   "cta_eyebrow": "Open Source",
   "cta_heading": "Diese Arbeit braucht Muttersprachler.",
-  "cta_p1": "Ich habe die Quellen überprüft, die das LLM herangezogen hat. Ich habe Grammatiken, Stilhandbücher und typografische Autoritäten für jede Sprachvariante abgeglichen. Aber nichts ersetzt einen Muttersprachler, um diese Art von Arbeit wirklich zu validieren. Die Regeln für deine Sprache verdienen die Überprüfung durch jemanden, der damit aufgewachsen ist.",
+  "cta_p1": "Ich habe die Quellen überprüft, die das LLM herangezogen hat. Ich habe Grammatiken, Stilhandbücher und typografische Autoritäten für jede Sprachvariante abgeglichen. Aber nichts ersetzt einen Muttersprachler, um diese Art von Arbeit wirklich zu validieren. Die Regeln für Ihre Sprache verdienen die Überprüfung durch jemanden, der damit aufgewachsen ist.",
   "cta_p2": "Hier kann – und sollte – Typeproof skalieren. Das Schema auf neue Sprachen erweitern. Konventionen korrigieren, die ich falsch erfasst habe. Regeln ergänzen, nach denen nur ein Muttersprachler suchen würde. Das YAML-Schema ist genau dafür gemacht: überprüfbar, erweiterbar, offen.",
   "cta_btn_github": "Auf GitHub ansehen",
   "cta_btn_issues": "Problem melden",
