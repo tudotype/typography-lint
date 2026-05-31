@@ -7,3 +7,20 @@ schema-review.html
 training-pair-review.html
 results-*.json
 getting-started.md
+
+# Untracked docs artifacts (not for public deployment)
+docs/diagrams/
+docs/babel-grid.html
+docs/blog-illustrations.html
+docs/blog-outline.md
+docs/erosion.html
+docs/transition-test.html
+docs/sample-trace-fr-FR.json
+
+# Local build/review artifacts
+hero-assets/
+process-shots/
+finalize_v6.sh
+typography-lint-standalone.zip
+typography-review-feedback*.json
+.claude/worktrees/

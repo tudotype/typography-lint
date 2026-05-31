@@ -2,7 +2,7 @@
 
 ## Origin
 
-Exploration started from a simple question: if I wanted to fine-tune an LLM, where would I start? The answer led to an unexpected intersection—my existing Brand OS architecture (YAML-as-source-of-truth, 80/20 deterministic-to-AI split) is already a form of model tuning. The natural next step was finding a use case where actual fine-tuning adds value that structured prompting can’t.
+Exploration started from a simple question: if I wanted to fine-tune an LLM, where would I start? The answer led to an unexpected intersection—my existing design systems architecture (YAML-as-source-of-truth, 80/20 deterministic-to-AI split) is already a form of model tuning. The natural next step was finding a use case where actual fine-tuning adds value that structured prompting can’t.
 
 Typography turned out to be that use case.
 
@@ -25,7 +25,7 @@ These aren’t lookup problems. They’re pattern recognition problems that bene
 - **Full traceability to primitives**—every semantic rule resolves to explicit Unicode codepoints with named references
 - **Inheritance, not duplication**—language layers inherit from universal, regional variants inherit from parent language (PT-BR inherits from PT-PT, EN-GB from EN-US)
 - **Register sensitivity**—editorial, marketing, UI, and literary contexts can override defaults within a language
-- **No magic, everything auditable**—mirrors Brand OS principles
+- **No magic, everything auditable**—mirrors design systems principles
 
 ### Schema structure (implemented in YAML)
 
@@ -69,7 +69,7 @@ The model needs to *internalise a style of reasoning* about typography, not just
 - **Dataset size:** 300–500 training pairs per language × 7 languages = ~2,100–3,500 pairs. Well within LoRA sweet spot (1,000–10,000 examples)
 - **Training pair types:** correction (raw → fixed), detection (find errors), cross-language (same text, different typographic treatment), explanation (which rule and why)
 - **Tooling:** Unsloth for efficient LoRA training, Hugging Face ecosystem
-- **Evaluation:** mirrors Brand OS test system as permanent institutional memory—define correct brand outputs, measure improvement over base model
+- **Evaluation:** permanent institutional memory—define correct outputs, measure improvement over base model
 
 ### Scaling—how many languages?
 
@@ -87,7 +87,7 @@ The real constraint is **quality, not quantity**—each language needs verified 
 ## Application contexts
 
 ### AI post-processing layer
-Every LLM produces typographically sloppy output. This model sits as the last agent in any content generation chain—inside Brand OS or any other pipeline. Clean everything before it reaches the user.
+Every LLM produces typographically sloppy output. This model sits as the last agent in any content generation chain. Clean everything before it reaches the user.
 
 ### CMS and editor integration (WordPress / Gutenberg)
 WordPress handles billions of words. Gutenberg already does basic smart quote replacement, but it’s English-centric and shallow. A typography-aware system respecting the post’s language setting and applying the full rule set would be a genuine differentiator. Spell-check’s sophisticated cousin: **type-check**.
@@ -123,7 +123,7 @@ This positions Automattic as the platform that **cares about typographic quality
 
 The YAML schema is the community contribution—freely available, auditable, extensible. Anyone can add languages, propose rule corrections, adapt for their editorial conventions. The WordPress plugin / Gutenberg extension is the product layer. Open-source rules, integrated tooling, powered by a fine-tuned model for the fuzzy cases.
 
-This is the Brand OS philosophy applied to typography: ground layer that other projects plug into, not a top-down mandate.
+This is the design systems philosophy applied to typography: ground layer that other projects plug into, not a top-down mandate.
 
 ### Blog post opportunity (automattic.design)
 
@@ -147,7 +147,7 @@ A post documenting this thinking—from the architecture to the multilingual cha
 
 ### The trigger
 
-Pablo Honey posted on P2 about the em dash—how it should be used, what the conventions are, whether Automattic’s communications should standardise on one approach. That post sparked a cross-company conversation. People from different teams, different countries, different editorial traditions weighed in. It turns out everyone had an opinion about a single character.
+A colleague posted on P2 about the em dash—how it should be used, what the conventions are, whether Automattic’s communications should standardise on one approach. That post sparked a cross-company conversation. People from different teams, different countries, different editorial traditions weighed in. It turns out everyone had an opinion about a single character.
 
 That thread is the origin story. It revealed something important: typography isn’t a cosmetic concern—it’s a signal of care. And the people at Automattic care enough to argue about dashes.
 
@@ -233,7 +233,7 @@ Something like: “It started with a conversation about a dash. It ended with in
 
 ### Blog post origin story captured
 
-Pablo Honey’s P2 post about the em dash → cross-company conversation → realisation that every language handles it differently → building infrastructure. Seven-section narrative arc documented.
+Internal P2 post about the em dash → cross-company conversation → realisation that every language handles it differently → building infrastructure. Seven-section narrative arc documented.
 
 ### Research findings (2025–04-18)
 

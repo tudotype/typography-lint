@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: Typeproof
- * Plugin URI:  https://github.com/automattic/typeproof
+ * Plugin URI:  https://github.com/tudotype/typeproof
  * Description: Language-aware typographic correction for WordPress. Fixes quotes, dashes, spacing, diacritics, and 50+ Unicode-level rules across 20+ languages.
  * Version:     0.1.0
- * Author:      João Bordignon / Automattic
+ * Author:      João Miranda / Automattic
  * Author URI:  https://automattic.design
  * License:     GPL-2.0-or-later
  * Text Domain: typeproof

@@ -60,7 +60,7 @@
 **Accordion icon:** +
 <!-- span.accordion-icon -->
 
-**Paragraph 1:** It started with an internal conversation about the em dash. Pablo Honey triggered a conversation about how it should be used, what the conventions are and whether Automattic should standardise. People from different teams, different countries, different editorial traditions weighed in. Everyone had an opinion about a single character.
+**Paragraph 1:** It started with an internal conversation about the em dash. A colleague triggered a conversation about how it should be used, what the conventions are and whether Automattic should standardise. People from different teams, different countries, different editorial traditions weighed in. Everyone had an opinion about a single character.
 
 **Paragraph 2:** Following that thread meant following the em dash across borders. American English uses it without spaces. British English prefers a spaced en dash. Portuguese uses travessao for dialogue. French uses tiret with non-breaking spaces. The same function – a parenthetical pause – expressed differently in every language WordPress serves.
 
