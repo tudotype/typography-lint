@@ -18,7 +18,7 @@
 **H2:** Rule Reference
 <!-- h2 -->
 
-**Description (p.cover-desc):** Writing the rules down before they're forgotten. 46 rules across 21 language variants, encoded as executable infrastructure – not documentation that drifts from practice.
+**Description (p.cover-desc):** Indexing the rules for everyone before they're forgotten by a flood of synthetic text. 46 deterministic rules across 21 language variants, encoded as executable infrastructure.
 <!-- p.cover-desc -->
 
 **Meta pills:**
@@ -28,7 +28,7 @@
 - open-source
 <!-- span elements inside div.cover-meta -->
 
-**Meta text:** Automattic . Typeproof Project
+**Meta text:** Typeproof. A type & AI endeavour by João Miranda
 <!-- plain text in div.cover-meta -->
 
 ---
@@ -37,13 +37,13 @@
 
 <!-- section.premise -->
 
-**Lead (p.premise-lead):** The growing volume of synthetic text isn't just changing how we think – it's degrading how type looks on the page.
+**Lead (p.premise-lead):** The growing volume of synthetic text is changing how we think, how we write but also degrading how good writing should look like on the page.
 
-**Body paragraph 1 (p):** Every day, more machine-generated text enters circulation. Most of it is typographically illiterate: straight quotes where curly quotes belong, hyphens masquerading as dashes, no awareness of locale conventions. As adoption grows, these errors compound. The references we rely on start reflecting the mistakes back. The points of reference – at least the good ones – get harder to find.
+**Body paragraph 1 (p):** Every day, more machine-generated text enters circulation. Most of it is typographically illiterate: straight quotes where curly quotes belong, hyphens masquerading as dashes, no awareness of locale conventions. As adoption grows, and more synthetic text gets published, these errors compound due to the flattening of the references we rely on. The good points of reference get harder to find due to a combination of human written data scarcity getting swallowed by the volume of synthetic text being generated. Although partially, it includes this text too. 
 
-**Body paragraph 2 (p):** It doesn't help that English hegemony, a language that already differs between countries, is flattening our ability to write natively. French spacing rules vanish. Portuguese guillemets become American curly quotes. German low-high quotation marks are replaced by English ones. The typographic DNA of each language erodes silently, one API call at a time.
+**Body paragraph 2 (p):** It doesn't help that English hegemony, a language that already differs between english-speaking countries, is flattening our ability to write natively. French spacing rules vanish. Portuguese guillemets become American curly quotes. German low-high quotation marks are replaced by English ones. The typographic DNA of each language erodes silently, one API call at a time.
 
-**Body paragraph 3 (p):** This project exists because someone has to write the rules down before they're forgotten. Not as documentation that drifts from practice, but as executable infrastructure: a schema that generates training data, a linter that enforces conventions, a model that learns the judgement calls no lookup table can make.
+**Body paragraph 3 (p):** This project exists because someone has to write the rules down and share with the community before they're forgotten. Not as documentation that drifts from practice, but as executable infrastructure: a schema that generates training data, a linter that enforces conventions, a model that learns the judgement calls no lookup table can make.
 
 ---
 
@@ -60,11 +60,11 @@
 **Accordion icon:** +
 <!-- span.accordion-icon -->
 
-**Paragraph 1:** It started with a P2 conversation about the em dash. Pablo Honey posted about how it should be used, what the conventions are, whether Automattic should standardise. People from different teams, different countries, different editorial traditions weighed in. Everyone had an opinion about a single character.
+**Paragraph 1:** It started with an internal conversation about the em dash. Pablo Honey triggered a conversation about how it should be used, what the conventions are and whether Automattic should standardise. People from different teams, different countries, different editorial traditions weighed in. Everyone had an opinion about a single character.
 
 **Paragraph 2:** Following that thread meant following the em dash across borders. American English uses it without spaces. British English prefers a spaced en dash. Portuguese uses travessao for dialogue. French uses tiret with non-breaking spaces. The same function – a parenthetical pause – expressed differently in every language WordPress serves.
 
-**Paragraph 3:** No good system existed. Gutenberg did basic smart quotes, English-only. Grammarly and ProWritingAid barely touched typographic correctness. Translation tools carried source-language conventions into target languages. We decided to build the infrastructure ourselves.
+**Paragraph 3:** No good system existed. Gutenberg did basic smart quotes, English-only. Grammarly and ProWritingAid barely touched typographic correctness. Translation tools carried source-language conventions into target languages. I decided to build the infrastructure as an experiment with ML. The global impact of Automattic products, including its core contributions to WordPress, made this experiment even more relevant, as there's a great opportunity to do _the good thing_ and promote our open-source ethos to share this widely. 
 
 ### The Architecture
 <!-- details.journey-card > summary.accordion-trigger -->
@@ -75,7 +75,7 @@
 
 **Paragraph 2:** So we built two layers. Layer 1 is a pure-Python lint library: 46+ rules, 21 language variants, zero ML dependencies. It handles the deterministic 80%. Layer 2 is a fine-tuned model trained from a YAML schema that serves as the single source of truth. The schema describes rules; the generator translates them into training examples. When the schema changes, regenerate. The YAML never knows about edge cases; the Python handles them.
 
-**Paragraph 3:** Three layers total: **Lint → Model → Font Gate**. The font gate ensures the corrected output is actually renderable in the target typeface. No tofu.
+**Paragraph 3:** Three layers total: **Lint → Model → Font Gate**. The font gate ensures the corrected output is actually renderable in the target typeface. No missing glyphs. No weird glyph replacements. No tofu.
 
 ### The Data Lesson
 <!-- details.journey-card > summary.accordion-trigger -->
