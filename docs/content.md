@@ -18,7 +18,7 @@
 **H2:** Language-aware typographic correction for the multilingual web
 <!-- h2 -->
 
-**Description (p.cover-desc):** Indexing the rules for everyone before they're forgotten by a flood of synthetic text. 46 deterministic rules across 21 language variants, encoded as executable infrastructure.
+**Description (p.cover-desc):** Indexing the rules for everyone before they're forgotten by a flood of synthetic text. 46 deterministic rules across 13 language variants, encoded as executable infrastructure.
 <!-- p.cover-desc -->
 
 **Meta pills:**
@@ -73,7 +73,7 @@
 
 **Paragraph 1:** The key insight was the 80/20 split. Most typographic corrections are deterministic – replacing straight quotes with curly quotes is a lookup operation. But some require genuine judgment: is this dash a parenthetical or a range? Should the colon capitalise what follows? Does this abbreviation need a period in this locale?
 
-**Paragraph 2:** So we built two layers. Layer 1 is a pure-Python lint library: 46+ rules, 21 language variants, zero ML dependencies. It handles the deterministic 80%. Layer 2 is a fine-tuned model trained from a YAML schema that serves as the single source of truth. The schema describes rules; the generator translates them into training examples. When the schema changes, regenerate. The YAML never knows about edge cases; the Python handles them.
+**Paragraph 2:** So we built two layers. Layer 1 is a pure-Python lint library: 46+ rules, 13 language variants, zero ML dependencies. It handles the deterministic 80%. Layer 2 is a fine-tuned model trained from a YAML schema that serves as the single source of truth. The schema describes rules; the generator translates them into training examples. When the schema changes, regenerate. The YAML never knows about edge cases; the Python handles them.
 
 **Paragraph 3:** Three layers total: **Lint → Model → Font Gate**. The font gate ensures the corrected output is actually renderable in the target typeface. No missing glyphs. No weird glyph replacements. No tofu.
 
@@ -757,7 +757,7 @@ curl -O https://raw.githubusercontent.com/tudotype/typeproof/main/skills/typepro
 **Footer left (div.footer-left):** [Tudotype SVG wordmark logo]
 <!-- span.footer-logo > svg -->
 
-**Footer right (div.footer-right):** **46+ rules** . 21 language variants . May 2026
+**Footer right (div.footer-right):** **46+ rules** . 13 language variants . May 2026
 Set in Google Sans
 <!-- "46+ rules" is span.amber; "Google Sans" links to https://fonts.google.com/specimen/Google+Sans -->
 

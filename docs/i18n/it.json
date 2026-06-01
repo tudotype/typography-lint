@@ -1,6 +1,6 @@
 {
   "cover_subtitle": "Correzione tipografica consapevole della lingua per il web multilingue",
-  "cover_desc": "Catalogare le regole per tutti, prima che vengano dimenticate da un diluvio di testo sintetico. 46 regole deterministiche in 21 varianti linguistiche, codificate come infrastruttura eseguibile.",
+  "cover_desc": "Catalogare le regole per tutti, prima che vengano dimenticate da un diluvio di testo sintetico. 46 regole deterministiche in 13 varianti linguistiche, codificate come infrastruttura eseguibile.",
   "cover_meta_text": "Typeproof. Un progetto di tipografia e IA di João Miranda",
   "premise_lead": "Il volume crescente di testo sintetico sta cambiando il modo in cui pensiamo, il modo in cui scriviamo, ma anche degradando l’aspetto che un buon testo dovrebbe avere sulla pagina.",
   "premise_p1": "Ogni giorno entra in circolazione sempre più testo generato dalle macchine. La maggior parte è tipograficamente analfabeta: virgolette dritte al posto di quelle tipografiche, trattini spacciati per lineette, nessuna consapevolezza delle convenzioni locali. Man mano che l’adozione cresce e più testo sintetico viene pubblicato, questi errori si moltiplicano a causa dell’appiattimento dei riferimenti su cui ci si basa. I buoni punti di riferimento diventano più difficili da trovare, sommersi dal volume di testo sintetico generato. Anche se solo in parte, questo vale anche per il testo che si sta leggendo.",
@@ -13,7 +13,7 @@
   "journey_spark_p3": "Non esisteva un buon sistema. Gutenberg faceva le virgolette intelligenti di base, solo in inglese. Grammarly e ProWritingAid toccavano appena la correttezza tipografica. Gli strumenti di traduzione trasportavano le convenzioni della lingua sorgente nelle lingue di destinazione. Ho deciso di costruire l’infrastruttura come esperimento con il ML. L’impatto globale dei prodotti Automattic, inclusi i contributi fondamentali a WordPress, ha reso questo esperimento ancora più rilevante: c’è una grande opportunità di fare <em>la cosa giusta</em> e promuovere il nostro ethos open-source per condividere tutto questo su larga scala.",
   "journey_arch_title": "L’architettura",
   "journey_arch_p1": "L’intuizione chiave è stata la suddivisione 80/20. La maggior parte delle correzioni tipografiche è deterministica — sostituire le virgolette dritte con quelle tipografiche è un’operazione di ricerca. Ma alcune richiedono un vero giudizio: questa lineetta è una parentetica o un intervallo? Il due punti richiede la maiuscola dopo? Questa abbreviazione ha bisogno del punto in questa lingua?",
-  "journey_arch_p2": "Si sono quindi costruiti due livelli. Il livello 1 è una libreria lint in puro Python: oltre 46 regole, 21 varianti linguistiche, zero dipendenze ML. Gestisce l’80% deterministico. Il livello 2 è un modello fine-tuned addestrato da uno schema YAML che funge da unica fonte di verità. Lo schema descrive le regole; il generatore le traduce in esempi di addestramento. Quando lo schema cambia, si rigenera. Il YAML non conosce i casi limite; il Python li gestisce.",
+  "journey_arch_p2": "Si sono quindi costruiti due livelli. Il livello 1 è una libreria lint in puro Python: oltre 46 regole, 13 varianti linguistiche, zero dipendenze ML. Gestisce l’80% deterministico. Il livello 2 è un modello fine-tuned addestrato da uno schema YAML che funge da unica fonte di verità. Lo schema descrive le regole; il generatore le traduce in esempi di addestramento. Quando lo schema cambia, si rigenera. Il YAML non conosce i casi limite; il Python li gestisce.",
   "journey_arch_p3": "Tre livelli in tutto: <strong>Lint → Modello → Font Gate</strong>. Il font gate assicura che l’output corretto sia effettivamente renderizzabile nel typeface di destinazione. Nessun glifo mancante. Nessuna sostituzione anomala. Nessun tofu.",
   "journey_data_title": "La lezione dei dati",
   "journey_data_stat1_label": "corrispondenze esatte v1",
@@ -34,9 +34,7 @@
   "demo_corrected": "Corretto",
   "demo_btn": "Proof",
   "demo_note": "Mostra un sottoinsieme di regole (puntini di sospensione, virgolette, lineette, simboli legali, frecce, moltiplicazione, frazioni, apostrofi, doppi spazi). Il linter Python completo gestisce tutte le 46+ regole, inclusi NBSP, diacritici e accessibilità.",
-  "filter_language": "Lingua",
   "filter_show_all": "Mostra tutto",
-  "filter_category": "Categoria",
   "cta_eyebrow": "Open Source",
   "cta_heading": "Questo lavoro ha bisogno di madrelingua.",
   "cta_p1": "Ho verificato le fonti da cui l’LLM ha attinto. Ho incrociato grammatiche, manuali di stile e autorità tipografiche per ogni variante linguistica. Ma non c’è niente come un madrelingua per validare davvero questo tipo di lavoro. Le regole di ogni lingua meritano di essere riviste da qualcuno che è cresciuto scrivendola.",
@@ -48,6 +46,6 @@
   "author_title": "L’autore",
   "author_role": "Brand Designer presso <a href=\"https://automattic.design\" target=\"_blank\" style=\"color:rgba(255,255,255,0.5); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.2);\">Automattic</a>",
   "author_bio": "João è un brand e type designer portoghese con oltre un decennio di esperienza in agenzie tra cui Pentagram, Wolff Olins e R/GA. In <a href=\"https://automattic.design\" target=\"_blank\" style=\"color:rgba(255,255,255,0.5); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.2);\">Automattic</a>, dà forma all’identità visiva di WordPress — la piattaforma che alimenta oltre il 40% del web. Ha inoltre fondato <a href=\"https://tudotype.com\" target=\"_blank\" style=\"color:rgba(255,255,255,0.5); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.2);\">tudotype</a>, una fonderia tipografica indipendente.",
-  "footer_text": "<span class=\"amber\">46+ regole</span> &middot; 21 varianti linguistiche &middot; maggio 2026<br>Composto in <a href=\"https://fonts.google.com/specimen/Google+Sans\" target=\"_blank\" style=\"color:rgba(255,255,255,0.4); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.15);\">Google Sans</a>",
+  "footer_text": "<span class=\"amber\">46+ regole</span> &middot; 13 varianti linguistiche &middot; maggio 2026<br>Composto in <a href=\"https://fonts.google.com/specimen/Google+Sans\" target=\"_blank\" style=\"color:rgba(255,255,255,0.4); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.15);\">Google Sans</a>",
   "floating_contribute": "Contribuisci"
 }

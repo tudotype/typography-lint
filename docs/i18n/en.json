@@ -1,6 +1,6 @@
 {
   "cover_subtitle": "Language-aware typographic correction for the multilingual web",
-  "cover_desc": "Indexing the rules for everyone before they’re forgotten by a flood of synthetic text. 46 deterministic rules across 21 language variants, encoded as executable infrastructure.",
+  "cover_desc": "Indexing the rules for everyone before they’re forgotten by a flood of synthetic text. 46 deterministic rules across 13 language variants, encoded as executable infrastructure.",
   "cover_meta_text": "Typeproof. A type & AI endeavour by João Miranda",
   "premise_lead": "The growing volume of synthetic text is changing how we think, how we write but also degrading how good writing should look like on the page.",
   "premise_p1": "Every day, more machine-generated text enters circulation. Most of it is typographically illiterate: straight quotes where curly quotes belong, hyphens masquerading as dashes, no awareness of locale conventions. As adoption grows, and more synthetic text gets published, these errors compound due to the flattening of the references we rely on. The good points of reference get harder to find due to a combination of human written data scarcity getting swallowed by the volume of synthetic text being generated. Although partially, it includes this text too.",
@@ -13,7 +13,7 @@
   "journey_spark_p3": "No good system existed. Gutenberg did basic smart quotes, English-only. Grammarly and ProWritingAid barely touched typographic correctness. Translation tools carried source-language conventions into target languages. I decided to build the infrastructure as an experiment with ML. The global impact of Automattic products, including its core contributions to WordPress, made this experiment even more relevant, as there’s a great opportunity to do <em>the good thing</em> and promote our open-source ethos to share this widely.",
   "journey_arch_title": "The Architecture",
   "journey_arch_p1": "The key insight was the 80/20 split. Most typographic corrections are deterministic – replacing straight quotes with curly quotes is a lookup operation. But some require genuine judgement: is this dash a parenthetical or a range? Should the colon capitalise what follows? Does this abbreviation need a period in this locale?",
-  "journey_arch_p2": "So we built two layers. Layer 1 is a pure-Python lint library: 46+ rules, 21 language variants, zero ML dependencies. It handles the deterministic 80%. Layer 2 is a fine-tuned model trained from a YAML schema that serves as the single source of truth. The schema describes rules; the generator translates them into training examples. When the schema changes, regenerate. The YAML never knows about edge cases; the Python handles them.",
+  "journey_arch_p2": "So we built two layers. Layer 1 is a pure-Python lint library: 46+ rules, 13 language variants, zero ML dependencies. It handles the deterministic 80%. Layer 2 is a fine-tuned model trained from a YAML schema that serves as the single source of truth. The schema describes rules; the generator translates them into training examples. When the schema changes, regenerate. The YAML never knows about edge cases; the Python handles them.",
   "journey_arch_p3": "Three layers total: <strong>Lint → Model → Font Gate</strong>. The font gate ensures the corrected output is actually renderable in the target typeface. No missing glyphs. No weird glyph replacements. No tofu.",
   "journey_data_title": "The Data Lesson",
   "journey_data_stat1_label": "v1 exact matches",
@@ -34,9 +34,7 @@
   "demo_corrected": "Corrected",
   "demo_btn": "Proof",
   "demo_note": "Showing a subset of rules (ellipsis, quotes, dashes, legal symbols, arrows, multiplication, fractions, apostrophes, double spaces). The full Python linter handles all 46+ rules including NBSP, diacritics, and accessibility.",
-  "filter_language": "Language",
   "filter_show_all": "Show All",
-  "filter_category": "Category",
   "cta_eyebrow": "Open Source",
   "cta_heading": "This work needs native speakers.",
   "cta_p1": "I verified the sources the LLM pulled from. I cross-referenced grammars, style guides, and typographic authorities for every language variant. But there’s nothing like a native to truly validate this kind of work. The rules for your language deserve to be reviewed by someone who grew up writing in it.",
@@ -48,6 +46,6 @@
   "author_title": "About the Author",
   "author_role": "Brand Designer at <a href=\"https://automattic.design\" target=\"_blank\" style=\"color:rgba(255,255,255,0.5); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.2);\">Automattic</a>",
   "author_bio": "João is a Portuguese brand and type designer with over a decade of experience at consultancies including Pentagram, Wolff Olins and R/GA. At <a href=\"https://automattic.design\" target=\"_blank\" style=\"color:rgba(255,255,255,0.5); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.2);\">Automattic</a>, he shapes the visual identity of WordPress – the platform that powers over 40% of the web. He also founded <a href=\"https://tudotype.com\" target=\"_blank\" style=\"color:rgba(255,255,255,0.5); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.2);\">tudotype</a>, an independent type foundry.",
-  "footer_text": "<span class=\"amber\">46+ rules</span> &middot; 21 language variants &middot; May 2026<br>Set in <a href=\"https://fonts.google.com/specimen/Google+Sans\" target=\"_blank\" style=\"color:rgba(255,255,255,0.4); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.15);\">Google Sans</a>",
+  "footer_text": "<span class=\"amber\">46+ rules</span> &middot; 13 language variants &middot; May 2026<br>Set in <a href=\"https://fonts.google.com/specimen/Google+Sans\" target=\"_blank\" style=\"color:rgba(255,255,255,0.4); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.15);\">Google Sans</a>",
   "floating_contribute": "Contribute"
 }

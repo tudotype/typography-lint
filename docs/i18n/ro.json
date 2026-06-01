@@ -1,6 +1,6 @@
 {
   "cover_subtitle": "Corecție tipografică sensibilă la limbă pentru webul multilingv",
-  "cover_desc": "Indexăm regulile pentru toată lumea, înainte ca ele să fie uitate de un val de text sintetic. 46 de reguli deterministe în 21 de variante lingvistice, codificate ca infrastructură executabilă.",
+  "cover_desc": "Indexăm regulile pentru toată lumea, înainte ca ele să fie uitate de un val de text sintetic. 46 de reguli deterministe în 13 variante lingvistice, codificate ca infrastructură executabilă.",
   "cover_meta_text": "Typeproof. Un demers de tipografie și inteligență artificială de João Miranda",
   "premise_lead": "Volumul crescând de text sintetic schimbă modul în care gândim, modul în care scriem, dar degradează și felul în care textul bun ar trebui să arate pe pagină.",
   "premise_p1": "În fiecare zi, tot mai mult text generat automat intră în circulație. Cea mai mare parte este analfabet tipografic: ghilimele drepte în loc de ghilimele rotunde, cratime deghizate în linii de pauză, nicio conștientizare a convențiilor locale. Pe măsură ce adoptarea crește și se publică tot mai mult text sintetic, aceste erori se acumulează din cauza aplatizării referințelor pe care ne bazăm. Punctele bune de referință devin tot mai greu de găsit, pe fondul unui amestec de raritate a textului scris de oameni, înghițit de volumul de text sintetic generat. Deși parțial, această observație include și textul de față.",
@@ -13,7 +13,7 @@
   "journey_spark_p3": "Nu exista niciun sistem bun. Gutenberg făcea ghilimele inteligente de bază, doar pentru engleză. Grammarly și ProWritingAid abia atingeau corectitudinea tipografică. Instrumentele de traducere transportau convențiile limbii-sursă în limbile-țintă. Am decis să construiesc infrastructura ca un experiment cu ML. Impactul global al produselor Automattic, inclusiv contribuțiile sale fundamentale la WordPress, a făcut acest experiment și mai relevant, deoarece există o mare oportunitate de a face <em>lucrul corect</em> și de a ne promova etosul open-source pentru a împărtăși asta pe scară largă.",
   "journey_arch_title": "Arhitectura",
   "journey_arch_p1": "Ideea-cheie a fost împărțirea 80/20. Majoritatea corecțiilor tipografice sunt deterministe – înlocuirea ghilimelelor drepte cu ghilimele rotunde este o operație de substituție. Dar unele necesită judecată reală: această linie de pauză este incidentală sau indică un interval? Trebuie ca după două puncte să urmeze majusculă? Această abreviere necesită punct în această limbă?",
-  "journey_arch_p2": "Așa că am construit două straturi. Stratul 1 este o bibliotecă de lint pur-Python: peste 46 de reguli, 21 de variante lingvistice, zero dependențe ML. Se ocupă de cele 80% deterministe. Stratul 2 este un model ajustat fin, antrenat pe baza unei scheme YAML care servește drept sursă unică de adevăr. Schema descrie regulile; generatorul le traduce în exemple de antrenament. Când schema se schimbă, regenerezi. YAML-ul nu știe de cazuri-limită; Python-ul le gestionează.",
+  "journey_arch_p2": "Așa că am construit două straturi. Stratul 1 este o bibliotecă de lint pur-Python: peste 46 de reguli, 13 variante lingvistice, zero dependențe ML. Se ocupă de cele 80% deterministe. Stratul 2 este un model ajustat fin, antrenat pe baza unei scheme YAML care servește drept sursă unică de adevăr. Schema descrie regulile; generatorul le traduce în exemple de antrenament. Când schema se schimbă, regenerezi. YAML-ul nu știe de cazuri-limită; Python-ul le gestionează.",
   "journey_arch_p3": "Trei straturi în total: <strong>Lint → Model → Font Gate</strong>. Font gate-ul asigură că textul corectat este efectiv redabil în fontul-țintă. Fără glife lipsă. Fără înlocuiri ciudate de glife. Fără tofu.",
   "journey_data_title": "Lecția datelor",
   "journey_data_stat1_label": "potriviri exacte v1",
@@ -34,9 +34,7 @@
   "demo_corrected": "Corectat",
   "demo_btn": "Proof",
   "demo_note": "Se afișează un subset de reguli (puncte de suspensie, ghilimele, linii de pauză, simboluri juridice, săgeți, semnul de înmulțire, fracții, apostrofuri, spații duble). Linterul complet Python gestionează toate cele peste 46 de reguli, inclusiv NBSP, diacritice și accesibilitate.",
-  "filter_language": "Limbă",
   "filter_show_all": "Afișează tot",
-  "filter_category": "Categorie",
   "cta_eyebrow": "Open Source",
   "cta_heading": "Această muncă are nevoie de vorbitori nativi.",
   "cta_p1": "Am verificat sursele pe care le-a extras LLM-ul. Am confruntat cu gramatici, ghiduri de stil și autorități tipografice pentru fiecare variantă lingvistică. Dar nimic nu se compară cu un vorbitor nativ pentru a valida cu adevărat acest tip de muncă. Regulile limbii tale merită să fie revizuite de cineva care a crescut scriind în ea.",
@@ -48,6 +46,6 @@
   "author_title": "Despre autor",
   "author_role": "Brand Designer la <a href=\"https://automattic.design\" target=\"_blank\" style=\"color:rgba(255,255,255,0.5); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.2);\">Automattic</a>",
   "author_bio": "João este un designer portughez de brand și tipografie cu peste un deceniu de experiență în agenții precum Pentagram, Wolff Olins și R/GA. La <a href=\"https://automattic.design\" target=\"_blank\" style=\"color:rgba(255,255,255,0.5); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.2);\">Automattic</a>, modelează identitatea vizuală a WordPress – platforma care alimentează peste 40% din web. A fondat și <a href=\"https://tudotype.com\" target=\"_blank\" style=\"color:rgba(255,255,255,0.5); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.2);\">tudotype</a>, o turnătorie de fonturi independentă.",
-  "footer_text": "<span class=\"amber\">46+ reguli</span> &middot; 21 de variante lingvistice &middot; mai 2026<br>Compus în <a href=\"https://fonts.google.com/specimen/Google+Sans\" target=\"_blank\" style=\"color:rgba(255,255,255,0.4); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.15);\">Google Sans</a>",
+  "footer_text": "<span class=\"amber\">46+ reguli</span> &middot; 13 variante lingvistice &middot; mai 2026<br>Compus în <a href=\"https://fonts.google.com/specimen/Google+Sans\" target=\"_blank\" style=\"color:rgba(255,255,255,0.4); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.15);\">Google Sans</a>",
   "floating_contribute": "Contribuie"
 }

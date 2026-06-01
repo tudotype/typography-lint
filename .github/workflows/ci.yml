@@ -20,17 +20,16 @@ jobs:
         run: pip install pyyaml pytest
 
       # ── Linter unit tests ────────────────────────────────────
-      # Some test classes cover Batch 4+ rules (not yet implemented).
-      # Run all tests but don't block CI on known failures.
+      # Tests for not-yet-implemented rules (Batch 4+) are declared xfail in
+      # conftest.py, so this gates honestly: a real regression fails CI.
       - name: Run linter tests
-        continue-on-error: true
-        run: python -m pytest test_typeproof.py -v --tb=line
+        run: python -m pytest test_typeproof.py -v --tb=short
 
       # ── Schema ↔ linter parity ───────────────────────────────
-      # Schema structure has evolved; some parity tests need updating.
+      # Parity tests for the not-yet-defined schema-metadata layer are xfail
+      # in conftest.py. A genuine schema/linter drift fails CI.
       - name: Schema parity check
-        continue-on-error: true
-        run: python -m pytest test_schema_parity.py -v --tb=line
+        run: python -m pytest test_schema_parity.py -v --tb=short
 
       # ── i18n key parity ──────────────────────────────────────
       - name: Validate i18n translations

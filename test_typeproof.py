@@ -159,6 +159,20 @@ class TestRangeDash:
         # Don't convert "-5" (single number with leading minus) to en dash
         assert lint("a -5 b") != "a \u20135 b"
 
+    def test_spaced_subtraction_not_turned_into_range(self):
+        # Regression: a spaced hyphen between numbers is ambiguous with
+        # subtraction. "10 - 3 = 7" must NOT become "10\u20133 = 7" (en-dash + eaten
+        # spaces). The spaces must survive and no en-dash may appear. (The
+        # operator legitimately becomes a true minus sign U+2212, which is
+        # correct for subtraction.) Found in audit, 2026-06.
+        out = lint("10 - 3 = 7")
+        assert "\u2013" not in out          # no en-dash (the range-dash bug)
+        assert out == "10 \u2212 3 = 7"     # spaces preserved; proper minus sign
+
+    def test_tight_range_still_converts(self):
+        # The legitimate tight range must still get an en-dash.
+        assert lint("see 10-20") == "see 10\u201320"
+
 
 # ---------------------------------------------------------------------------
 # Arrows (NEW)
@@ -509,17 +523,22 @@ class TestEvalBaseline:
     catches accidental regressions that pass per-rule tests.
     """
     def test_basic_lint_does_not_crash(self):
-        # Smoke test across all supported languages
-        for lang in [
-            "en-US", "en-GB", "pt-PT", "pt-BR", "fr-FR", "de-DE",
-            "it-IT", "es-ES", "es-MX", "nl-NL", "nl-BE", "ro-RO", "sc",
-            "sv", "nb", "da", "fi", "pl", "cs", "ca", "ru",
-        ]:
+        # Smoke test across every *supported* language. (Previously this list
+        # included 8 languages the linter never implemented — sv/nb/da/fi/pl/
+        # cs/ca/ru — so it failed in __init__. The honest set is the 13 in
+        # SUPPORTED_LANGUAGES; aspirational locales belong on the roadmap.)
+        from typeproof import SUPPORTED_LANGUAGES
+        for lang in sorted(SUPPORTED_LANGUAGES):
             result = TypographyLinter(language=lang).lint(
                 'Hello "world", a -- b. 25% of users.'
             )
             assert isinstance(result.text, str)
             assert len(result.text) > 0
+
+    def test_unsupported_language_raises_cleanly(self):
+        # An unsupported locale must fail loudly at construction, never corrupt.
+        with pytest.raises(ValueError):
+            TypographyLinter(language="sv")
 
 
 if __name__ == "__main__":

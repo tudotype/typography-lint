@@ -1,0 +1,50 @@
+name: "Locale correction report"
+description: "A rule is wrong, or missing, for your language. No code needed."
+title: "[locale] <short description>"
+labels: ["locale-correction", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you — native-speaker validation is the most valuable contribution to Typeproof.
+        You don’t need to write any code. Just give us a **failing example**: the text as it
+        is, and the text as it should be. A maintainer will turn it into a rule and a test.
+  - type: input
+    id: locale
+    attributes:
+      label: "Locale"
+      description: "BCP 47 code, e.g. pt-PT, fr-FR, ro-RO."
+      placeholder: "pt-PT"
+    validations:
+      required: true
+  - type: textarea
+    id: input_text
+    attributes:
+      label: "Input — the text as it is"
+      placeholder: 'Ele disse "ola".'
+    validations:
+      required: true
+  - type: textarea
+    id: expected_text
+    attributes:
+      label: "Expected — the text as it should be"
+      placeholder: "Ele disse «olá»."
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: "Why"
+      description: "What convention is at play? Cite a style authority if you can — it goes into the rule’s notes. We never invent conventions."
+      placeholder: "Portuguese uses guillemets («»); “olá” needs the acute accent. Source: Acordo Ortográfico / Ciberdúvidas."
+    validations:
+      required: false
+  - type: dropdown
+    id: native
+    attributes:
+      label: "Are you a native speaker of this locale?"
+      options:
+        - "Yes — native speaker"
+        - "No, but I can cite an authority"
+    validations:
+      required: true

@@ -1,6 +1,6 @@
 {
   "cover_subtitle": "Typograficzna korekta uwzględniająca język dla wielojęzycznej sieci",
-  "cover_desc": "Indeksowanie reguł dla wszystkich, zanim zostaną zapomniane w zalewie syntetycznego tekstu. 46 deterministycznych reguł dla 21 wariantów językowych, zakodowanych jako wykonywalna infrastruktura.",
+  "cover_desc": "Indeksowanie reguł dla wszystkich, zanim zostaną zapomniane w zalewie syntetycznego tekstu. 46 deterministycznych reguł dla 13 wariantów językowych, zakodowanych jako wykonywalna infrastruktura.",
   "cover_meta_text": "Typeproof. Przedsięwzięcie typograficzno-AI autorstwa João Mirandy",
   "premise_lead": "Rosnąca ilość syntetycznego tekstu zmienia sposób, w jaki myślimy, w jaki piszemy, ale też degraduje to, jak dobre pisarstwo powinno wyglądać na stronie.",
   "premise_p1": "Każdego dnia do obiegu trafia więcej tekstu generowanego maszynowo. Większość jest typograficznie niepiśmienna: proste cudzysłowy zamiast typograficznych, łączniki udające półpauzy, zero świadomości konwencji lokalnych. W miarę rosnącej adopcji i publikowania coraz większej ilości syntetycznego tekstu błędy te się nawarstwiają, spłaszczając punkty odniesienia, na których polegamy. Dobre wzorce są coraz trudniejsze do znalezienia, ponieważ tekst pisany przez człowieka zostaje wchłonięty przez masę generowanego tekstu. Dotyczy to, choć częściowo, również tego tekstu.",
@@ -13,7 +13,7 @@
   "journey_spark_p3": "Żaden dobry system nie istniał. Gutenberg robił podstawową zamianę cudzysłowów, tylko po angielsku. Grammarly i ProWritingAid ledwie dotykały poprawności typograficznej. Narzędzia tłumaczeniowe przenosiły konwencje języka źródłowego do docelowego. Postanowiłem zbudować tę infrastrukturę jako eksperyment z ML. Globalny wpływ produktów Automattic, w tym jego kluczowych kontrybucji do WordPressa, uczynił ten eksperyment jeszcze bardziej istotnym – jest to świetna okazja, by zrobić <em>właściwą rzecz</em> i promować nasz open-source’owy etos, dzieląc się tym szeroko.",
   "journey_arch_title": "Architektura",
   "journey_arch_p1": "Kluczowym spostrzeżeniem był podział 80/20. Większość korekt typograficznych jest deterministyczna – zamiana prostych cudzysłowów na typograficzne to operacja wyszukiwania. Ale niektóre wymagają prawdziwego osądu: czy ta pauza jest nawiasowa, czy oznacza zakres? Czy po dwukropku piszę wielką literą? Czy ten skrót wymaga kropki w tym języku?",
-  "journey_arch_p2": "Zbudowaliśmy więc dwie warstwy. Warstwa 1 to czysto-Python’owa biblioteka lint: 46+ reguł, 21 wariantów językowych, zero zależności ML. Obsługuje deterministyczne 80%. Warstwa 2 to model fine-tuned, trenowany ze schematu YAML, który jest jedynym źródłem prawdy. Schemat opisuje reguły; generator tłumaczy je na przykłady treningowe. Gdy schemat się zmienia – regenerujemy. YAML nie wie o przypadkach brzegowych; Python się nimi zajmuje.",
+  "journey_arch_p2": "Zbudowaliśmy więc dwie warstwy. Warstwa 1 to czysto-Python’owa biblioteka lint: 46+ reguł, 13 wariantów językowych, zero zależności ML. Obsługuje deterministyczne 80%. Warstwa 2 to model fine-tuned, trenowany ze schematu YAML, który jest jedynym źródłem prawdy. Schemat opisuje reguły; generator tłumaczy je na przykłady treningowe. Gdy schemat się zmienia – regenerujemy. YAML nie wie o przypadkach brzegowych; Python się nimi zajmuje.",
   "journey_arch_p3": "Trzy warstwy łącznie: <strong>Lint → Model → Font Gate</strong>. Font Gate zapewnia, że skorygowany tekst jest faktycznie renderowalny w docelowym kroju pisma. Brak brakujących glifów. Brak dziwnych podmian. Brak tofu.",
   "journey_data_title": "Lekcja danych",
   "journey_data_stat1_label": "v1 – dopasowania dokładne",
@@ -34,9 +34,7 @@
   "demo_corrected": "Skorygowany",
   "demo_btn": "Proof",
   "demo_note": "Pokazano podzbiór reguł (wielokropek, cudzysłowy, pauzy, symbole prawne, strzałki, mnożenie, ułamki, apostrofy, podwójne odstępy). Pełny linter Python obsługuje wszystkie 46+ reguł, w tym NBSP, diakrytyki i dostępność.",
-  "filter_language": "Język",
   "filter_show_all": "Pokaż wszystko",
-  "filter_category": "Kategoria",
   "cta_eyebrow": "Open Source",
   "cta_heading": "Ta praca potrzebuje rodzimych użytkowników języka.",
   "cta_p1": "Zweryfikowałem źródła, z których korzystał LLM. Skrzyżowałem gramatyki, przewodniki stylu i autorytety typograficzne dla każdego wariantu językowego. Ale nic nie zastąpi rodzimego użytkownika języka, który naprawdę zwaliduje tego typu pracę. Reguły Twojego języka zasługują na recenzję kogoś, kto dorastał pisząc w nim.",
@@ -48,6 +46,6 @@
   "author_title": "O autorze",
   "author_role": "Brand Designer w <a href=\"https://automattic.design\" target=\"_blank\" style=\"color:rgba(255,255,255,0.5); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.2);\">Automattic</a>",
   "author_bio": "João jest portugalskim projektantem marek i krojów pisma z ponad dekadą doświadczenia w agencjach takich jak Pentagram, Wolff Olins i R/GA. W <a href=\"https://automattic.design\" target=\"_blank\" style=\"color:rgba(255,255,255,0.5); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.2);\">Automattic</a> kształtuje tożsamość wizualną WordPressa – platformy napędzającej ponad 40% sieci. Założył też <a href=\"https://tudotype.com\" target=\"_blank\" style=\"color:rgba(255,255,255,0.5); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.2);\">tudotype</a>, niezależną odlewnię czcionek.",
-  "footer_text": "<span class=\"amber\">46+ reguł</span> &middot; 21 wariantów językowych &middot; maj 2026<br>Skład w <a href=\"https://fonts.google.com/specimen/Google+Sans\" target=\"_blank\" style=\"color:rgba(255,255,255,0.4); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.15);\">Google Sans</a>",
+  "footer_text": "<span class=\"amber\">46+ reguł</span> &middot; 13 wariantów językowych &middot; maj 2026<br>Skład w <a href=\"https://fonts.google.com/specimen/Google+Sans\" target=\"_blank\" style=\"color:rgba(255,255,255,0.4); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.15);\">Google Sans</a>",
   "floating_contribute": "Współtwórz"
 }

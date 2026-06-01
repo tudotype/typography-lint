@@ -984,11 +984,17 @@ class TypographyLinter:
         """Hyphen in number ranges -> en dash (U+2013).
 
         Patterns: 10-20, 2020-2025, pp. 10-20, pages 10-20
+
+        Only a *tight* (space-free) hyphen between two numbers is treated as a
+        range. A spaced hyphen ("10 - 3") is intentionally left alone: it is
+        ambiguous with subtraction, and silently turning "10 - 3 = 7" into
+        "10-3 = 7" is a corruption bug. Precision over recall — when in doubt,
+        do nothing.
         """
         corrections: List[Correction] = []
 
-        # number-hyphen-number (not preceded by another hyphen or letter)
-        range_pat = re.compile(r"(?<![a-zA-Z\-])(\d+)\s?-\s?(\d+)(?![a-zA-Z\-])")
+        # number-hyphen-number, tight only (not preceded by another hyphen or letter)
+        range_pat = re.compile(r"(?<![a-zA-Z\-])(\d+)-(\d+)(?![a-zA-Z\-])")
 
         def _repl(m: re.Match) -> str:
             orig = m.group(0)

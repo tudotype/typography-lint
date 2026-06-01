@@ -1,6 +1,6 @@
 {
   "cover_subtitle": "Taalbewuste typografische correctie voor het meertalige web",
-  "cover_desc": "De regels voor iedereen vastleggen voordat ze verdwijnen in een vloed van synthetische tekst. 46 deterministische regels voor 21 taalvarianten, gecodeerd als uitvoerbare infrastructuur.",
+  "cover_desc": "De regels voor iedereen vastleggen voordat ze verdwijnen in een vloed van synthetische tekst. 46 deterministische regels voor 13 taalvarianten, gecodeerd als uitvoerbare infrastructuur.",
   "cover_meta_text": "Typeproof. Een typografie- & AI-project van João Miranda",
   "premise_lead": "Het groeiende volume synthetische tekst verandert hoe we denken, hoe we schrijven, maar tast ook aan hoe goed geschreven tekst er op de pagina hoort uit te zien.",
   "premise_p1": "Elke dag komt er meer machinaal gegenereerde tekst in omloop. Het meeste is typografisch ongeletterd: rechte aanhalingstekens waar gekrulde horen, koppeltekens die zich voordoen als gedachtestreepjes, geen besef van lokale conventies. Naarmate de adoptie groeit en er meer synthetische tekst wordt gepubliceerd, stapelen deze fouten zich op door de vervlakking van de referenties waarop we vertrouwen. De goede referentiepunten worden steeds moeilijker te vinden doordat menselijk geschreven data verdwijnt in het volume synthetische tekst dat wordt gegenereerd. Hoewel gedeeltelijk, geldt dat ook voor deze tekst.",
@@ -13,7 +13,7 @@
   "journey_spark_p3": "Er bestond geen goed systeem. Gutenberg deed basale slimme aanhalingstekens, alleen in het Engels. Grammarly en ProWritingAid raakten typografische correctheid nauwelijks aan. Vertaaltools droegen brontalige conventies over naar doeltalen. Ik besloot de infrastructuur te bouwen als experiment met ML. De wereldwijde impact van Automattic-producten, inclusief de kernbijdragen aan WordPress, maakte dit experiment des te relevanter, omdat er een geweldige kans is om <em>het juiste te doen</em> en onze open-source-filosofie breed te delen.",
   "journey_arch_title": "De architectuur",
   "journey_arch_p1": "Het kernidee was de 80/20-verdeling. De meeste typografische correcties zijn deterministisch – het vervangen van rechte door gekrulde aanhalingstekens is een opzoekoperatie. Maar sommige vereisen echt oordeelsvermogen: is dit streepje een tussenzin of een bereik? Moet na de dubbele punt een hoofdletter volgen? Heeft deze afkorting een punt nodig in deze taalregio?",
-  "journey_arch_p2": "Daarom hebben we twee lagen gebouwd. Laag 1 is een pure Python-lintbibliotheek: 46+ regels, 21 taalvarianten, geen ML-afhankelijkheden. Deze handelt de deterministische 80% af. Laag 2 is een gefinetuned model, getraind op basis van een YAML-schema dat dient als de enige bron van waarheid. Het schema beschrijft regels; de generator vertaalt ze naar trainingsvoorbeelden. Als het schema verandert, opnieuw genereren. De YAML weet niets van randgevallen; de Python handelt ze af.",
+  "journey_arch_p2": "Daarom hebben we twee lagen gebouwd. Laag 1 is een pure Python-lintbibliotheek: 46+ regels, 13 taalvarianten, geen ML-afhankelijkheden. Deze handelt de deterministische 80% af. Laag 2 is een gefinetuned model, getraind op basis van een YAML-schema dat dient als de enige bron van waarheid. Het schema beschrijft regels; de generator vertaalt ze naar trainingsvoorbeelden. Als het schema verandert, opnieuw genereren. De YAML weet niets van randgevallen; de Python handelt ze af.",
   "journey_arch_p3": "Drie lagen in totaal: <strong>Lint → Model → Font Gate</strong>. De font gate zorgt ervoor dat de gecorrigeerde uitvoer daadwerkelijk renderbaar is in het doellettertype. Geen ontbrekende glyphs. Geen vreemde glyph-vervangingen. Geen tofu.",
   "journey_data_title": "De datales",
   "journey_data_stat1_label": "v1 exacte overeenkomsten",
@@ -34,9 +34,7 @@
   "demo_corrected": "Gecorrigeerd",
   "demo_btn": "Proof",
   "demo_note": "Toont een subset van regels (beletselteken, aanhalingstekens, streepjes, juridische symbolen, pijlen, vermenigvuldiging, breuken, apostrofs, dubbele spaties). De volledige Python-linter verwerkt alle 46+ regels inclusief NBSP, diakritische tekens en toegankelijkheid.",
-  "filter_language": "Taal",
   "filter_show_all": "Alles tonen",
-  "filter_category": "Categorie",
   "cta_eyebrow": "Open source",
   "cta_heading": "Dit werk heeft moedertaalsprekers nodig.",
   "cta_p1": "Ik heb de bronnen gecontroleerd die het LLM heeft aangehaald. Ik heb grammatica's, stijlgidsen en typografische autoriteiten voor elke taalvariant geverifieerd. Maar er gaat niets boven een moedertaalspreker om dit soort werk echt te valideren. De regels voor uw taal verdienen het om beoordeeld te worden door iemand die erin is opgegroeid.",
@@ -48,6 +46,6 @@
   "author_title": "Over de auteur",
   "author_role": "Brand Designer bij <a href=\"https://automattic.design\" target=\"_blank\" style=\"color:rgba(255,255,255,0.5); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.2);\">Automattic</a>",
   "author_bio": "João is een Portugese merk- en letterontwerper met meer dan tien jaar ervaring bij bureaus zoals Pentagram, Wolff Olins en R/GA. Bij <a href=\"https://automattic.design\" target=\"_blank\" style=\"color:rgba(255,255,255,0.5); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.2);\">Automattic</a> geeft hij vorm aan de visuele identiteit van WordPress – het platform dat meer dan 40% van het web aandrijft. Hij richtte ook <a href=\"https://tudotype.com\" target=\"_blank\" style=\"color:rgba(255,255,255,0.5); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.2);\">tudotype</a> op, een onafhankelijke lettertypegieterij.",
-  "footer_text": "<span class=\"amber\">46+ regels</span> &middot; 21 taalvarianten &middot; mei 2026<br>Gezet in <a href=\"https://fonts.google.com/specimen/Google+Sans\" target=\"_blank\" style=\"color:rgba(255,255,255,0.4); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.15);\">Google Sans</a>",
+  "footer_text": "<span class=\"amber\">46+ regels</span> &middot; 13 taalvarianten &middot; mei 2026<br>Gezet in <a href=\"https://fonts.google.com/specimen/Google+Sans\" target=\"_blank\" style=\"color:rgba(255,255,255,0.4); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.15);\">Google Sans</a>",
   "floating_contribute": "Bijdragen"
 }

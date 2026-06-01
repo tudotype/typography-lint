@@ -1,6 +1,6 @@
 {
   "cover_subtitle": "Correção tipográfica sensível ao idioma para a web multilingue",
-  "cover_desc": "Indexar as regras para todos antes que se percam numa avalanche de texto sintético. 46 regras determinísticas em 21 variantes linguísticas, codificadas como infraestrutura executável.",
+  "cover_desc": "Indexar as regras para todos antes que se percam numa avalanche de texto sintético. 46 regras determinísticas em 13 variantes linguísticas, codificadas como infraestrutura executável.",
   "cover_meta_text": "Typeproof. Um projeto de tipografia & IA por João Miranda",
   "premise_lead": "O volume crescente de texto sintético está a mudar a forma como pensamos, como escrevemos, mas também a degradar a forma como o bom texto deve aparecer na página.",
   "premise_p1": "Todos os dias, mais texto gerado por máquinas entra em circulação. A maioria é tipograficamente analfabeto: aspas retas onde deviam estar aspas curvas, hífenes a fazer-se passar por travessões, nenhuma noção das convenções locais. À medida que a adoção cresce e mais texto sintético é publicado, estes erros acumulam-se devido ao nivelamento das referências em que confiamos. Os bons pontos de referência tornam-se mais difíceis de encontrar, engolidos pelo volume de texto sintético gerado. Embora parcialmente, este texto também faz parte disso.",
@@ -13,7 +13,7 @@
   "journey_spark_p3": "Não existia nenhum bom sistema. O Gutenberg fazia aspas inteligentes básicas, apenas em inglês. O Grammarly e o ProWritingAid mal tocavam na correção tipográfica. As ferramentas de tradução transferiam as convenções da língua de origem para as línguas de destino. Decidi construir a infraestrutura como uma experiência com ML. O impacto global dos produtos Automattic, incluindo as suas contribuições nucleares para o WordPress, tornava esta experiência ainda mais relevante, pois há uma grande oportunidade de fazer <em>a coisa certa</em> e promover o nosso ethos open-source para partilhar isto amplamente.",
   "journey_arch_title": "A Arquitetura",
   "journey_arch_p1": "A ideia-chave foi a divisão 80/20. A maioria das correções tipográficas são determinísticas – substituir aspas retas por aspas curvas é uma operação de consulta. Mas algumas requerem verdadeiro discernimento: este travessão é uma pausa parentética ou um intervalo? O dois-pontos exige maiúscula a seguir? Esta abreviatura precisa de ponto neste idioma?",
-  "journey_arch_p2": "Então construímos duas camadas. A camada 1 é uma biblioteca lint em Python puro: 46+ regras, 21 variantes linguísticas, zero dependências de ML. Trata dos 80% determinísticos. A camada 2 é um modelo ajustado (fine-tuned) a partir de um esquema YAML que serve como fonte única de verdade. O esquema descreve regras; o gerador traduz-as em exemplos de treino. Quando o esquema muda, regenera-se. O YAML nunca sabe dos casos-limite; o Python trata deles.",
+  "journey_arch_p2": "Então construímos duas camadas. A camada 1 é uma biblioteca lint em Python puro: 46+ regras, 13 variantes linguísticas, zero dependências de ML. Trata dos 80% determinísticos. A camada 2 é um modelo ajustado (fine-tuned) a partir de um esquema YAML que serve como fonte única de verdade. O esquema descreve regras; o gerador traduz-as em exemplos de treino. Quando o esquema muda, regenera-se. O YAML nunca sabe dos casos-limite; o Python trata deles.",
   "journey_arch_p3": "Três camadas no total: <strong>Lint → Modelo → Font Gate</strong>. O font gate garante que a saída corrigida é efetivamente renderizável no tipo de letra de destino. Sem glifos em falta. Sem substituições estranhas. Sem tofu.",
   "journey_data_title": "A Lição dos Dados",
   "journey_data_stat1_label": "correspondências exatas v1",
@@ -34,9 +34,7 @@
   "demo_corrected": "Corrigido",
   "demo_btn": "Proof",
   "demo_note": "A mostrar um subconjunto de regras (reticências, aspas, travessões, símbolos legais, setas, multiplicação, frações, apóstrofos, espaços duplos). O linter Python completo trata das 46+ regras, incluindo NBSP, diacríticos e acessibilidade.",
-  "filter_language": "Idioma",
   "filter_show_all": "Mostrar Tudo",
-  "filter_category": "Categoria",
   "cta_eyebrow": "Open Source",
   "cta_heading": "Este trabalho precisa de falantes nativos.",
   "cta_p1": "Verifiquei as fontes que o LLM encontrou. Cruzei gramáticas, guias de estilo e autoridades tipográficas para cada variante linguística. Mas não há nada como um falante nativo para validar verdadeiramente este tipo de trabalho. As regras do teu idioma merecem ser revistas por alguém que cresceu a escrever nele.",
@@ -48,6 +46,6 @@
   "author_title": "Sobre o Autor",
   "author_role": "Brand Designer na <a href=\"https://automattic.design\" target=\"_blank\" style=\"color:rgba(255,255,255,0.5); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.2);\">Automattic</a>",
   "author_bio": "O João é um designer de marca e tipografia português com mais de uma década de experiência em consultoras como a Pentagram, Wolff Olins e R/GA. Na <a href=\"https://automattic.design\" target=\"_blank\" style=\"color:rgba(255,255,255,0.5); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.2);\">Automattic</a>, dá forma à identidade visual do WordPress – a plataforma que alimenta mais de 40% da web. Fundou também a <a href=\"https://tudotype.com\" target=\"_blank\" style=\"color:rgba(255,255,255,0.5); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.2);\">tudotype</a>, uma type foundry independente.",
-  "footer_text": "<span class=\"amber\">46+ regras</span> &middot; 21 variantes linguísticas &middot; Maio 2026<br>Composto em <a href=\"https://fonts.google.com/specimen/Google+Sans\" target=\"_blank\" style=\"color:rgba(255,255,255,0.4); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.15);\">Google Sans</a>",
+  "footer_text": "<span class=\"amber\">46+ regras</span> &middot; 13 variantes linguísticas &middot; Maio 2026<br>Composto em <a href=\"https://fonts.google.com/specimen/Google+Sans\" target=\"_blank\" style=\"color:rgba(255,255,255,0.4); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.15);\">Google Sans</a>",
   "floating_contribute": "Contribuir"
 }

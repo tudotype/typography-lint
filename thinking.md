@@ -915,3 +915,23 @@ The project's honest arc:
 
 This is interesting not just for typography. It's a generalizable lesson about fine-tuning: the hardest part is not the model, it's correctly classifying which rules belong in code and which belong in the model.
 
+---
+
+## 2026-06-01 — Adoption audit: reconciling the docs with reality
+
+Worked through an external roadmap + premortem against the actual repo. The headline finding: **the planning docs were planning against a project that didn't quite exist.** Five documents quoted five different language counts (notes: “21 locales”; CLAUDE.md: 13; README: 9; plugin readme: “20+”; demo: “21”). Reality is **13 variants, 34 implemented rules, 83 eval cases**. The “21” wasn't arbitrary — it had leaked from aspiration into the smoke test, which asserted support for 8 languages the linter never implemented.
+
+Three trust traps, all unlisted on the original roadmap because they're not features:
+
+1. **The README front door was broken** — it documented a `schema/`/`pipeline/`/`data/` layout that doesn't exist; every quick-start command failed. Rewrote it to the real root layout, the real three CLIs (`typeproof.py`, `correct.py`, `train_typography.py` on MLX — not the Unsloth/Gemma the old README claimed), and organised it by adoption role.
+2. **CI was green-washed** — `continue-on-error: true` hid 45/88 linter + 5/7 parity failures. Triaged them: almost all are unimplemented Batch 4/5 features. Moved them to an honest `xfail` ledger (`conftest.py`) with reasons, removed `continue-on-error`, so CI now gates truthfully (49 passed / 49 xfailed / 0 failed).
+3. **The wp-plugin looks shippable and isn't** — it shells out to `typeproof.py` via `proc_open`, needing server-side Python that no normal WP host allows. Left the code alone (deliberate, per João), but documented the full fix in `docs/adoption-roadmap.md` §3: a PHP core (generated from the schema, like the Python) is the soonest unblock; JS/WASM second for as-you-type.
+
+One real bug the audit earned: **`_rule_range_dash` was corrupting subtraction** — `10 - 3 = 7` → `10–3 = 7` (en-dash, spaces eaten), a live dispatched rule with no test guarding it. This is precisely the precision-over-recall failure the premortem warns about (a single corrupted output kills trust). Fixed: a range now requires a *tight* hyphen (`10-20`); a spaced ` - ` is left alone (it's ambiguous with subtraction, and `_rule_minus_sign` correctly turns it into a real U+2212). Added regression tests.
+
+The reframing that matters: the original roadmap was sequenced by **maintainer effort**; the actual goal is **adoption by role**. Wrote `docs/adoption-roadmap.md` to map five on-ramps (designer, developer, native validator, WordPress publisher, enterprise evaluator) onto the work, and added `CONTRIBUTING.md` + an issue template so a native speaker can report a wrong rule **without writing Python** — the one door the project was missing and the one most tied to the breadth-credibility risk.
+
+Also standardised the public demo to 13 (fixing Romanian and Russian numeral agreement by hand — `13 variante`, `13 языковых вариантов` — because shipping broken grammar in a typography showcase is self-defeating). Left the demo's “46 rules” headline for João to frame, since “rules” legitimately counts differently (schema rules vs. the 34 implemented methods).
+
+The through-line of the premortem held up under audit: every gap was a trust or distribution failure, never a capability one. The rules are the sound part.
+
