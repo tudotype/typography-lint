@@ -121,6 +121,39 @@ See [`CLAUDE.md`](CLAUDE.md) for full conventions.
 
 See [docs/adoption-roadmap.md](docs/adoption-roadmap.md) for the sequenced plan, organized by adoption role.
 
+## Prior art & acknowledgements
+
+Typeproof stands on the shoulders of a long line of typography tooling. If you
+want battle-tested correction in PHP **today**, reach for these first — they are
+excellent, and Typeproof is not trying to replace them:
+
+- **[JoliTypo](https://github.com/jolicode/JoliTypo)** — a PHP microtypography
+  fixer. DOM-based (parses with `\DOMDocument` rather than regex), composes
+  small named “fixers” into a pipeline, and maps locales to rule presets. A
+  clean reference for safe, composable, HTML-aware correction.
+- **[php-typography](https://github.com/mundschenk-at/php-typography)** and its
+  WordPress plugin **[wp-Typography](https://github.com/Melindrea/wp-typography)** —
+  a mature PHP library (50+ languages, hyphenation, widow protection) that ships
+  to ordinary WordPress hosting with no server-side runtime. Proof that a
+  typography corrector can be a plain plugin.
+- **[PHP SmartyPants](https://github.com/michelf/php-smartypants)** — the
+  canonical minimal smart-quotes/dashes prettifier, derived from John Gruber’s
+  original [SmartyPants](https://daringfireball.net/projects/smartypants/).
+- **[`wptexturize()`](https://developer.wordpress.org/reference/functions/wptexturize/)** —
+  WordPress core’s built-in baseline; the floor Typeproof aims to raise.
+
+**Where Typeproof differs.** Its bet is a **YAML schema as the single source of
+truth** that generates the implementation, the training data, *and* the eval;
+explicit **per-locale maturity**; broad **multilingual codepoint** coverage; and
+a **fine-tuned model** for the genuinely fuzzy cases rules can’t reach. For pure
+deterministic smart-quote/dash correction in one runtime today, the projects
+above may serve you better — that honesty is the point.
+
+_This list is a starting point, not a survey. Typographic conventions live in
+national orthography bodies and style guides (CMOS, Duden, the Acordo
+Ortográfico, etc.); contributions that trace a rule back to such an authority are
+the most valuable — see [CONTRIBUTING.md](CONTRIBUTING.md)._
+
 ## License
 
 TBD.
