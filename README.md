@@ -65,6 +65,8 @@ PY
 ```
 Supported `--lang` values: `pt-PT pt-BR en-US en-GB fr-FR de-DE it-IT es-ES es-MX nl-NL nl-BE ro-RO sc`.
 
+**Strict / never-corrupt mode** — for automated or enterprise use, pass `--strict` (or `TypographyLinter(language=…, strict=True)`). It skips inference-based rules (dash/range/multiplication inference, ordinals, heuristic NBSP) and applies only unambiguous substitutions — when a change isn’t provably safe, it does nothing. Safety is enforced by tests in [`test_safety.py`](test_safety.py): idempotency (run-twice = run-once) across all locales, and a fuzzed code-exclusion masker that guarantees URLs, code, paths, and HTML tags are never altered.
+
 ### I’m a native speaker — a rule is wrong for my language
 You do **not** need to write Python or YAML. Open an issue with a failing example — the text as it is, and the text as it should be — and a maintainer turns it into a rule and a test. See [CONTRIBUTING.md](CONTRIBUTING.md).
 

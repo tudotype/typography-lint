@@ -99,6 +99,9 @@ _EXCLUSION_PATTERNS: List[Tuple[str, re.Pattern]] = [
     ("fenced_code", re.compile(r"```[\s\S]*?```", re.MULTILINE)),
     # HTML code/pre/kbd elements
     ("html_code", re.compile(r"<(?:code|pre|kbd|samp|var|tt)(?:\s[^>]*)?>[\s\S]*?</(?:code|pre|kbd|samp|var|tt)>", re.IGNORECASE)),
+    # Any HTML/XML tag -- protects attribute quotes (href="...") from curling.
+    # Requires a letter (or /) after "<", so "a < b" and "<3" are NOT matched.
+    ("html_tag", re.compile(r"</?[a-zA-Z][^<>]*>")),
     # Inline backtick code (`...`)
     ("inline_code", re.compile(r"`[^`\n]+`")),
     # Email addresses
@@ -530,6 +533,27 @@ _PT_ABBREVS = {
 # The Linter
 # ---------------------------------------------------------------------------
 
+# ---------------------------------------------------------------------------
+# Strict "never-corrupt" mode
+# ---------------------------------------------------------------------------
+# Rules whose correction is an *inference* from ambiguous context rather than an
+# unambiguous substitution. In strict mode (recommended default for enterprise),
+# these are skipped: when a change isn't provably safe, do nothing. The
+# unambiguous substitutions (quotes, apostrophes, ellipsis, fractions, legal
+# symbols, NFC, zero-width cleanup, diacritics, NBSP) still run.
+#
+# NOTE (for review): this classification is a typographic judgement call. Move a
+# rule out of this set if you consider its inference safe enough to always apply.
+_STRICT_SKIP_RULES = frozenset({
+    "_rule_dashes",          # " - " -> em/en dash: the hyphen may be intentional
+    "_rule_range_dash",      # 10-20 -> en dash: may be a part number, score, etc.
+    "_rule_minus_sign",      # -5 -> U+2212: may be a list/bullet hyphen
+    "_rule_multiplication",  # 3 x 4 -> 3 × 4: "x" may be a letter
+    "_rule_ordinals",        # 1o -> 1º: may not be an ordinal
+    "_rule_single_letter_nbsp",  # heuristic NBSP after single-letter words
+})
+
+
 class TypographyLinter:
     """
     Deterministic typographic correction engine.
@@ -537,12 +561,17 @@ class TypographyLinter:
     Each rule is a method returning (corrected_text, list_of_corrections).
     Rules run in priority order: exclusion masking -> NFC normalization ->
     substitution rules.
+
+    Set ``strict=True`` for a "never-corrupt" posture: inference-based rules
+    (see ``_STRICT_SKIP_RULES``) are skipped so output only changes where the
+    correction is unambiguous. Recommended default for enterprise/automated use.
     """
 
     def __init__(
         self,
         language: str = "en-US",
         register: Optional[str] = None,
+        strict: bool = False,
     ):
         if language not in SUPPORTED_LANGUAGES:
             raise ValueError(
@@ -551,6 +580,7 @@ class TypographyLinter:
             )
         self.language = language
         self.register = register
+        self.strict = strict
 
         # Pre-compute quote style for this language
         qs = QUOTE_STYLES[language]
@@ -611,6 +641,8 @@ class TypographyLinter:
         ]
 
         for method in rule_methods:
+            if self.strict and method.__name__ in _STRICT_SKIP_RULES:
+                continue
             masked, corrs = method(masked)
             all_corrections.extend(corrs)
 
@@ -629,8 +661,9 @@ class TypographyLinter:
         if self.language.startswith("pt-"):
             masked, corrs = self._rule_abbreviations_pt(masked)
             all_corrections.extend(corrs)
-            masked, corrs = self._rule_ordinals(masked)
-            all_corrections.extend(corrs)
+            if not self.strict:
+                masked, corrs = self._rule_ordinals(masked)
+                all_corrections.extend(corrs)
 
         if self.language == "en-US":
             masked, corrs = self._rule_abbreviations_en_us(masked)
@@ -644,7 +677,7 @@ class TypographyLinter:
             masked, corrs = self._rule_abbreviations_fr(masked)
             all_corrections.extend(corrs)
 
-        if self.language in ("es-ES", "es-MX"):
+        if self.language in ("es-ES", "es-MX") and not self.strict:
             masked, corrs = self._rule_ordinals(masked)
             all_corrections.extend(corrs)
 
@@ -667,7 +700,7 @@ class TypographyLinter:
         masked, corrs = self._rule_nbsp_page_abbrev(masked)
         all_corrections.extend(corrs)
 
-        if self.language in _SINGLE_LETTER_WORDS:
+        if self.language in _SINGLE_LETTER_WORDS and not self.strict:
             masked, corrs = self._rule_single_letter_nbsp(masked)
             all_corrections.extend(corrs)
 
@@ -2050,6 +2083,8 @@ def main():
     parser.add_argument("--file", help="Read text from file")
     parser.add_argument("--json", action="store_true", help="Output as JSON with metadata")
     parser.add_argument("--diff", action="store_true", help="Show before/after diff with highlights")
+    parser.add_argument("--strict", action="store_true",
+                        help="Never-corrupt mode: skip inference-based rules; only apply unambiguous corrections")
     parser.add_argument("--verbose", action="store_true", help="Show per-rule correction details")
 
     args = parser.parse_args()
@@ -2075,7 +2110,7 @@ def main():
         sys.exit(1)
 
     # Run lint
-    linter = TypographyLinter(language=args.lang, register=args.register)
+    linter = TypographyLinter(language=args.lang, register=args.register, strict=args.strict)
     result = linter.lint(text)
 
     # Output
